@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* 
 Plugin Name:		WordPress-plugin-template
 Plugin URI:			http://sergey-s-betke.blogs.csm.nov.ru/category/web/wordpress/
@@ -7,7 +7,7 @@ Version:			0.1.0
 Author:				Sergey S. Betke
 Author URI:			http://sergey-s-betke.blogs.csm.nov.ru/about
 Text Domain:		wordpress-plugin-template
-Domain Path:		/languages
+Domain Path:		/languages/
 GitHub Plugin URI: 	https://github.com/sergey-s-betke/WordPress-plugin-template
 */
 
@@ -16,38 +16,15 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require_once (  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wpf' . DIRECTORY_SEPARATOR . 'wp_admin_notice.php' );
+require_once (  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_factory.php' );
 
-abstract
-class WP_Activation_Validator {
+$zzz_plugin = new WPF_Plugin_Factory (
+	__FILE__
+	, 'wordpress-plugin-template'
+	, '/languages/'
+);
 
-	protected
-	/* WP_Plugin */ $plugin;
-
-	abstract
-	public
-	function validate();
-	
-	final
-	public
-	function _validate() {
-		try {
-			$this->validate();
-		} catch ( Exception $error ) {
-			new WP_admin_notice( $error->getMessage(), 'error' );
-			$this->plugin->deactivate();
-		};
-	}
-
-	public
-	function __construct (
-		WP_Plugin & $plugin
-	) {
-		$this->plugin = $plugin;
-		add_action( 'admin_init', array( $this, '_validate' ) ); 
-	}
-	
-}
+/*
 
 abstract
 class WP_Plugin {
@@ -137,7 +114,7 @@ class WP_plugin_loader {
 	$plugin_class;
 	
 	protected
-	/* WP_Plugin */ $plugin_instance;
+	$plugin_instance;
 
 	public
 	function on_plugins_loaded() {
@@ -159,63 +136,6 @@ class WP_plugin_loader {
 	
 }
 
-abstract
-class WP_Version_Validator extends WP_Activation_Validator {
-
-	public
-	$required_version;
-
-	public
-	function __construct (
-		WP_Plugin & $plugin
-		, $required_version
-	) {
-		$this->required_version = $required_version;
-		parent::__construct( $plugin );
-	}
-	
-}
-
-class WP_WP_Version_Validator extends WP_Version_Validator {
-
-	public
-	function validate() {
-		if (
-			version_compare( get_bloginfo( 'version' ), $this->required_version, "<" )
-		) {
-			throw new Exception( 
-				sprintf(
-					__( 'Plugin %1$s requires WordPress %2$s or newer. <a href="%3$s">Please update!</a>.' )
-					, $this->plugin->get_name()
-					, $this->required_version
-					, admin_url( 'update-core.php' )
-				)
-			);
-		};
-	}
-
-}
-
-class WP_PHP_Version_Validator extends WP_Version_Validator {
-
-	public
-	function validate() {
-		global $php_version;
-		if (
-			version_compare( $php_version, $this->required_version, "<" )
-		) {
-			throw new Exception( 
-				sprintf(
-					__( 'Plugin %1$s requires PHP %2$s or newer. Please update!' )
-					, $this->plugin->get_name()
-					, $this->required_version
-				)
-			);
-		};
-	}
-
-}
-
 class Cache_Control_headers extends WP_Plugin {
 
 	public
@@ -230,5 +150,6 @@ class Cache_Control_headers extends WP_Plugin {
 }
 
 new WP_plugin_loader( __FILE__, 'Cache_Control_headers' );
+*/
 
 ?>

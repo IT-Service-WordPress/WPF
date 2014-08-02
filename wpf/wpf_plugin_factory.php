@@ -9,6 +9,9 @@ if ( ! defined( 'WPF_DIR' ) ) {
 	define( 'WPF_DIR', __DIR__ );
 };
 
+require_once ( 'wpf_wp_version_validator.php' );
+require_once ( 'wpf_php_version_validator.php' );
+
 /*
 WPF_Plugin_Factory class. Just metadata.
 
@@ -136,12 +139,54 @@ class WPF_Plugin_Factory {
 		$this->load_data();
 		return $this->_data[ 'Network' ];
 	}
+	
+	protected
+	// WPF_Compatibility_Validator[]
+	$compatibility_requirements;
+	
+	public
+	function validate_compatibility_requirements(
+		$produce_notices = false
+	) {
+		$are_meets = true;
+		foreach ( (array) $this->compatibility_requirements as $validator ) {
+			$return = $validator->validate();
+			if ( is_wp_error( $return ) ) {
+				$are_meets = false;
+				if ( $produce_notices ) { 
+					new WPF_admin_notice(
+						sprintf(
+							__( 'Plugin "%2$s" error: %1$s', 'wpf' )
+							, $return->get_error_message()
+							, $this->get_title()
+						)
+						, 'error'
+					);
+				};
+			};
+		};
+		return $are_meets;
+	}
+
+	public
+	function _validate_and_deactivate_if_fails() {
+		if ( ! $this->validate_compatibility_requirements( true ) ) {
+			$this->deactivate();
+		};
+	}
+	
+	public
+	function deactivate() {
+		deactivate_plugins( $this->get_file() );
+		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
+	}
 
 	public
 	function __construct( 
 		$plugin_file
-		, $text_domain
-		, $text_domain_path
+		, $text_domain = null
+		, $text_domain_path = null
+		, array $compatibility_requirements = array()
 	) {
 		$this->_file = $plugin_file;
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
@@ -164,6 +209,17 @@ class WPF_Plugin_Factory {
 				$this->_text_domain_path = $this->_data[ 'DomainPath' ];
 			};
 		};
+		
+		if ( $compatibility_requirements ) {
+			$this->compatibility_requirements = $compatibility_requirements;
+		} else {
+			$this->compatibility_requirements = array (
+				new WPF_WP_Version_Validator( '3.9.0' )
+				, new WPF_PHP_Version_Validator( '5.6.7' )
+			);
+		};
+		add_action( 'admin_init', array( $this, '_validate_and_deactivate_if_fails' ) ); 
+
 	}
 
 	private
