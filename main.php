@@ -16,34 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-class WP_admin_notice {
-
-	protected
-	$message;
-
-	protected
-	$message_type;
-
-	public
-	function show_message() {
-		echo
-			'<div class="'. $this->message_type . '">'
-			. $this->message
-			. '</div>'
-		;
-	}
-	
-	public
-	function __construct (
-		$message
-		, $type = 'updated' // 'updated', 'error', 'update-nag'
-	) {
-		$this->message = $message;
-		$this->message_type = $type;
-		add_action( 'admin_notices', array( $this, 'show_message' ) );
-	}
-	
-}
+require_once (  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wpf' . DIRECTORY_SEPARATOR . 'wp_admin_notice.php' );
 
 abstract
 class WP_Activation_Validator {
