@@ -2,7 +2,7 @@
 <?php
 	foreach ( (array) $this->message as $message ) {
 ?>
-	<p><?php force_balance_tags ( $message ); ?></p>
+	<p><?php echo force_balance_tags ( $message ); ?></p>
 <?php
 	};
 ?>
