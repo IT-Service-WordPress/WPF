@@ -22,7 +22,7 @@ administrative side of the WordPress site.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WP_admin_notice {
+class WPF_admin_notice {
 
 	protected
 	$message;
