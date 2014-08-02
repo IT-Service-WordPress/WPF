@@ -185,7 +185,7 @@ class WP_WP_Version_Validator extends WP_Version_Validator {
 		) {
 			throw new Exception( 
 				sprintf(
-					__( '<p>Plugin %1$s requires WordPress %2$s or newer. <a href="%3$s">Please update!</a>.</p>' )
+					__( 'Plugin %1$s requires WordPress %2$s or newer. <a href="%3$s">Please update!</a>.' )
 					, $this->plugin->get_name()
 					, $this->required_version
 					, admin_url( 'update-core.php' )
@@ -206,7 +206,7 @@ class WP_PHP_Version_Validator extends WP_Version_Validator {
 		) {
 			throw new Exception( 
 				sprintf(
-					__( '<p>Plugin %1$s requires PHP %2$s or newer. Please update!</p>' )
+					__( 'Plugin %1$s requires PHP %2$s or newer. Please update!' )
 					, $this->plugin->get_name()
 					, $this->required_version
 				)
