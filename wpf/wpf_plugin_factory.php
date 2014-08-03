@@ -227,8 +227,8 @@ class WPF_Plugin_Factory {
 			$this->compatibility_requirements = $compatibility_requirements;
 		} else {
 			$this->compatibility_requirements = array (
-				new WPF_WP_Version_Validator( '3.9.9' )
-				, new WPF_PHP_Version_Validator( '5.6.7' )
+				new WPF_WP_Version_Validator( '3.9.0' )
+				, new WPF_PHP_Version_Validator( '5.5.0' )
 			);
 		};
 		add_action( 'admin_init', array( $this, '_validate_and_deactivate_if_fails' ) ); 

@@ -22,6 +22,10 @@ $zzz_plugin = new WPF_Plugin_Factory (
 	__FILE__
 	, 'wordpress-plugin-template'
 	, '/languages/'
+	, array (
+		new WPF_WP_Version_Validator( '3.9.9' )
+		, new WPF_PHP_Version_Validator( '5.6.7' )
+	)
 );
 
 /*
