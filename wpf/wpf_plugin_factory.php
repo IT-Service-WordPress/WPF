@@ -149,21 +149,25 @@ class WPF_Plugin_Factory {
 		$produce_notices = false
 	) {
 		$are_meets = true;
+		$errors = array();
 		foreach ( (array) $this->compatibility_requirements as $validator ) {
 			$return = $validator->validate();
 			if ( is_wp_error( $return ) ) {
 				$are_meets = false;
-				if ( $produce_notices ) { 
-					new WPF_admin_notice(
-						sprintf(
-							__( 'Plugin "%2$s" error: %1$s', 'wpf' )
-							, $return->get_error_message()
-							, $this->get_title()
-						)
-						, 'error'
-					);
-				};
+				array_push( $errors, $return->get_error_message() );
 			};
+		};
+		if ( $produce_notices and ! $are_meets ) { 
+			new WPF_admin_notice(
+				array_merge(
+					array( sprintf(
+						__( 'Plugin "%1$s" compatibility check produced errors.', 'wpf' )
+						, $this->get_title()
+					) )
+					, $errors
+				)
+				, 'error'
+			);
 		};
 		return $are_meets;
 	}
@@ -177,8 +181,17 @@ class WPF_Plugin_Factory {
 	
 	public
 	function deactivate() {
-		deactivate_plugins( $this->get_file() );
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
+		if ( current_user_can( 'activate_plugins' ) ) {
+			deactivate_plugins( $this->get_file() );
+			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
+			new WPF_admin_notice(
+				sprintf(
+					__( 'Plugin <strong>deactivated</strong>.', 'wpf' )
+					, $this->get_title()
+				)
+				, 'error'
+			);
+		};
 	}
 
 	public
@@ -214,7 +227,7 @@ class WPF_Plugin_Factory {
 			$this->compatibility_requirements = $compatibility_requirements;
 		} else {
 			$this->compatibility_requirements = array (
-				new WPF_WP_Version_Validator( '3.9.0' )
+				new WPF_WP_Version_Validator( '3.9.9' )
 				, new WPF_PHP_Version_Validator( '5.6.7' )
 			);
 		};
