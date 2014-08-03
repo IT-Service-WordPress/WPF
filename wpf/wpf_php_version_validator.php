@@ -23,7 +23,7 @@ class WPF_PHP_Version_Validator extends WPF_Version_Validator {
 			return new WP_Error(
 				'error'
 				, sprintf(
-					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', WPF_TEXTDOMAIN )
+					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', WPF_ADMINTEXTDOMAIN )
 					, $this->required_version
 					, phpversion()
 					, 'http://ru2.php.net/downloads.php'

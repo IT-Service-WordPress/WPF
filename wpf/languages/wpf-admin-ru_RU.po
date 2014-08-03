@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-03 16:17+0400\n"
-"PO-Revision-Date: 2014-08-03 16:17+0400\n"
+"POT-Creation-Date: 2014-08-03 16:28+0400\n"
+"PO-Revision-Date: 2014-08-03 16:28+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -28,14 +28,14 @@ msgstr ""
 "Требуется PHP версии %1$s или более поздней. Текущая версия - %2$s. <a href="
 "\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_plugin_factory.php:174
+#: ../wpf_plugin_factory.php:179
 #, php-format
 msgid "Plugin \"%1$s\" compatibility check produced errors."
 msgstr ""
 "При проверке требований программной совместимости плагина \"%1$s\" выявлены "
 "ошибки."
 
-#: ../wpf_plugin_factory.php:199
+#: ../wpf_plugin_factory.php:204
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 

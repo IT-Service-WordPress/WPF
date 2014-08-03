@@ -138,6 +138,11 @@ class WPF_Plugin_Factory {
 			, false
 			, WPF_TEXTDOMAIN_PATH
 		); 
+		load_plugin_textdomain(
+			WPF_ADMINTEXTDOMAIN
+			, false
+			, WPF_TEXTDOMAIN_PATH
+		); 
 		// !!! а если нет локализации у модуля? а деление на админ и фронтенд?
 		// а теперь нужно загрузить локализацию для фреймворка, предварительно проверив, что она не загружена ещё
 		// да и при загрузке локализации плагина так же проверить следует - для нескольких плагинов в одном флаконе локализация то одна будет.
@@ -171,7 +176,7 @@ class WPF_Plugin_Factory {
 			new WPF_admin_notice(
 				array_merge(
 					array( sprintf(
-						__( 'Plugin "%1$s" compatibility check produced errors.', WPF_TEXTDOMAIN )
+						__( 'Plugin "%1$s" compatibility check produced errors.', WPF_ADMINTEXTDOMAIN )
 						, $this->get_title()
 					) )
 					, $errors
