@@ -1,14 +1,6 @@
 <?php 
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
-if ( ! defined( 'WPF_DIR' ) ) {
-	define( 'WPF_DIR', __DIR__ );
-};
-
+require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_version_validator.php' );
 
 /*
@@ -31,7 +23,7 @@ class WPF_PHP_Version_Validator extends WPF_Version_Validator {
 			return new WP_Error(
 				'error'
 				, sprintf(
-					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', 'wpf' )
+					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', WPF_TEXTDOMAIN )
 					, $this->required_version
 					, phpversion()
 					, 'http://ru2.php.net/downloads.php'
