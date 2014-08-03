@@ -31,8 +31,9 @@ class WPF_WP_Version_Validator extends WPF_Version_Validator {
 			return new WP_Error(
 				'error'
 				, sprintf(
-					__( 'WordPress %1$s or newer is required. <a href="%2$s">Please update!</a>.', 'wpf' )
+					__( 'WordPress %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', 'wpf' )
 					, $this->required_version
+					, get_bloginfo( 'version' )
 					, admin_url( 'update-core.php' )
 				)
 			);
