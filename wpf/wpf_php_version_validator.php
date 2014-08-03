@@ -25,15 +25,16 @@ class WPF_PHP_Version_Validator extends WPF_Version_Validator {
 
 	public
 	function validate() {
-		global $php_version;
 		if (
-			version_compare( $php_version, $this->required_version, "<" )
+			version_compare( phpversion(), $this->required_version, "<" )
 		) {
 			return new WP_Error(
 				'error'
 				, sprintf(
-					__( 'PHP %1$s or newer is required. Please update!', 'wpf' )
+					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', 'wpf' )
 					, $this->required_version
+					, phpversion()
+					, 'http://ru2.php.net/downloads.php'
 				)
 			);
 		} else {
