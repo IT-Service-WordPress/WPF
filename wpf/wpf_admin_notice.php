@@ -33,7 +33,7 @@ class WPF_admin_notice {
 	public
 	function display() {
 		$_template_file = wpf_locate_template( 'admin_notice.php' );
-		require_once( $_template_file );
+		require( $_template_file );
 	}
 	
 	public
