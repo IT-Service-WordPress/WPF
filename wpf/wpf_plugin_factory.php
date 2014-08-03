@@ -1,14 +1,6 @@
 <?php 
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
-if ( ! defined( 'WPF_DIR' ) ) {
-	define( 'WPF_DIR', __DIR__ );
-};
-
+require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_wp_version_validator.php' );
 require_once ( 'wpf_php_version_validator.php' );
 
@@ -131,9 +123,27 @@ class WPF_Plugin_Factory {
 
 	public
 	function get_text_domain_path() {
-		return $this->_text_domain_path;
+		return dirname( plugin_basename( $this->get_file() ) ) . $this->_text_domain_path;
 	}
 
+	public
+	function _load_textdomain() {
+		load_plugin_textdomain(
+			$this->get_text_domain()
+			, false
+			, $this->get_text_domain_path()
+		); 
+		load_plugin_textdomain(
+			WPF_TEXTDOMAIN
+			, false
+			, WPF_TEXTDOMAIN_PATH
+		); 
+		// !!! а если нет локализации у модуля? а деление на админ и фронтенд?
+		// а теперь нужно загрузить локализацию для фреймворка, предварительно проверив, что она не загружена ещё
+		// да и при загрузке локализации плагина так же проверить следует - для нескольких плагинов в одном флаконе локализация то одна будет.
+
+	}
+	
 	public
 	function get_network_support() {
 		$this->load_data();
@@ -161,7 +171,7 @@ class WPF_Plugin_Factory {
 			new WPF_admin_notice(
 				array_merge(
 					array( sprintf(
-						__( 'Plugin "%1$s" compatibility check produced errors.', 'wpf' )
+						__( 'Plugin "%1$s" compatibility check produced errors.', WPF_TEXTDOMAIN )
 						, $this->get_title()
 					) )
 					, $errors
@@ -186,7 +196,7 @@ class WPF_Plugin_Factory {
 			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
 			new WPF_admin_notice(
 				sprintf(
-					__( 'Plugin <strong>deactivated</strong>.', 'wpf' )
+					__( 'Plugin <strong>deactivated</strong>.' )
 					, $this->get_title()
 				)
 				, 'error'
@@ -233,6 +243,7 @@ class WPF_Plugin_Factory {
 		};
 		add_action( 'admin_init', array( $this, '_validate_and_deactivate_if_fails' ) ); 
 
+		add_action( 'plugins_loaded', array( $this, '_load_textdomain' ) ); 
 	}
 
 	private
