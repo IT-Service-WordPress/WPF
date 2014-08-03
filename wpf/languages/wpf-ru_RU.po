@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-03 06:06+0400\n"
-"PO-Revision-Date: 2014-08-03 15:53+0400\n"
+"POT-Creation-Date: 2014-08-03 16:17+0400\n"
+"PO-Revision-Date: 2014-08-03 16:17+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -14,10 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr__;esc_attr_e\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpf_php_version_validator.php:34
+#: ../wpf_php_version_validator.php:26
 #, php-format
 msgid ""
 "PHP %1$s or newer is required. Current version - %2$s. <a href=\"%3$s"
@@ -26,18 +28,18 @@ msgstr ""
 "Требуется PHP версии %1$s или более поздней. Текущая версия - %2$s. <a href="
 "\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_plugin_factory.php:164
+#: ../wpf_plugin_factory.php:174
 #, php-format
 msgid "Plugin \"%1$s\" compatibility check produced errors."
 msgstr ""
 "При проверке требований программной совместимости плагина \"%1$s\" выявлены "
 "ошибки."
 
-#: ../wpf_plugin_factory.php:189
+#: ../wpf_plugin_factory.php:199
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 
-#: ../wpf_wp_version_validator.php:34
+#: ../wpf_wp_version_validator.php:26
 #, php-format
 msgid ""
 "WordPress %1$s or newer is required. Current version - %2$s. <a href=\"%3$s"
