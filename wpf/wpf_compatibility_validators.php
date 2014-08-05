@@ -15,6 +15,7 @@ WPF_Compatibility_Validators class. Software compatibility requirements validato
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
+final
 class WPF_Compatibility_Validators
 	extends
 		WPF_Plugin_Component
