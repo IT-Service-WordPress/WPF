@@ -145,7 +145,7 @@ class WPF_Plugin
 	public
 	function __construct( 
 		$plugin_file
-		, /* IWPF_Plugin_Component&[] */ array $components
+		, /* IWPF_Plugin_Component&[] */ $components // неопределённое количество компонентов больше одного
 	) {
 		$this->_file = $plugin_file;
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
@@ -155,7 +155,9 @@ class WPF_Plugin
 			$this->_slug += '_' . $basename;
 		};
 		
-		$this->components = $components;
+		$args = func_get_args();
+		array_shift( $args );
+		$this->components = $args;
 		foreach ( (array) $this->components as $component ) {
 			$component->bind( $this );
 			$component->bind_action_handlers_and_filters();

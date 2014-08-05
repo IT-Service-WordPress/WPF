@@ -24,13 +24,11 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain.php' );
 
 $zzz_plugin = new WPF_Plugin (
 	__FILE__
-	, array (
-		new WPF_Compatibility_Validators ( array (
-			new WPF_WP_Version_Validator( '3.9.9' )
-			, new WPF_PHP_Version_Validator( '5.6.7' )
-		) )
-		, new WPF_TextDomain ( 'wordpress-plugin-template' )
-	)
+	, new WPF_Compatibility_Validators ( array (
+		new WPF_WP_Version_Validator( '3.9.9' )
+		, new WPF_PHP_Version_Validator( '5.6.7' )
+	) )
+	, new WPF_TextDomain ( 'wordpress-plugin-template' )
 );
 
 /*
