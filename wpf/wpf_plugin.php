@@ -113,45 +113,6 @@ class WPF_Plugin
 		return $this->_data[ 'AuthorURI' ];
 	}
 
-	private
-	$_text_domain;
-	
-	public
-	function get_text_domain() {
-		return $this->_text_domain;
-	}
-
-	private
-	$_text_domain_path;
-
-	public
-	function get_text_domain_path() {
-		return dirname( plugin_basename( $this->get_file() ) ) . $this->_text_domain_path;
-	}
-
-	public
-	function _load_textdomain() {
-		load_plugin_textdomain(
-			$this->get_text_domain()
-			, false
-			, $this->get_text_domain_path()
-		); 
-		load_plugin_textdomain(
-			WPF_TEXTDOMAIN
-			, false
-			, WPF_TEXTDOMAIN_PATH
-		); 
-		load_plugin_textdomain(
-			WPF_ADMINTEXTDOMAIN
-			, false
-			, WPF_TEXTDOMAIN_PATH
-		); 
-		// !!! а если нет локализации у модуля? а деление на админ и фронтенд?
-		// а теперь нужно загрузить локализацию для фреймворка, предварительно проверив, что она не загружена ещё
-		// да и при загрузке локализации плагина так же проверить следует - для нескольких плагинов в одном флаконе локализация то одна будет.
-
-	}
-	
 	public
 	function get_network_support() {
 		$this->load_data();
@@ -184,8 +145,6 @@ class WPF_Plugin
 	public
 	function __construct( 
 		$plugin_file
-		, $text_domain = null
-		, $text_domain_path = null
 		, /* IWPF_Plugin_Component&[] */ array $components
 	) {
 		$this->_file = $plugin_file;
@@ -195,28 +154,12 @@ class WPF_Plugin
 		if ( 'main' != $basename ) {
 			$this->_slug += '_' . $basename;
 		};
-		if ( ! is_null ( $text_domain ) ) {
-			$this->_text_domain = $text_domain;
-		} else {
-			$this->load_data();
-			$this->_text_domain = $this->_data[ 'TextDomain' ];
-		};
-		if ( $this->_text_domain ) {
-			if ( ! is_null ( $text_domain_path ) ) {
-				$this->_text_domain_path = $text_domain_path;
-			} else {
-				$this->load_data();
-				$this->_text_domain_path = $this->_data[ 'DomainPath' ];
-			};
-		};
 		
 		$this->components = $components;
 		foreach ( (array) $this->components as $component ) {
 			$component->bind( $this );
 			$component->bind_action_handlers_and_filters();
 		};
-
-		add_action( 'plugins_loaded', array( $this, '_load_textdomain' ) ); 
 	}
 
 	private
