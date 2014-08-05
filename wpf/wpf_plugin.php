@@ -154,10 +154,17 @@ class WPF_Plugin
 		if ( 'main' != $basename ) {
 			$this->_slug += '_' . $basename;
 		};
-		
-		$args = func_get_args();
-		array_shift( $args );
-		$this->components = $args;
+
+		$this->components = array();
+		for ( $i = 1; $i < func_num_args(); $i++ ) {
+			$next_arg =  func_get_arg( $i );
+			if ( is_array( $next_arg ) ) {
+				$this->components = array_merge( $this->components, $next_arg );
+			} else {
+				$this->components[] = $next_arg;
+			};
+		};
+
 		foreach ( (array) $this->components as $component ) {
 			$component->bind( $this );
 			$component->bind_action_handlers_and_filters();
