@@ -1,5 +1,7 @@
 <?php 
 
+namespace WPF\v1;
+
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_version_validator.php' );
 
@@ -20,7 +22,7 @@ class WPF_PHP_Version_Validator extends WPF_Version_Validator {
 		if (
 			version_compare( phpversion(), $this->required_version, "<" )
 		) {
-			return new WP_Error(
+			return new \WP_Error(
 				'error'
 				, sprintf(
 					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', WPF_ADMINTEXTDOMAIN )

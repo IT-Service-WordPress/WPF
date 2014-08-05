@@ -1,5 +1,7 @@
 <?php 
 
+namespace WPF\v1;
+
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_admin_notice.php' );
 

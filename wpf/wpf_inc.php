@@ -10,15 +10,19 @@ Wordpress Plugin framework common header file.
 @copyright 2014 ООО "Инженер-53"
 */
 
+namespace WPF\v1;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! defined( 'WPF_DIR' ) ) {
-	define( 'WPF_DIR', __DIR__ );
-	define( 'WPF_TEXTDOMAIN', 'wpf' );
-	define( 'WPF_ADMINTEXTDOMAIN', 'wpf-admin' );
+if ( ! defined( 'WPF_INC' ) ) {
+	define( 'WPF_INC', __DIR__ );
 };
+
+const WPF_DIR = __DIR__;
+const WPF_TEXTDOMAIN = 'wpf';
+const WPF_ADMINTEXTDOMAIN = 'wpf-admin';
 
 ?>
