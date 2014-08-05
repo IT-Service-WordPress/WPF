@@ -61,5 +61,13 @@ interface IWPF_Plugin {
 	public
 	function deactivate();
 
+	public
+	function add_action(
+		$hook
+		, $function_to_add
+		, $priority = 10
+		, $accepted_args = 1
+	);
+
 }
 ?>

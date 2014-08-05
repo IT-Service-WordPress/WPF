@@ -122,11 +122,29 @@ class WPF_Plugin
 	protected
 	// IWPF_Plugin_Component&[]
 	$components;
-	
+
+	final
+	public
+	function add_action(
+		$hook
+		, $function_to_add
+		, $priority = 10
+		, $accepted_args = 1
+	) {
+		return add_action(
+			$hook
+			, $function_to_add
+			, $priority
+			, $accepted_args
+		);
+	}
+
+	final
 	public
 	function activate() {
 	}
 
+	final
 	public
 	function deactivate() {
 		if ( current_user_can( 'activate_plugins' ) ) {
@@ -155,6 +173,10 @@ class WPF_Plugin
 			$this->_slug += '_' . $basename;
 		};
 
+		// register_activation_hook  ( $this->plugin_file, array( $this, 'on_activation' ) );
+		// register_deactivation_hook( $this->plugin_file, array( $this, 'on_deactivation' ) );
+		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
+
 		$this->components = array();
 		for ( $i = 1; $i < func_num_args(); $i++ ) {
 			$next_arg =  func_get_arg( $i );
@@ -169,6 +191,7 @@ class WPF_Plugin
 			$component->bind( $this );
 			$component->bind_action_handlers_and_filters();
 		};
+		
 	}
 
 	private
