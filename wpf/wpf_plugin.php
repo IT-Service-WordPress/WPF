@@ -141,6 +141,28 @@ class WPF_Plugin
 
 	final
 	public
+	function register_activation_hook(
+		$function
+	) {
+		return register_activation_hook(
+			$this->get_file()
+			, $function
+		);
+	}
+
+	final
+	public
+	function register_deactivation_hook(
+		$function
+	) {
+		return register_deactivation_hook(
+			$this->get_file()
+			, $function
+		);
+	}
+
+	final
+	public
 	function activate() {
 	}
 
@@ -173,8 +195,6 @@ class WPF_Plugin
 			$this->_slug += '_' . $basename;
 		};
 
-		// register_activation_hook  ( $this->plugin_file, array( $this, 'on_activation' ) );
-		// register_deactivation_hook( $this->plugin_file, array( $this, 'on_deactivation' ) );
 		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
 
 		$this->components = array();
