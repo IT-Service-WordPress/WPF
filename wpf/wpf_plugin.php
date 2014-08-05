@@ -5,7 +5,7 @@ require_once ( 'wpf_wp_version_validator.php' );
 require_once ( 'wpf_php_version_validator.php' );
 
 /*
-WPF_Plugin_Factory class. Just metadata.
+WPF_Plugin class. Just metadata.
 
 @since 1.0.0
 
@@ -14,7 +14,7 @@ WPF_Plugin_Factory class. Just metadata.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Factory {
+class WPF_Plugin {
 
 	protected
 	$_file; // __FILE__;

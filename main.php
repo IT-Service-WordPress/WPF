@@ -16,9 +16,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require_once (  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_factory.php' );
+require_once (  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
 
-$zzz_plugin = new WPF_Plugin_Factory (
+$zzz_plugin = new WPF_Plugin (
 	__FILE__
 	, 'wordpress-plugin-template'
 	, '/languages/'
