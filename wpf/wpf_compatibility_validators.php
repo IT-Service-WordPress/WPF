@@ -25,7 +25,7 @@ class WPF_Compatibility_Validators
 {
 
 	protected
-	// array of IWPF_Compatibility_Validator
+	// IWPF_Compatibility_Validator&[]
 	$compatibility_requirements;
 
 	public
