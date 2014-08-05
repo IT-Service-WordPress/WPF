@@ -13,7 +13,7 @@ WPF_TextDomain class. Localization files loader for plugin.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-final
+abstract
 class WPF_TextDomain
 	extends
 		WPF_Plugin_Component
@@ -24,25 +24,13 @@ class WPF_TextDomain
 	protected
 	$text_domain;
 	
-	protected
-	$text_domain_path;
-
 	public
 	function __construct (
 		$text_domain
-		, $text_domain_path = '/languages/'
 	) {
 		$this->text_domain = $text_domain;
-		// $this->plugin->load_data();
-		// $this->text_domain = $this->plugin->_data[ 'TextDomain' ];
-
-		$this->text_domain_path = $text_domain_path;
-		// $this->text_domain_path = $this->plugin->data[ 'DomainPath' ];
 	}
 	
-	private
-	function __clone() {}
-
     private
 	function __sleep() {}
 
@@ -55,10 +43,9 @@ class WPF_TextDomain
 		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) ); 
 	}
 	
+	abstract
 	public
-	function get_text_domain_path() {
-		return dirname( plugin_basename( $this->plugin->get_file() ) ) . $this->text_domain_path;
-	}
+	function get_text_domain_path();
 
 	public
 	function load_textdomain() {
@@ -67,16 +54,6 @@ class WPF_TextDomain
 			$this->text_domain
 			, false
 			, $this->get_text_domain_path()
-		); 
-		load_plugin_textdomain(
-			WPF_TEXTDOMAIN
-			, false
-			, WPF_TEXTDOMAIN_PATH
-		); 
-		load_plugin_textdomain(
-			WPF_ADMINTEXTDOMAIN
-			, false
-			, WPF_TEXTDOMAIN_PATH
 		); 
 	}
 

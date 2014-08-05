@@ -20,7 +20,8 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_validators.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_wp_version_validator.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_php_version_validator.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_admin.php' );
 
 $zzz_plugin = new WPF_Plugin (
 	__FILE__
@@ -28,7 +29,8 @@ $zzz_plugin = new WPF_Plugin (
 		new WPF_WP_Version_Validator( '3.9.9' )
 		, new WPF_PHP_Version_Validator( '5.6.7' )
 	) )
-	, new WPF_TextDomain ( 'wordpress-plugin-template' )
+	, new WPF_TextDomain_Plugin ( 'wordpress-plugin-template' )
+	, $WPF_TextDomain_Admin
 );
 
 /*

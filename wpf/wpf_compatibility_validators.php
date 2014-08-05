@@ -33,6 +33,7 @@ class WPF_Compatibility_Validators
 		// IWPF_Compatibility_Validator&[]
 		array $compatibility_requirements
 	) {
+		parent::__construct();
 		$this->compatibility_requirements = $compatibility_requirements;
 	}
 	
