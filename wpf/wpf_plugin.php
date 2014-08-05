@@ -1,6 +1,7 @@
 <?php 
 
 require_once ( 'wpf_inc.php' );
+require_once ( 'iwpf_plugin.php' );
 require_once ( 'wpf_wp_version_validator.php' );
 require_once ( 'wpf_php_version_validator.php' );
 
@@ -14,7 +15,10 @@ WPF_Plugin class. Just metadata.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin {
+class WPF_Plugin
+	implements
+		IWPF_Plugin
+{
 
 	protected
 	$_file; // __FILE__;
@@ -194,6 +198,10 @@ class WPF_Plugin {
 		};
 	}
 	
+	public
+	function activate() {
+	}
+
 	public
 	function deactivate() {
 		if ( current_user_can( 'activate_plugins' ) ) {

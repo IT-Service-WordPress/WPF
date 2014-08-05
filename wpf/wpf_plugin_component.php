@@ -1,11 +1,10 @@
 <?php 
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'iwpf_compatibility_validator.php' );
-require_once ( 'wpf_admin_notice.php' );
+require_once ( 'iwpf_plugin_component.php' );
 
 /*
-WPF_Compatibility_Validator class. Software compatibility requirements validators base class.
+WPF_Plugin_Component class. Just metadata.
 
 @since 1.0.0
 
@@ -14,19 +13,16 @@ WPF_Compatibility_Validator class. Software compatibility requirements validator
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-abstract
-class WPF_Compatibility_Validator
+class WPF_Plugin_Component
 	implements
-		IWPF_Compatibility_Validator
+		IWPF_Plugin_Component
 {
 
-	abstract
 	public
-	function validate();
-	
-	public
-	function __construct () {}
-	
+	function __construct( 
+	) {
+	}
+
 	private
 	function __clone() {}
 
