@@ -16,16 +16,19 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require_once (  dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_validators.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_wp_version_validator.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_php_version_validator.php' );
 
 $zzz_plugin = new WPF_Plugin (
 	__FILE__
 	, 'wordpress-plugin-template'
 	, '/languages/'
-	, array (
+	, new WPF_Compatibility_Validators ( array (
 		new WPF_WP_Version_Validator( '3.9.9' )
 		, new WPF_PHP_Version_Validator( '5.6.7' )
-	)
+	) )
 );
 
 /*

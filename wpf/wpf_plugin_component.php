@@ -13,6 +13,7 @@ WPF_Plugin_Component class. Just metadata.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
+abstract
 class WPF_Plugin_Component
 	implements
 		IWPF_Plugin_Component
@@ -31,5 +32,24 @@ class WPF_Plugin_Component
 
     private
 	function __wakeup() {}
+
+	protected
+	// IWPF_Plugin&
+	$plugin;
+	
+	public
+	function bind(
+		IWPF_Plugin& $plugin
+	) {
+		$this->plugin = $plugin;
+	}
+	
+	protected
+	function check_bind() {
+		if ( is_null( $this->plugin ) ) {
+			// !!! throw error !!!
+		};
+	}
+
 }
 ?>

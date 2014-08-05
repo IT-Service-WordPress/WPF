@@ -2,8 +2,7 @@
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_plugin.php' );
-require_once ( 'wpf_wp_version_validator.php' );
-require_once ( 'wpf_php_version_validator.php' );
+require_once ( 'iwpf_plugin_component.php' );
 
 /*
 WPF_Plugin class. Just metadata.
@@ -164,41 +163,6 @@ class WPF_Plugin
 	$compatibility_requirements;
 	
 	public
-	function validate_compatibility_requirements(
-		$produce_notices = false
-	) {
-		$are_meets = true;
-		$errors = array();
-		foreach ( (array) $this->compatibility_requirements as $validator ) {
-			$return = $validator->validate();
-			if ( is_wp_error( $return ) ) {
-				$are_meets = false;
-				array_push( $errors, $return->get_error_message() );
-			};
-		};
-		if ( $produce_notices and ! $are_meets ) { 
-			new WPF_admin_notice(
-				array_merge(
-					array( sprintf(
-						__( 'Plugin "%1$s" compatibility check produced errors.', WPF_ADMINTEXTDOMAIN )
-						, $this->get_title()
-					) )
-					, $errors
-				)
-				, 'error'
-			);
-		};
-		return $are_meets;
-	}
-
-	public
-	function _validate_and_deactivate_if_fails() {
-		if ( ! $this->validate_compatibility_requirements( true ) ) {
-			$this->deactivate();
-		};
-	}
-	
-	public
 	function activate() {
 	}
 
@@ -222,7 +186,7 @@ class WPF_Plugin
 		$plugin_file
 		, $text_domain = null
 		, $text_domain_path = null
-		, array $compatibility_requirements = array()
+		, IWPF_Plugin_Component& $compatibility_requirements
 	) {
 		$this->_file = $plugin_file;
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
@@ -248,13 +212,9 @@ class WPF_Plugin
 		
 		if ( $compatibility_requirements ) {
 			$this->compatibility_requirements = $compatibility_requirements;
-		} else {
-			$this->compatibility_requirements = array (
-				new WPF_WP_Version_Validator( '3.9.0' )
-				, new WPF_PHP_Version_Validator( '5.5.0' )
-			);
+			$this->compatibility_requirements->bind( $this );
+			$this->compatibility_requirements->bind_action_handlers_and_filters();
 		};
-		add_action( 'admin_init', array( $this, '_validate_and_deactivate_if_fails' ) ); 
 
 		add_action( 'plugins_loaded', array( $this, '_load_textdomain' ) ); 
 	}

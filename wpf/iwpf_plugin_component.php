@@ -13,6 +13,12 @@ IWPF_Plugin_Component interface.
 @copyright 2014 ООО "Инженер-53"
 */
 interface IWPF_Plugin_Component {
-	function bind( IWPF_Plugin& plugin );
+
+	public
+	function bind( IWPF_Plugin& $plugin );
+	
+	public
+	function bind_action_handlers_and_filters();
+	
 }
 ?>

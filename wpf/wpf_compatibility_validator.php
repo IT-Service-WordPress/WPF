@@ -2,7 +2,6 @@
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_compatibility_validator.php' );
-require_once ( 'wpf_admin_notice.php' );
 
 /*
 WPF_Compatibility_Validator class. Software compatibility requirements validators base class.
