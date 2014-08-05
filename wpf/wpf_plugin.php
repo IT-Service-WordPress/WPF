@@ -159,8 +159,8 @@ class WPF_Plugin
 	}
 	
 	protected
-	// WPF_Compatibility_Validator[]
-	$compatibility_requirements;
+	// IWPF_Plugin_Component&[]
+	$components;
 	
 	public
 	function activate() {
@@ -186,7 +186,7 @@ class WPF_Plugin
 		$plugin_file
 		, $text_domain = null
 		, $text_domain_path = null
-		, IWPF_Plugin_Component& $compatibility_requirements
+		, /* IWPF_Plugin_Component&[] */ array $components
 	) {
 		$this->_file = $plugin_file;
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
@@ -210,10 +210,10 @@ class WPF_Plugin
 			};
 		};
 		
-		if ( $compatibility_requirements ) {
-			$this->compatibility_requirements = $compatibility_requirements;
-			$this->compatibility_requirements->bind( $this );
-			$this->compatibility_requirements->bind_action_handlers_and_filters();
+		$this->components = $components;
+		foreach ( (array) $this->components as $component ) {
+			$component->bind( $this );
+			$component->bind_action_handlers_and_filters();
 		};
 
 		add_action( 'plugins_loaded', array( $this, '_load_textdomain' ) ); 
