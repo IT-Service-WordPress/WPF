@@ -18,10 +18,10 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
 use \WPF\v1 as WPF;
 
 new WPF\Plugin\Part\Base (
-	new WPF\Compatibility\Validators ( array (
+	new WPF\Compatibility\Validators (
 		new WPF\Compatibility\Version\WP( '3.9.9' )
 		, new WPF\Compatibility\Version\PHP( '5.6.7' )
-	) )
+	)
 	, new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN )
 );
 

@@ -6,6 +6,7 @@ require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_base.php' );
 require_once ( 'wpf_compatibility_ibase.php' );
 require_once ( 'wpf_gui_notice_admin.php' );
+require_once ( 'wpf_collection.php' );
 
 /*
 Software compatibility requirements validators collection.
@@ -27,16 +28,18 @@ class Validators
 {
 
 	protected
-	// IBase&[]
+	// \WPF\v1\Collection&
 	$compatibility_requirements;
 
 	public
 	function __construct (
 		// IBase&[]
-		array $compatibility_requirements
+		$compatibility_requirements
 	) {
 		parent::__construct();
-		$this->compatibility_requirements = $compatibility_requirements;
+		$this->compatibility_requirements  = new \WPF\v1\Collection(
+			func_get_args()
+		);
 	}
 	
 	private
@@ -60,7 +63,7 @@ class Validators
 	) {
 		$are_meets = true;
 		$errors = array();
-		foreach ( (array) $this->compatibility_requirements as $validator ) {
+		foreach ( $this->compatibility_requirements as $validator ) {
 			$return = $validator->validate();
 			if ( is_wp_error( $return ) ) {
 				$are_meets = false;
