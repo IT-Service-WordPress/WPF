@@ -39,7 +39,7 @@ class WPF_Plugin_Part
 			func_get_args()
 		);
 		
-		if ( $plugin = WPF_Plugin_Part_Loader::get_plugin_instance() ) {
+		if ( $plugin = WPF_Plugin_Part_Load::get_plugin_instance() ) {
 			$this->bind( $plugin );
 			$this->bind_action_handlers_and_filters( $plugin );
 		} else {

@@ -4,9 +4,10 @@ namespace WPF\v1;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component.php' );
+require_once ( 'wpf_predicates.php' );
 
 /*
-WPF_Plugin_Part_Def class. Component for loading external plugin parts (admin-side, frontend, so on).
+WPF_Plugin_Part_Load class. Component for loading external plugin parts (admin-side, frontend, so on).
 
 @since 1.0.0
 
@@ -15,7 +16,7 @@ WPF_Plugin_Part_Def class. Component for loading external plugin parts (admin-si
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Part_Loader
+class WPF_Plugin_Part_Load
 	extends
 		WPF_Plugin_Component
 	implements
@@ -25,28 +26,23 @@ class WPF_Plugin_Part_Loader
 	protected
 	$part_file;
 	
-	protected
-	$part_loading_action;
-	
 	public
 	function __construct (
 		$part_file
-		, $part_loading_action = 'load_plugin'
 	) {
 		parent::__construct();
 		$this->part_file = $part_file;
-		if ( $part_loading_action ) {
-			$this->part_loading_action = $part_loading_action;
-		};
 	}
 	
+	protected
+	function get_load_action_name() {
+		return $this->plugin->get_plugin_load_action_name();
+	}
+
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		if ( 'load_plugin' === $this->part_loading_action ) {
-			$this->part_loading_action = $this->plugin->get_plugin_load_action_name();
-		};
-		$this->plugin->add_action( $this->part_loading_action, array( $this, 'check_and_load' ) ); 
+		$this->plugin->add_action( $this->get_load_action_name(), array( $this, 'load' ) ); 
 	}
 	
 	final
@@ -54,18 +50,6 @@ class WPF_Plugin_Part_Loader
 	function get_part_file() {
 		$this->check_bind();
 		return $this->plugin->get_file_path( $this->part_file );
-	}
-	
-	protected
-	function check_conditions() {
-		return true;
-	}
-
-	public
-	function check_and_load() {
-		if ( $this->check_conditions() ) {
-			$this->load();
-		};
 	}
 	
 	protected
@@ -80,7 +64,7 @@ class WPF_Plugin_Part_Loader
 		return self::$plugin_instance;
 	}
 
-	protected
+	public
 	function load() {
 		$this->check_bind();
 		self::$plugin_instance = $this->plugin;

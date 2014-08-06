@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_loader.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_load_if.php' );
 // require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 
 use \WPF\v1 as WPF;
@@ -26,7 +26,7 @@ new WPF\WPF_Plugin (
 	__FILE__
 //	, new WPF\WPF_TextDomain_Plugin( 'wordpress-plugin-template' )
 	
-	, new WPF\WPF_Plugin_Part_Loader( 'main-admin.php' )
+	, new WPF\WPF_Plugin_Part_Load_If( 'main-admin.php', 'is_admin' )
 );
 
 ?>
