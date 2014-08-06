@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_plugin_component.php' );
@@ -16,9 +16,9 @@ WPF_Plugin_Component class. Just metadata.
 @copyright 2014 ООО "Инженер-53"
 */
 abstract
-class WPF_Plugin_Component
+class Base
 	implements
-		IWPF_Plugin_Component
+		IBase
 {
 
 	public
@@ -36,12 +36,12 @@ class WPF_Plugin_Component
 	function __wakeup() {}
 
 	protected
-	// IWPF_Plugin&
+	// \WPF\v1\Plugin\IBase&
 	$plugin;
 	
 	public
 	function bind(
-		IWPF_Plugin& $plugin
+		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		$this->plugin = $plugin;
 	}

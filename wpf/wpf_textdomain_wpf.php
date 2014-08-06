@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\TextDomain;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_textdomain.php' );
 
 /*
-WPF_TextDomain_WPF class. Localization files loader WPF framework.
+Localization files loader WPF framework.
 
 @since 1.0.0
 
@@ -15,11 +15,11 @@ WPF_TextDomain_WPF class. Localization files loader WPF framework.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_TextDomain_WPF
+class WPF
 	extends
-		WPF_TextDomain
+		Base
 	implements
-		IWPF_Plugin_Component
+		\WPF\v1\Plugin\Component\IBase
 {
 
 	public
@@ -31,7 +31,7 @@ class WPF_TextDomain_WPF
 	
 	public
 	function get_text_domain_path() {
-		return plugin_basename( WPF_DIR ) . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR;
+		return plugin_basename( \WPF\v1\WPF_DIR ) . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR;
 	}
 
 }

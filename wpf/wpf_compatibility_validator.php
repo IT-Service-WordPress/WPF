@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Compatibility;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_compatibility_validator.php' );
 
 /*
-WPF_Compatibility_Validator class. Software compatibility requirements validators base class.
+Software compatibility requirements validators base class.
 
 @since 1.0.0
 
@@ -16,9 +16,9 @@ WPF_Compatibility_Validator class. Software compatibility requirements validator
 @copyright 2014 ООО "Инженер-53"
 */
 abstract
-class WPF_Compatibility_Validator
+class Base
 	implements
-		IWPF_Compatibility_Validator
+		IBase
 {
 
 	abstract

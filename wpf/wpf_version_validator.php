@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Compatibility\Version;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_compatibility_validator.php' );
 
 /*
-WPF_Version_Validator class.
+
 
 @since 1.0.0
 
@@ -16,7 +16,10 @@ WPF_Version_Validator class.
 @copyright 2014 ООО "Инженер-53"
 */
 abstract
-class WPF_Version_Validator extends WPF_Compatibility_Validator {
+class Base
+	extends
+		\WPF\v1\Compatibility\Base
+{
 
 	protected
 	$required_version;

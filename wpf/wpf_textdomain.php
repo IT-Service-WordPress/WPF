@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\TextDomain;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component.php' );
@@ -16,11 +16,11 @@ WPF_TextDomain class. Localization files loader for plugin.
 @copyright 2014 ООО "Инженер-53"
 */
 abstract
-class WPF_TextDomain
+class Base
 	extends
-		WPF_Plugin_Component
+		\WPF\v1\Plugin\Component\Base
 	implements
-		IWPF_Plugin_Component
+		\WPF\v1\Plugin\Component\IBase
 {
 
 	protected

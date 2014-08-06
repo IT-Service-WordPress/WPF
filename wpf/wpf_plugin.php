@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_plugin.php' );
@@ -8,7 +8,6 @@ require_once ( 'iwpf_plugin_component.php' );
 require_once ( 'wpf_plugin_components_collection.php' );
 
 /*
-WPF_Plugin class. Just metadata.
 
 @since 1.0.0
 
@@ -17,9 +16,9 @@ WPF_Plugin class. Just metadata.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin
+class Base
 	implements
-		IWPF_Plugin
+		IBase
 {
 
 	protected
@@ -131,7 +130,7 @@ class WPF_Plugin
 	}
 	
 	protected
-	// WPF_Plugin_Components_Collection
+	// \WPF\v1\Plugin\Component\Collection
 	$components;
 
 	final
@@ -183,7 +182,7 @@ class WPF_Plugin
 		if ( current_user_can( 'activate_plugins' ) ) {
 			deactivate_plugins( $this->get_file() );
 			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
-			new WPF_admin_notice(
+			new \WPF\v1\GUI\Notice\Admin(
 				sprintf(
 					__( 'Plugin <strong>deactivated</strong>.' )
 					, $this->get_title()
@@ -201,7 +200,7 @@ class WPF_Plugin
 	public
 	function __construct( 
 		$plugin_file
-		, /* IWPF_Plugin_Component& */ $components // неопределённое количество компонентов больше одного
+		, /* Component\IBase& */ $components // неопределённое количество компонентов больше одного
 	) {
 		$this->_file = $plugin_file;
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
@@ -213,7 +212,7 @@ class WPF_Plugin
 
 		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
 
-		$this->components = new WPF_Plugin_Components_Collection(
+		$this->components = new Component\Collection(
 			array_slice( func_get_args(), 1 )
 		);
 

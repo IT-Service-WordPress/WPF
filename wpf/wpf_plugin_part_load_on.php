@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Part\Load;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_part_load.php' );
 
 /*
-WPF_Plugin_Part_Load_On class. Component for loading external plugin parts on specified action (admin-side, frontend, so on).
+Component for loading external plugin parts on specified action (admin-side, frontend, so on).
 
 @since 1.0.0
 
@@ -15,11 +15,11 @@ WPF_Plugin_Part_Load_On class. Component for loading external plugin parts on sp
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Part_Load_On
+class _On
 	extends
-		WPF_Plugin_Part_Load
+		Base
 	implements
-		IWPF_Plugin_Component
+		\WPF\v1\Plugin\Component\IBase
 {
 
 	protected

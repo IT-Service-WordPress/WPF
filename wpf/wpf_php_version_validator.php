@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Compatibility\Version;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_version_validator.php' );
 
 /*
-WPF_Version_Validator class.
+
 
 @since 1.0.0
 
@@ -15,7 +15,12 @@ WPF_Version_Validator class.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_PHP_Version_Validator extends WPF_Version_Validator {
+class PHP
+	extends
+		Base
+	implements
+		\WPF\v1\Compatibility\IBase
+{
 
 	public
 	function validate() {
@@ -25,7 +30,7 @@ class WPF_PHP_Version_Validator extends WPF_Version_Validator {
 			return new \WP_Error(
 				'error'
 				, sprintf(
-					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', WPF_ADMINTEXTDOMAIN )
+					__( 'PHP %1$s or newer is required. Current version - %2$s. <a href="%3$s">Please update!</a>', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $this->required_version
 					, phpversion()
 					, 'http://ru2.php.net/downloads.php'

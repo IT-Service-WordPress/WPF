@@ -1,11 +1,11 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin;
 
 require_once ( 'wpf_inc.php' );
 
 /*
-IWPF_Plugin interface.
+
 
 @since 1.0.0
 
@@ -14,7 +14,7 @@ IWPF_Plugin interface.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-interface IWPF_Plugin {
+interface IBase {
 
 	public
 	function get_file();

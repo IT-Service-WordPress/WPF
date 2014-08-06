@@ -1,13 +1,13 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Part\Load;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_part_load.php' );
 require_once ( 'wpf_predicates.php' );
 
 /*
-WPF_Plugin_Part_Load_If class. Component for loading external plugin parts if predicate is true (admin-side, frontend, so on).
+Component for loading external plugin parts if predicate is true (admin-side, frontend, so on).
 
 @since 1.0.0
 
@@ -16,11 +16,11 @@ WPF_Plugin_Part_Load_If class. Component for loading external plugin parts if pr
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Part_Load_If
+class _If
 	extends
-		WPF_Plugin_Part_Load
+		Base
 	implements
-		IWPF_Plugin_Component
+		\WPF\v1\Plugin\Component\IBase
 {
 
 	protected

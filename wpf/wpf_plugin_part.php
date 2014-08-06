@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Part;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_plugin_part.php' );
@@ -8,7 +8,7 @@ require_once ( 'iwpf_plugin.php' );
 require_once ( 'wpf_plugin_component.php' );
 
 /*
-WPF_Plugin_Part class. Plugin part container (admin-side, frontend, so on).
+Plugin part container (admin-side, frontend, so on).
 
 @since 1.0.0
 
@@ -17,29 +17,29 @@ WPF_Plugin_Part class. Plugin part container (admin-side, frontend, so on).
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Part
+class Base
 	extends
-		WPF_Plugin_Component
+		\WPF\v1\Plugin\Component\Base
 	implements
-		IWPF_Plugin_Part
-		, IWPF_Plugin_Component
+		IBase
+		, \WPF\v1\Plugin\Component\IBase
 {
 
 	protected
-	// WPF_Plugin_Components_Collection
+	// \WPF\v1\Plugin\Component\Collection
 	$components;
 
 	public
 	function __construct (
-		/* IWPF_Plugin_Component& */ $components // неопределённое количество компонентов больше одного
+		/* \WPF\v1\Plugin\Component\IBase& */ $components // неопределённое количество компонентов больше одного
 	) {
 		parent::__construct();
 
-		$this->components = new WPF_Plugin_Components_Collection(
+		$this->components = new \WPF\v1\Plugin\Component\Collection(
 			func_get_args()
 		);
 		
-		if ( $plugin = WPF_Plugin_Part_Load::get_plugin_instance() ) {
+		if ( $plugin = \WPF\v1\Plugin\Part\Load\Base::get_plugin_instance() ) {
 			$this->bind( $plugin );
 			$this->bind_action_handlers_and_filters( $plugin );
 		} else {
@@ -49,7 +49,7 @@ class WPF_Plugin_Part
 
 	public
 	function bind(
-		IWPF_Plugin& $plugin
+		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		parent::bind( $plugin );
 		foreach ( $this->components as $component ) {

@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\GUI;
 
 require_once ( 'wpf_inc.php' );
 
@@ -32,14 +32,14 @@ fully customize the output.
 @param  string $require               'once' to use require_once() | 'always' to use require()
 @return string						  located templates
 */
-function wpf_locate_template(
+function locate_template(
 	$template_names
 	, $plugin_file = __FILE__
 	, $load = false
 	, $require_once = true
 ) {
 	$located = '';
-	$located = locate_template( $template_names );
+	$located = \locate_template( $template_names );
 	
 	if ( !$located ) {
 		foreach ( (array) $template_names as $template_name ) {
@@ -58,7 +58,7 @@ function wpf_locate_template(
 		}
 	}
 	if ( $load && '' != $located )
-		load_template( $located, $require_once );
+		\load_template( $located, $require_once );
 
 	return $located;
 }

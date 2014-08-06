@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_plugin_component.php' );
 
 /*
-WPF_Plugin_Components_Collection class. Just collection.
+Just collection.
 
 @since 1.0.0
 
@@ -15,18 +15,18 @@ WPF_Plugin_Components_Collection class. Just collection.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Components_Collection
+class Collection
 	implements
 		\IteratorAggregate 
 {
 
 	protected
-	// IWPF_Plugin_Component&[]
+	// IBase&[]
 	$components;
 
 	public
 	function __construct( 
-		/* IWPF_Plugin_Component& */ $components // неопределённое количество компонентов больше одного, в том числе - массивы компонентов
+		/* IBase& */ $components // неопределённое количество компонентов больше одного, в том числе - массивы компонентов
 	) {
 		$this->components = array();
 		$this->add_components( func_get_args() );
@@ -34,14 +34,14 @@ class WPF_Plugin_Components_Collection
 	
 	protected
 	function add_components(
-		/* IWPF_Plugin_Component& or IWPF_Plugin_Component&[] */ $components
+		/* IBase& or IBase&[] */ $components
 	) {
 		if ( is_array( $components ) ) {
 			foreach ( (array) $components as $component ) {
 				$this->add_components( $component );
 			};
 		} else {
-			if ( $components instanceof IWPF_Plugin_Component ) {
+			if ( $components instanceof IBase ) {
 				$this->components[] = $components;
 			} else {
 				// !!!! throw error !!!!

@@ -1,13 +1,13 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Part\Load;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component.php' );
 require_once ( 'wpf_predicates.php' );
 
 /*
-WPF_Plugin_Part_Load class. Component for loading external plugin parts (admin-side, frontend, so on).
+Component for loading external plugin parts (admin-side, frontend, so on).
 
 @since 1.0.0
 
@@ -16,11 +16,11 @@ WPF_Plugin_Part_Load class. Component for loading external plugin parts (admin-s
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Part_Load
+class Base
 	extends
-		WPF_Plugin_Component
+		\WPF\v1\Plugin\Component\Base
 	implements
-		IWPF_Plugin_Component
+		\WPF\v1\Plugin\Component\IBase
 {
 
 	protected
@@ -54,12 +54,12 @@ class WPF_Plugin_Part_Load
 	
 	protected
 	static
-	// IWPF_Plugin&
+	// \WPF\v1\Plugin\IBase&
 	$plugin_instance;
 
 	public
 	static
-	// IWPF_Plugin&
+	// \WPF\v1\Plugin\IBase&
 	function get_plugin_instance() {
 		return self::$plugin_instance;
 	}

@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Plugin\Part\Load;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_part_load_if.php' );
 
 /*
-WPF_Plugin_Admin_Part_Load class. Component for loading admin side plugin part (on is_admin()).
+Component for loading admin side plugin part (on is_admin()).
 
 @since 1.0.0
 
@@ -15,11 +15,11 @@ WPF_Plugin_Admin_Part_Load class. Component for loading admin side plugin part (
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_Plugin_Admin_Part_Load
+class Admin
 	extends
-		WPF_Plugin_Part_Load_If
+		_If
 	implements
-		IWPF_Plugin_Component
+		\WPF\v1\Plugin\Component\IBase
 {
 
 	public
@@ -31,7 +31,7 @@ class WPF_Plugin_Admin_Part_Load
 	
 	public
 	function bind(
-		IWPF_Plugin& $plugin
+		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		parent::bind( $plugin );
 		if ( ! $this->part_file ) {

@@ -22,11 +22,11 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_admin_part_load.php' )
 
 use \WPF\v1 as WPF;
 
-new WPF\WPF_Plugin (
+new WPF\Plugin\Base (
 	__FILE__
-//	, new WPF\WPF_TextDomain_Plugin( 'wordpress-plugin-template' )
+//	, new WPF\TextDomain\Plugin( 'wordpress-plugin-template' )
 	
-	, new WPF\WPF_Plugin_Admin_Part_Load()
+	, new WPF\Plugin\Part\Load\Admin()
 );
 
 ?>

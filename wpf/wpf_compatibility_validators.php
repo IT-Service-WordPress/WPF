@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\Compatibility;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component.php' );
@@ -8,7 +8,7 @@ require_once ( 'wpf_compatibility_validator.php' );
 require_once ( 'wpf_admin_notice.php' );
 
 /*
-WPF_Compatibility_Validators class. Software compatibility requirements validators collection.
+Software compatibility requirements validators collection.
 
 @since 1.0.0
 
@@ -18,21 +18,21 @@ WPF_Compatibility_Validators class. Software compatibility requirements validato
 @copyright 2014 ООО "Инженер-53"
 */
 final
-class WPF_Compatibility_Validators
+class Validators
 	extends
-		WPF_Plugin_Component
+		\WPF\v1\Plugin\Component\Base
 	implements
-		IWPF_Plugin_Component
-		, IWPF_Compatibility_Validator
+		\WPF\v1\Plugin\Component\IBase
+		, IBase
 {
 
 	protected
-	// IWPF_Compatibility_Validator&[]
+	// IBase&[]
 	$compatibility_requirements;
 
 	public
 	function __construct (
-		// IWPF_Compatibility_Validator&[]
+		// IBase&[]
 		array $compatibility_requirements
 	) {
 		parent::__construct();
@@ -68,10 +68,10 @@ class WPF_Compatibility_Validators
 			};
 		};
 		if ( $produce_notices and ! $are_meets ) { 
-			new WPF_admin_notice(
+			new \WPF\v1\GUI\Notice\Admin(
 				array_merge(
 					array( sprintf(
-						__( 'Plugin "%1$s" compatibility check produced errors.', WPF_ADMINTEXTDOMAIN )
+						__( 'Plugin "%1$s" compatibility check produced errors.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 						, $this->plugin->get_title()
 					) )
 					, $errors

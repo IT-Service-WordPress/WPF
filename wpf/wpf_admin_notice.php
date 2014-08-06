@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1;
+namespace WPF\v1\GUI\Notice;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_templates.php' );
 
 /*
-WP_admin_notice class. This class should ideally be used to work with the
+This class should ideally be used to work with the
 administrative side of the WordPress site.
 
 @since 1.0.0
@@ -16,7 +16,7 @@ administrative side of the WordPress site.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class WPF_admin_notice {
+class Admin {
 
 	protected
 	$message;
@@ -26,7 +26,7 @@ class WPF_admin_notice {
 
 	public
 	function display() {
-		$_template_file = wpf_locate_template( 'admin_notice.php' );
+		$_template_file = \WPF\v1\GUI\locate_template( 'admin_notice.php' );
 		require( $_template_file );
 	}
 	
