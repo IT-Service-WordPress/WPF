@@ -37,6 +37,11 @@ interface IWPF_Plugin {
 	);
 	
 	public
+	function get_file_path(
+		$path // Path to the plugin file of which URL you want to retrieve, relative to the plugin
+	);
+	
+	public
 	function get_title();
 	
 	public

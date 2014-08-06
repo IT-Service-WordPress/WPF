@@ -17,10 +17,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! defined( 'WPF_INC' ) ) {
-	define( 'WPF_INC', __DIR__ );
-};
-
 const WPF_DIR = __DIR__;
 const WPF_TEXTDOMAIN = 'wpf';
 const WPF_ADMINTEXTDOMAIN = 'wpf-admin';

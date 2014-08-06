@@ -5,6 +5,7 @@ namespace WPF\v1;
 require_once ( 'wpf_inc.php' );
 require_once ( 'iwpf_plugin.php' );
 require_once ( 'iwpf_plugin_component.php' );
+require_once ( 'wpf_plugin_components_collection.php' );
 
 /*
 WPF_Plugin class. Just metadata.
@@ -66,6 +67,14 @@ class WPF_Plugin
 		return plugins_url( $path, $this->_file );
 	}
 	
+	final
+	public
+	function get_file_path(
+		$path // Path to the plugin file of which URL you want to retrieve, relative to the plugin
+	) {
+		return $this->get_dir_path() . $path;
+	}
+	
 	private
 	$_data;
 	
@@ -122,7 +131,7 @@ class WPF_Plugin
 	}
 	
 	protected
-	// IWPF_Plugin_Component&[]
+	// WPF_Plugin_Components_Collection
 	$components;
 
 	final
@@ -187,7 +196,7 @@ class WPF_Plugin
 	public
 	function __construct( 
 		$plugin_file
-		, /* IWPF_Plugin_Component&[] */ $components // неопределённое количество компонентов больше одного
+		, /* IWPF_Plugin_Component& */ $components // неопределённое количество компонентов больше одного
 	) {
 		$this->_file = $plugin_file;
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
@@ -199,17 +208,11 @@ class WPF_Plugin
 
 		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
 
-		$this->components = array();
-		for ( $i = 1; $i < func_num_args(); $i++ ) {
-			$next_arg =  func_get_arg( $i );
-			if ( is_array( $next_arg ) ) {
-				$this->components = array_merge( $this->components, $next_arg );
-			} else {
-				$this->components[] = $next_arg;
-			};
-		};
+		$this->components = new WPF_Plugin_Components_Collection(
+			 array_slice( func_get_args(), 1 )
+		);
 
-		foreach ( (array) $this->components as $component ) {
+		foreach ( $this->components as $component ) {
 			$component->bind( $this );
 			$component->bind_action_handlers_and_filters();
 		};
