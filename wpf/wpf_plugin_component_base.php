@@ -3,7 +3,7 @@
 namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'iwpf_plugin_component.php' );
+require_once ( 'wpf_plugin_component_ibase.php' );
 
 /*
 WPF_Plugin_Component class. Just metadata.

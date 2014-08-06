@@ -3,7 +3,7 @@
 namespace WPF\v1\TextDomain;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_textdomain.php' );
+require_once ( 'wpf_textdomain_base.php' );
 
 /*
 Localization files loader for plugin.

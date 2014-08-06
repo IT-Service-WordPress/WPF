@@ -3,7 +3,7 @@
 namespace WPF\v1\Compatibility;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_admin_notice.php' );
+require_once ( 'wpf_gui_notice_admin.php' );
 
 /*
 Software compatibility requirements validators base class.

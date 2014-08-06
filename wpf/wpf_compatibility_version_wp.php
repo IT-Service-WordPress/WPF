@@ -3,7 +3,7 @@
 namespace WPF\v1\Compatibility\Version;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_version_validator.php' );
+require_once ( 'wpf_compatibility_version_base.php' );
 
 /*
 

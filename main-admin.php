@@ -8,10 +8,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_base.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_validators.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_wp_version_validator.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_php_version_validator.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_version_wp.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_version_php.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
 

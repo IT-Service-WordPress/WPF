@@ -3,7 +3,7 @@
 namespace WPF\v1\Plugin\Part\Load;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_plugin_component.php' );
+require_once ( 'wpf_plugin_component_base.php' );
 require_once ( 'wpf_predicates.php' );
 
 /*

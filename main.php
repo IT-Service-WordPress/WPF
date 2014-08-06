@@ -15,9 +15,9 @@ GitHub Plugin URI: 	https://github.com/sergey-s-betke/WordPress-plugin-template
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_admin_part_load.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_inc.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_base.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_load_admin.php' );
 // require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 
 use \WPF\v1 as WPF;

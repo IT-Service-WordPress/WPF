@@ -3,7 +3,7 @@
 namespace WPF\v1\Plugin\Part\Load;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_plugin_part_load.php' );
+require_once ( 'wpf_plugin_part_load_base.php' );
 
 /*
 Component for loading external plugin parts on specified action (admin-side, frontend, so on).

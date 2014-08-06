@@ -3,7 +3,7 @@
 namespace WPF\v1\Compatibility;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'iwpf_compatibility_validator.php' );
+require_once ( 'wpf_compatibility_ibase.php' );
 
 /*
 Software compatibility requirements validators base class.
