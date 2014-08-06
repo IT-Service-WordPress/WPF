@@ -42,6 +42,9 @@ interface IWPF_Plugin {
 	);
 	
 	public
+	function get_plugin_load_action_name();
+	
+	public
 	function get_title();
 	
 	public

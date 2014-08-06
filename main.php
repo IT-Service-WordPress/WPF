@@ -17,22 +17,16 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_validators.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_wp_version_validator.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_php_version_validator.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_loader.php' );
+// require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 
 use \WPF\v1 as WPF;
 
 new WPF\WPF_Plugin (
 	__FILE__
-	, new WPF\WPF_Compatibility_Validators ( array (
-		new WPF\WPF_WP_Version_Validator( '3.9.9' )
-		, new WPF\WPF_PHP_Version_Validator( '5.6.7' )
-	) )
-	, new WPF\WPF_TextDomain_Plugin ( 'wordpress-plugin-template' )
-	, new WPF\WPF_TextDomain_WPF( WPF\WPF_ADMINTEXTDOMAIN )
+//	, new WPF\WPF_TextDomain_Plugin( 'wordpress-plugin-template' )
+	
+	, new WPF\WPF_Plugin_Part_Loader( 'main-admin.php' )
 );
 
 ?>

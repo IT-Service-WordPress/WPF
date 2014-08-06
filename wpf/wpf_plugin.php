@@ -192,6 +192,11 @@ class WPF_Plugin
 			);
 		};
 	}
+	
+	public
+	function get_plugin_load_action_name() {
+		return 'load_' . plugin_basename( $this->get_file() );
+	}
 
 	public
 	function __construct( 
@@ -209,7 +214,7 @@ class WPF_Plugin
 		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
 
 		$this->components = new WPF_Plugin_Components_Collection(
-			 array_slice( func_get_args(), 1 )
+			array_slice( func_get_args(), 1 )
 		);
 
 		foreach ( $this->components as $component ) {
@@ -217,6 +222,7 @@ class WPF_Plugin
 			$component->bind_action_handlers_and_filters();
 		};
 		
+		do_action( $this->get_plugin_load_action_name() );
 	}
 
 	private
