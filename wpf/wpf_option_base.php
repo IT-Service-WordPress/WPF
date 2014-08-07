@@ -4,7 +4,7 @@ namespace WPF\v1\Option;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_option_ibase.php' );
-require_once ( 'wpf_plugin_component_activable.php' );
+require_once ( 'wpf_plugin_component_installable.php' );
 
 /*
 Option descriptor base class.
@@ -18,7 +18,7 @@ Option descriptor base class.
 */
 class Base
 	extends
-		\WPF\v1\Plugin\Component\Activable
+		\WPF\v1\Plugin\Component\Installable
 	implements
 		IBase
 {
