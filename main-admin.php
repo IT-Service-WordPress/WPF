@@ -20,8 +20,8 @@ use \WPF\v1 as WPF;
 
 new WPF\Plugin\Part\Base (
 	new WPF\Compatibility\Validators (
-		new WPF\Compatibility\Version\WP( '3.9.9' )
-		, new WPF\Compatibility\Version\PHP( '5.6.7' )
+		new WPF\Compatibility\Version\WP( '3.9.0' )
+		, new WPF\Compatibility\Version\PHP( '5.5.0' )
 	)
 	, new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN )
 	, new WPF\Plugin\Component\Activator()
