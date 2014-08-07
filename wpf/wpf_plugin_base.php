@@ -134,6 +134,21 @@ class Base
 	$components;
 	
 	public
+	function add_components(
+		/* Component\IBase& */ $components // неопределённое количество компонентов больше одного
+	) {
+		if ( is_array( $components ) || ( $components instanceof \Traversable ) ) {
+			foreach ( $components as $component ) {
+				$this->add_components( $component );
+			};
+		} else {
+			$this->components->add( $components );
+			$components->bind( $this );
+			$components->bind_action_handlers_and_filters();
+		};
+	}
+
+	public
 	function has_component(
 		$component_type // interface id
 	) {
@@ -145,6 +160,23 @@ class Base
 			};
 		};
 		return $found;
+	}
+
+	public
+	function get_components(
+		$component_type = null // interface id, or null for all components
+	) {
+		if ( $component_type ) {
+			$found = array();
+			foreach ( $this->components as $component ) {
+				if ( $component instanceof $component_type ) {
+					$found[] = $component;
+				};
+			};
+			return $found;
+		} else {
+			return $this->components;
+		};
 	}
 
 	final
@@ -226,15 +258,11 @@ class Base
 
 		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
 
-		$this->components = new Component\Collection(
+		$this->components = new Component\Collection();
+		$this->add_components(
 			array_slice( func_get_args(), 1 )
 		);
 
-		foreach ( $this->components as $component ) {
-			$component->bind( $this );
-			$component->bind_action_handlers_and_filters();
-		};
-		
 		do_action( $this->get_plugin_load_action_name() );
 	}
 

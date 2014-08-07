@@ -42,8 +42,6 @@ class Base
 		if ( $plugin = \WPF\v1\Plugin\Part\Load\Base::get_plugin_instance() ) {
 			$this->bind( $plugin );
 			$this->bind_action_handlers_and_filters( $plugin );
-		} else {
-			// !!!! throw error !!!! or not? (for use parts in plugin constructor)
 		};
 	}
 
@@ -52,17 +50,11 @@ class Base
 		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		parent::bind( $plugin );
-		foreach ( $this->components as $component ) {
-			$component->bind( $this->plugin );
-		};
+		$this->plugin->add_components( $this->components );
 	}
 
 	public
 	function bind_action_handlers_and_filters() {
-		$this->check_bind();
-		foreach ( $this->components as $component ) {
-			$component->bind_action_handlers_and_filters();
-		};
 	}
 
 }

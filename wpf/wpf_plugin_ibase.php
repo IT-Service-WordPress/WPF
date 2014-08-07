@@ -66,8 +66,18 @@ interface IBase {
 	function get_network_support();
 
 	public
+	function add_components(
+		/* Component\IBase& */ $components // неопределённое количество компонентов больше одного
+	);
+
+	public
 	function has_component(
 		$component_type // interface id
+	);
+
+	public
+	function get_components(
+		$component_type = null // interface id, or null for all components
 	);
 
 	public

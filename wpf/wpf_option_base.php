@@ -23,14 +23,32 @@ class Base
 		IBase
 {
 
+	protected
+	$option_id;
+	
+	protected
+	$default_value;
+
+	protected
+	// bool
+	$autoload;
+
 	public
-	function __construct( 
+	function __construct(
+		$id // option name without plugin prefix
+		, $value = null
+		, $autoload = true
 	) {
+		parent::__construct();
+		$this->option_id = $id;
+		$this->default_value = $value;
+		$this->autoload = $autoload;
 	}
 
 	public
 	// string
 	function get_option_id() {
+		return $this->option_id;
 	}
 
 	public
@@ -44,10 +62,21 @@ class Base
 
 	public
 	function activate() {
+		\add_option(
+			$this->option_id
+			, $this->default_value ? $this->default_value : ''
+			, ''
+			, $this->autoload ? 'yes' : 'no'
+		);
+		// !!!! netwotk wide ? !!!! add_site_option
 	}
 	
 	public
 	function deactivate() {
+		\delete_option(
+			$this->option_id
+		);
+		// !!!! netwotk wide ? !!!! delete_site_option
 	}
 
 	public

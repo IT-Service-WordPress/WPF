@@ -20,32 +20,32 @@ class Collection
 {
 
 	protected
-	$components;
+	$items;
 
 	public
 	function __construct( 
-		$components // неопределённое количество компонентов больше одного, в том числе - массивы компонентов
+		// неопределённое количество компонентов больше одного, в том числе - массивы компонентов
 	) {
-		$this->components = array();
-		$this->add_components( func_get_args() );
+		$this->items = array();
+		$this->add( func_get_args() );
 	}
 	
-	protected
-	function add_components(
-		$components
+	public
+	function add(
+		$items
 	) {
-		if ( is_array( $components ) ) {
-			foreach ( (array) $components as $component ) {
-				$this->add_components( $component );
+		if ( is_array( $items ) || ( $items instanceof \Traversable ) ) {
+			foreach ( $items as $item ) {
+				$this->add( $item );
 			};
 		} else {
-			$this->components[] = $components;
+			$this->items[] = $items;
 		};
 	}
 	
     public
 	function getIterator() {
-        return new \ArrayIterator( $this->components );
+        return new \ArrayIterator( $this->items );
     }
 
 	private
