@@ -83,7 +83,7 @@ class Base
 		, $translate = true 
 	) {
 		if ( is_null( $this->_data ) ) {
-			$this->_data = get_plugin_data( $this->_file, $markup, $translate );
+			$this->_data = \get_plugin_data( $this->_file, $markup, $translate );
 		};
 	}
 	
@@ -132,6 +132,20 @@ class Base
 	protected
 	// \WPF\v1\Plugin\Component\Collection
 	$components;
+	
+	public
+	function has_component(
+		$component_type // interface id
+	) {
+		$found = false;
+		foreach ( $this->components as $component ) {
+			if ( $component instanceof $component_type ) {
+				$found = true;
+				break;
+			};
+		};
+		return $found;
+	}
 
 	final
 	public

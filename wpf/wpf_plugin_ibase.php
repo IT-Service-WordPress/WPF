@@ -64,7 +64,12 @@ interface IBase {
 
 	public
 	function get_network_support();
-	
+
+	public
+	function has_component(
+		$component_type // interface id
+	);
+
 	public
 	function activate();
 

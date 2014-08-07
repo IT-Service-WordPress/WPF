@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-03 16:28+0400\n"
-"PO-Revision-Date: 2014-08-03 16:28+0400\n"
+"POT-Creation-Date: 2014-08-07 15:31+0400\n"
+"PO-Revision-Date: 2014-08-07 15:33+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -19,7 +19,14 @@ msgstr ""
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpf_php_version_validator.php:26
+#: ../wpf_compatibility_validators.php:77
+#, php-format
+msgid "Plugin \"%1$s\" compatibility check produced errors."
+msgstr ""
+"При проверке требований программной совместимости плагина \"%1$s\" выявлены "
+"ошибки."
+
+#: ../wpf_compatibility_version_php.php:33
 #, php-format
 msgid ""
 "PHP %1$s or newer is required. Current version - %2$s. <a href=\"%3$s"
@@ -28,18 +35,7 @@ msgstr ""
 "Требуется PHP версии %1$s или более поздней. Текущая версия - %2$s. <a href="
 "\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_plugin_factory.php:179
-#, php-format
-msgid "Plugin \"%1$s\" compatibility check produced errors."
-msgstr ""
-"При проверке требований программной совместимости плагина \"%1$s\" выявлены "
-"ошибки."
-
-#: ../wpf_plugin_factory.php:204
-msgid "Plugin <strong>deactivated</strong>."
-msgstr "Плагин <strong>деактивирован</strong>."
-
-#: ../wpf_wp_version_validator.php:26
+#: ../wpf_compatibility_version_wp.php:33
 #, php-format
 msgid ""
 "WordPress %1$s or newer is required. Current version - %2$s. <a href=\"%3$s"
@@ -47,3 +43,17 @@ msgid ""
 msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
+
+#: ../wpf_plugin_base.php:201
+msgid "Plugin <strong>deactivated</strong>."
+msgstr "Плагин <strong>деактивирован</strong>."
+
+#: ../wpf_plugin_component_activable.php:42
+#, php-format
+msgid ""
+"Plugin \"%1$s\" coding error: component <code>%2$s</code> requires <code>"
+"%3$s</code> component in plugin."
+msgstr ""
+"Ошибка в коде плагина \"%1$s\": для компонента <code>%2$s</code> ожидается "
+"наличие компонента с интерфейсом <code>%3$s</code> в плагине. Включите "
+"необходимый компонент в плагин."
