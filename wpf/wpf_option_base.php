@@ -25,6 +25,9 @@ class Base
 
 	protected
 	$option_id;
+
+	protected
+	$option_name;
 	
 	protected
 	$default_value;
@@ -52,6 +55,14 @@ class Base
 	}
 
 	public
+	function get_option_name() {
+		if ( ! $this->option_name ) {
+			$this->option_name = $this->plugin->get_namespace() . '-' . $this->option_id;
+		};
+		return $this->option_name;
+	}
+
+	public
 	function get_value() {
 	}
 
@@ -63,7 +74,7 @@ class Base
 	public
 	function activate() {
 		\add_option(
-			$this->option_id
+			$this->get_option_name()
 			, $this->default_value ? $this->default_value : ''
 			, ''
 			, $this->autoload ? 'yes' : 'no'
@@ -74,7 +85,7 @@ class Base
 	public
 	function deactivate() {
 		\delete_option(
-			$this->option_id
+			$this->get_option_name()
 		);
 		// !!!! netwotk wide ? !!!! delete_site_option
 	}

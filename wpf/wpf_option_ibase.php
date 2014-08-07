@@ -25,6 +25,9 @@ interface IBase
 	function get_option_id();
 
 	public
+	function get_option_name();
+
+	public
 	function get_value();
 
 	public
