@@ -14,7 +14,7 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_version_wp.php'
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_version_php.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
-require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_activator.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_installer.php' );
 
 use \WPF\v1 as WPF;
 
@@ -24,7 +24,7 @@ new WPF\Plugin\Part\Base (
 		, new WPF\Compatibility\Version\PHP( '5.5.0' )
 	)
 	, new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN )
-	, new WPF\Plugin\Component\Activator()
+	, new WPF\Plugin\Component\Installer()
 );
 
 ?>

@@ -28,7 +28,7 @@ class Installable
 	function get_dependencies() {
 		return array_merge(
 			parent::get_dependencies()
-			, array( '\WPF\v1\Plugin\Component\IInstallator' )
+			, array( '\WPF\v1\Plugin\Component\IInstaller' )
 		);
 	}
 
