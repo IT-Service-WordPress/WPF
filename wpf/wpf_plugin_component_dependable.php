@@ -46,7 +46,7 @@ class Dependable
 						__( 'Plugin "%1$s" coding error: component <code>%2$s</code> requires <code>%3$s</code> component in plugin.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 						, $this->plugin->get_title()
 						, \get_class( $this )
-						, 'IActivator'
+						, $dependency
 					)
 					, 'error'
 				);
