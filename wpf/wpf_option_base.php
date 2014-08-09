@@ -73,6 +73,14 @@ class Base
 
 	public
 	function activate() {
+	}
+	
+	public
+	function deactivate() {
+	}
+
+	public
+	function install() {
 		\add_option(
 			$this->get_option_name()
 			, $this->default_value ? $this->default_value : ''
@@ -83,19 +91,11 @@ class Base
 	}
 	
 	public
-	function deactivate() {
+	function uninstall() {
 		\delete_option(
 			$this->get_option_name()
 		);
 		// !!!! netwotk wide ? !!!! delete_site_option
-	}
-
-	public
-	function install() {
-	}
-	
-	public
-	function uninstall() {
 	}
 	
 	public
