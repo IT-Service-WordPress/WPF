@@ -25,7 +25,7 @@ class WP
 	public
 	function validate() {
 		if (
-			version_compare( get_bloginfo( 'version' ), $this->required_version, "<" )
+			version_compare( get_bloginfo( 'version' ), $this->required_version, '<' )
 		) {
 			return new \WP_Error(
 				'error'
