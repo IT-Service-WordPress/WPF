@@ -4,7 +4,7 @@ namespace WPF\v1\Option;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_option_ibase.php' );
-require_once ( 'wpf_plugin_component_installable.php' );
+require_once ( 'wpf_plugin_component_updatable.php' );
 
 /*
 Option descriptor base class.
@@ -18,7 +18,7 @@ Option descriptor base class.
 */
 class Base
 	extends
-		\WPF\v1\Plugin\Component\Installable
+		\WPF\v1\Plugin\Component\Updatable
 	implements
 		IBase
 {
@@ -96,6 +96,13 @@ class Base
 			$this->get_option_name()
 		);
 		// !!!! netwotk wide ? !!!! delete_site_option
+	}
+	
+	public
+	function update(
+		$from_version
+	) {
+		$this->install();
 	}
 	
 	public

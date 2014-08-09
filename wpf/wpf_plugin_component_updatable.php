@@ -3,9 +3,11 @@
 namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_plugin_component_iinstallable.php' );
+require_once ( 'wpf_plugin_component_installable.php' );
+require_once ( 'wpf_plugin_component_iupdatable.php' );
 
 /*
+Updatable components base class.
 
 @since 1.0.0
 
@@ -14,15 +16,13 @@ require_once ( 'wpf_plugin_component_iinstallable.php' );
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-interface IUpdatable
+abstract
+class Updatable
 	extends
-		IInstallable
+		Installable
+	implements
+		IUpdatable
 {
-
-	public
-	function update(
-		$from_version
-	);
 
 }
 ?>

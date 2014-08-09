@@ -25,7 +25,8 @@ use \WPF\v1 as WPF;
 
 new WPF\Plugin\Base (
 	__FILE__
-	, new WPF\Option\Base( 'test-option', 222, false )
+	, new WPF\Option\Base( 'test-option', 111, false )
+	, new WPF\Option\Base( 'second', 222, false )
 //	, new WPF\TextDomain\Plugin( 'wordpress-plugin-template' )
 	
 	, new WPF\Plugin\Part\Load\Admin()
