@@ -31,7 +31,16 @@ class Base
 	}
 	
 	protected
-	$_slug; // plugin_basename( __FILE__ ); !!!!
+	$base_name; // __FILE__;
+
+	final
+	public
+	function get_basename() {
+		return $this->base_name;
+	}
+	
+	protected
+	$_slug; // dirname( plugin_basename( __FILE__ ) );
 
 	public
 	function get_slug() {
@@ -49,13 +58,13 @@ class Base
 	final
 	public
 	function get_dir_path() {
-		return plugin_dir_path( $this->_file );
+		return \plugin_dir_path( $this->_file );
 	}
 
 	final
 	public
 	function get_dir_url() {
-		return plugin_dir_url( $this->_file );
+		return \plugin_dir_url( $this->_file );
 	}
 	
 	final
@@ -63,7 +72,7 @@ class Base
 	function get_file_url(
 		$path // Path to the plugin file of which URL you want to retrieve, relative to the plugin
 	) {
-		return plugins_url( $path, $this->_file );
+		return \plugins_url( $path, $this->_file );
 	}
 	
 	final
@@ -187,7 +196,7 @@ class Base
 		, $priority = 10
 		, $accepted_args = 1
 	) {
-		return add_action(
+		return \add_action(
 			$hook
 			, $function_to_add
 			, $priority
@@ -200,7 +209,7 @@ class Base
 	function register_activation_hook(
 		$function
 	) {
-		return register_activation_hook(
+		return \register_activation_hook(
 			$this->get_file()
 			, $function
 		);
@@ -211,7 +220,18 @@ class Base
 	function register_deactivation_hook(
 		$function
 	) {
-		return register_deactivation_hook(
+		return \register_deactivation_hook(
+			$this->get_file()
+			, $function
+		);
+	}
+
+	final
+	public
+	function register_uninstall_hook(
+		$function
+	) {
+		return \register_uninstall_hook(
 			$this->get_file()
 			, $function
 		);
@@ -226,10 +246,10 @@ class Base
 	public
 	function deactivate() {
 		if ( current_user_can( 'activate_plugins' ) ) {
-			deactivate_plugins( $this->get_file() );
+			\deactivate_plugins( $this->get_file() );
 			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
 			new \WPF\v1\GUI\Notice\Admin(
-				sprintf(
+				\sprintf(
 					__( 'Plugin <strong>deactivated</strong>.' )
 					, $this->get_title()
 				)
@@ -240,7 +260,7 @@ class Base
 	
 	public
 	function get_plugin_load_action_name() {
-		return 'load_' . plugin_basename( $this->get_file() );
+		return 'load_' . $this->get_basename();
 	}
 
 	public
@@ -249,14 +269,13 @@ class Base
 		, /* Component\IBase& */ $components // неопределённое количество компонентов больше одного
 	) {
 		$this->_file = $plugin_file;
+		$this->base_name = plugin_basename( $this->_file );
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
 		$this->_slug = $this->_namespace;
 		$basename = basename( $this->_file, '.php' );
 		if ( 'main' != $basename ) {
 			$this->_slug += '_' . $basename;
 		};
-
-		// register_uninstall_hook   ( $this->plugin_file, array( $this, 'on_uninstall' ) );
 
 		$this->components = new Component\Collection();
 		$this->add_components(

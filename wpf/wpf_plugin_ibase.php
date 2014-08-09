@@ -20,6 +20,9 @@ interface IBase {
 	function get_file();
 
 	public
+	function get_basename();
+	
+	public
 	function get_slug();
 
 	public
@@ -94,5 +97,19 @@ interface IBase {
 		, $accepted_args = 1
 	);
 
+	public
+	function register_activation_hook(
+		$function
+	);
+
+	public
+	function register_deactivation_hook(
+		$function
+	);
+
+	public
+	function register_uninstall_hook(
+		$function
+	);
 }
 ?>
