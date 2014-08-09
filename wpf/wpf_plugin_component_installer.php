@@ -26,10 +26,8 @@ class Installer
 	public
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
-		$this->plugin->add_action(
-			'uninstall_' . $this->plugin->get_basename()
-			, array( $this, 'uninstall' )
-		);
+		$action = 'uninstall_' . $this->plugin->get_basename();
+		\add_action( $action, array( &$this, 'uninstall' ) );
 	}
 	
 	protected
@@ -76,13 +74,17 @@ class Installer
 	function activate() {
 		$prev_version = $this->get_installed_version();
 		if ( ! $prev_version ) {
-			$this->install();
+			$action = 'install_' . $this->plugin->get_basename();
+			\add_action( $action, array( $this, 'install' ) );
+			\do_action( $action );
 		} elseif ( version_compare( 
 			$prev_version
 			, $this->plugin->get_version()
 			, '<' 
 		) ) {
-			$this->update( $prev_version );
+			$action = 'update_' . $this->plugin->get_basename();
+			\add_action( $action, array( $this, 'update' ) );
+			\do_action( $action );
 		};
 		parent::activate();
 	}
@@ -120,11 +122,10 @@ class Installer
 	}
 
 	public
-	function update(
-		$from_version
-	) {
+	function update() {
+		$prev_version = $this->get_installed_version();
 		foreach ( $this->plugin->get_components( '\WPF\v1\Plugin\Component\IUpdatable' ) as $component ) {
-			$component->update( $from_version );
+			$component->update( $prev_version );
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
 		$this->register_installed_version( $this->plugin->get_version() );
