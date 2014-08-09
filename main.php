@@ -11,10 +11,6 @@ Domain Path:		/languages/
 GitHub Plugin URI: 	https://github.com/sergey-s-betke/WordPress-plugin-template
 */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_inc.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_base.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_option_base.php' );

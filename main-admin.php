@@ -3,11 +3,6 @@
 WordPress-plugin-template plugin admin part.
 */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_base.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_validators.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_version_wp.php' );
