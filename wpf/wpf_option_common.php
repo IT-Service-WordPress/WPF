@@ -7,7 +7,7 @@ require_once ( 'wpf_option_ibase.php' );
 require_once ( 'wpf_plugin_component_updatable.php' );
 
 /*
-Option descriptor base class.
+Common (shared, non plugin specific) option descriptor base class.
 
 @since 1.0.0
 
@@ -16,7 +16,7 @@ Option descriptor base class.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class Base
+class Common
 	extends
 		\WPF\v1\Plugin\Component\Updatable
 	implements
@@ -27,9 +27,6 @@ class Base
 	$option_id;
 
 	protected
-	$option_name;
-	
-	protected
 	$default_value;
 
 	protected
@@ -38,7 +35,7 @@ class Base
 
 	public
 	function __construct(
-		$id // option name without plugin prefix
+		$id // option name
 		, $value = null
 		, $autoload = true
 	) {
@@ -56,10 +53,7 @@ class Base
 
 	public
 	function get_option_name() {
-		if ( ! $this->option_name ) {
-			$this->option_name = $this->plugin->get_namespace() . '-' . $this->option_id;
-		};
-		return $this->option_name;
+		return $this->option_id;
 	}
 
 	public
@@ -92,10 +86,6 @@ class Base
 	
 	public
 	function uninstall() {
-		\delete_option(
-			$this->get_option_name()
-		);
-		// !!!! netwotk wide ? !!!! delete_site_option
 	}
 	
 	public
