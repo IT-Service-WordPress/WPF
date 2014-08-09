@@ -190,22 +190,6 @@ class Base
 
 	final
 	public
-	function add_action(
-		$hook
-		, $function_to_add
-		, $priority = 10
-		, $accepted_args = 1
-	) {
-		return \add_action(
-			$hook
-			, $function_to_add
-			, $priority
-			, $accepted_args
-		);
-	}
-
-	final
-	public
 	function register_activation_hook(
 		$function
 	) {

@@ -42,7 +42,7 @@ class Base
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		$this->plugin->add_action( $this->get_load_action_name(), array( $this, 'load' ) ); 
+		\add_action( $this->get_load_action_name(), array( &$this, 'load' ) ); 
 	}
 	
 	final

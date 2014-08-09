@@ -54,7 +54,7 @@ class Validators
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		$this->plugin->add_action( 'admin_init', array( &$this, 'validate_and_deactivate_if_fails' ) ); 
+		\add_action( 'admin_init', array( &$this, 'validate_and_deactivate_if_fails' ) ); 
 	}
 	
 	public

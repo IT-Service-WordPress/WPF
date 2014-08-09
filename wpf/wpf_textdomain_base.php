@@ -42,7 +42,7 @@ class Base
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		$this->plugin->add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) ); 
+		\add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) ); 
 	}
 	
 	abstract

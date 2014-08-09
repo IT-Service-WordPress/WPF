@@ -26,7 +26,7 @@ class Dependable
 	function bind_action_handlers_and_filters() {
 		if ( \WP_DEBUG ) {
 			if ( \is_admin() /* && \current_user_can( 'install_plugins' ) */ ) {
-				$this->plugin->add_action( 'admin_init', array( $this, 'check_dependencies' ) ); 
+				\add_action( 'admin_init', array( &$this, 'check_dependencies' ) ); 
 			};
 		};
 	}
