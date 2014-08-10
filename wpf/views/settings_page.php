@@ -1,6 +1,6 @@
 <div class="wrap"> 
 	<h2><?php echo \esc_html( $this->get_page_title() ); ?></h2> 
-	<form action="<?php echo \admin_url( 'options.php' ); ?>" method="post" enctype="multipart/form-data"> 
+	<form action="<?php echo \self_admin_url( 'options.php' ); ?>" method="post" enctype="multipart/form-data"> 
 	<?php
 		\ob_start(); 
 		\settings_fields( $this->get_page_slug() ); 
