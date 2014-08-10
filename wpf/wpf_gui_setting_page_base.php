@@ -16,6 +16,7 @@ Settings page descriptor base class.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
+abstract
 class Base
 	extends
 		\WPF\v1\Plugin\Component\Base
@@ -35,11 +36,6 @@ class Base
 	}
 
 	public
-	function get_page_title() {
-		return 'page_title';
-	}
-
-	public
 	function get_menu_title() {
 		return $this->get_page_title();
 	}
@@ -47,11 +43,6 @@ class Base
 	public
 	function get_capability() {
 		return 'manage_options';
-	}
-
-	public
-	function get_page_slug() {
-		return 'menu_slug';
 	}
 
 	public

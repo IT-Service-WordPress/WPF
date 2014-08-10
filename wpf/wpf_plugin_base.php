@@ -85,57 +85,62 @@ class Base
 	
 	private
 	$_data;
-	
+
 	private
-	function load_data(
-		$markup = true
-		, $translate = true 
-	) {
+	function load_data() {
 		if ( is_null( $this->_data ) ) {
-			$this->_data = \get_plugin_data( $this->_file, $markup, $translate );
+			$this->_data = array();
+			$this->_data[ false ] = \get_plugin_data( $this->_file, false, true );
+			$this->_data[ true ] = \_get_plugin_data_markup_translate( $this->_file, $this->_data[ false ], true, false );
 		};
 	}
 	
 	public
-	function get_title() {
+	function get_title(
+		$markup = true
+	) {
 		$this->load_data();
-		return $this->_data[ 'Title' ];
+		return $this->_data[ $markup ][ 'Title' ];
 	}
 	
 	public
 	function get_plugin_uri() {
 		$this->load_data();
-		return $this->_data[ 'PluginURI' ];
+		return $this->_data[ false ][ 'PluginURI' ];
 	}
 	
 	public
 	function get_version() {
 		$this->load_data();
-		return $this->_data[ 'Version' ];
+		return $this->_data[ false ][ 'Version' ];
 	}
 	
 	public
-	function get_description() {
+	function get_description(
+		$markup = true
+	) {
 		$this->load_data();
-		return $this->_data[ 'Description' ];
+		return $this->_data[ $markup ][ 'Description' ];
 	}
 	
 	public
-	function get_author_name() {
+	function get_author_name(
+		$markup = true
+	) {
 		$this->load_data();
-		return $this->_data[ 'AuthorName' ];
+		return $this->_data[ $markup ][ 'AuthorName' ];
 	}
 	
 	public
 	function get_author_uri() {
 		$this->load_data();
-		return $this->_data[ 'AuthorURI' ];
+		return $this->_data[ false ][ 'AuthorURI' ];
 	}
 
 	public
 	function get_network_support() {
 		$this->load_data();
-		return $this->_data[ 'Network' ];
+		return $this->_data[ false ][ 'Network' ];
 	}
 	
 	protected
@@ -255,7 +260,7 @@ class Base
 		$this->_file = $plugin_file;
 		$this->base_name = plugin_basename( $this->_file );
 		$this->_namespace = dirname( plugin_basename( $this->_file ) );
-		$this->_slug = $this->_namespace;
+		$this->_slug = \sanitize_title( $this->_namespace );
 		$basename = basename( $this->_file, '.php' );
 		if ( 'main' != $basename ) {
 			$this->_slug += '_' . $basename;
