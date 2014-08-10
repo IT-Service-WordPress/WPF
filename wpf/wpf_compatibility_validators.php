@@ -18,7 +18,6 @@ Software compatibility requirements validators collection.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-final
 class Validators
 	extends
 		\WPF\v1\Plugin\Component\Base
@@ -54,7 +53,7 @@ class Validators
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		$this->plugin->register_activation_hook( array( &$this, 'validate_and_trigger_error' ) );
+		$this->plugin->register_activation_hook( array( &$this, 'require_validation' ) );
 	}
 	
 	public
@@ -81,7 +80,7 @@ class Validators
 	}
 	
 	public
-	function validate_and_trigger_error() {
+	function require_validation() {
 		$errors = $this->validate();
 		if ( is_wp_error( $errors ) ) {
 			require_once ( 'wpf_gui_templates.php' );
