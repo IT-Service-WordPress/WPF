@@ -38,6 +38,7 @@ class Admin {
 		$this->message = $message;
 		$this->message_type = $type;
 		add_action( 'admin_notices', array( &$this, 'display' ) );
+		// !!! multisite - network_admin_nontices, all_admin_notices... !!!
 	}
 
 	private

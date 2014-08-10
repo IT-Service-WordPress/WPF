@@ -14,11 +14,13 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_installer.ph
 use \WPF\v1 as WPF;
 
 new WPF\Plugin\Part\Base (
-	new WPF\Compatibility\Validators (
+	new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN )
+
+	, new WPF\Compatibility\Validators (
 		new WPF\Compatibility\Version\WP( '3.9.0' )
 		, new WPF\Compatibility\Version\PHP( '5.5.0' )
+		, new WPF\Compatibility\Version\PHP( '5.7.0' )
 	)
-	, new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN )
 	, new WPF\Plugin\Component\Installer()
 );
 

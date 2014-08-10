@@ -9,7 +9,7 @@ require_once ( 'wpf_gui_notice_admin.php' );
 require_once ( 'wpf_collection.php' );
 
 /*
-Software compatibility requirements validators collection.
+Software compatibility requirements validators collection, fired on specified action.
 
 @since 1.0.0
 
@@ -19,7 +19,7 @@ Software compatibility requirements validators collection.
 @copyright 2014 ООО "Инженер-53"
 */
 final
-class Validators
+class Validators_On
 	extends
 		\WPF\v1\Plugin\Component\Base
 	implements
@@ -31,14 +31,19 @@ class Validators
 	// \WPF\v1\Collection&
 	$compatibility_requirements;
 
+	protected
+	$action;
+
 	public
 	function __construct (
+		$action = 'admin_init'
 		// IBase&[]
-		$compatibility_requirements
+		, $compatibility_requirements
 	) {
 		parent::__construct();
+		$this->action = $action;
 		$this->compatibility_requirements  = new \WPF\v1\Collection(
-			func_get_args()
+			array_slice( func_get_args(), 1 )
 		);
 	}
 	
@@ -54,7 +59,7 @@ class Validators
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		$this->plugin->register_activation_hook( array( &$this, 'validate_and_trigger_error' ) );
+		\add_action( $this->action, array( &$this, 'validate_and_deactivate_if_fails' ) ); 
 	}
 	
 	public
@@ -71,37 +76,26 @@ class Validators
 			};
 		};
 		if ( $produce_notices and ! $are_meets ) { 
-			$error = sprintf(
-				__( 'Plugin "%1$s" compatibility check produced errors.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-				, $this->plugin->get_title()
+			new \WPF\v1\GUI\Notice\Admin(
+				array_merge(
+					array( sprintf(
+						__( 'Plugin "%1$s" compatibility check produced errors.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+						, $this->plugin->get_title()
+					) )
+					, $errors
+				)
+				, 'error'
 			);
-			$errors = array_merge(
-				array( $error )
-				, $errors
-			);
-			require_once ( 'wpf_gui_templates.php' );
-			$_template_file = \WPF\v1\GUI\locate_template( 'plugin_activation_error.php' );
-			require( $_template_file );
-			
-			set_error_handler( array( &$this, 'error_handler' ) );
-			trigger_error( $error, E_USER_ERROR );
 		};
 		return $are_meets;
 	}
 	
 	public
-	function validate_and_trigger_error() {
-		$this->validate( true );
+	function validate_and_deactivate_if_fails() {
+		if ( ! $this->validate( true ) ) {
+			$this->plugin->deactivate();
+		};
 	}
 
-	public
-	function error_handler( 
-		$errno
-		, $errors
-		, $errfile
-		, $errline
-	) {
-		die();
-	}
 }
 ?>
