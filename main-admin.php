@@ -11,6 +11,7 @@ require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_compatibility_version_php.php
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
 require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_installer.php' );
+require_once (  'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_base.php' );
 
 use \WPF\v1 as WPF;
 
@@ -29,6 +30,8 @@ new WPF\Plugin\Part\Base (
 		new WPF\Compatibility\Version\WP( '3.9.0' )
 		, new WPF\Compatibility\Version\PHP( '5.5.0' )
 	)
+	
+	, new WPF\GUI\Setting\Page\Base()
 
 	, new WPF\Plugin\Component\Installer()
 );
