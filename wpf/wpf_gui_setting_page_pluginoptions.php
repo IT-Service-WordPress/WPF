@@ -56,7 +56,7 @@ class PluginOptions
 				)
 			. '"' 
 			. ' title="' . esc_attr__( 'Settings' )	. '"'
-			. ' class="edit"'
+			. ' class="settings"'
 			. '>'
 			. __( 'Settings' )
 			. '</a>'
