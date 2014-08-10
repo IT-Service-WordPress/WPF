@@ -58,9 +58,7 @@ class Validators
 	}
 	
 	public
-	function validate(
-		$produce_notices = false
-	) {
+	function validate() {
 		$are_meets = true;
 		$errors = new \WP_Error(
 			'error'
@@ -79,26 +77,26 @@ class Validators
 				);
 			};
 		};
-		if ( $produce_notices and ! $are_meets ) { 
-			require_once ( 'wpf_gui_templates.php' );
-			$_template_file = \WPF\v1\GUI\locate_template( 'plugin_activation_error.php' );
-			require( $_template_file );
-			
-			set_error_handler( array( &$this, 'error_handler' ) );
-			trigger_error( $error, E_USER_ERROR );
-		};
 		return $are_meets ? true : $errors;
 	}
 	
 	public
 	function validate_and_trigger_error() {
-		$this->validate( true );
+		$errors = $this->validate();
+		if ( is_wp_error( $errors ) ) {
+			require_once ( 'wpf_gui_templates.php' );
+			$_template_file = \WPF\v1\GUI\locate_template( 'plugin_activation_error.php' );
+			require( $_template_file );
+			
+			set_error_handler( array( &$this, 'error_handler' ) );
+			trigger_error( $errors->get_error_message(), E_USER_ERROR );
+		};
 	}
 
 	public
 	function error_handler( 
 		$errno
-		, $errors
+		, $errmsg
 		, $errfile
 		, $errline
 	) {
