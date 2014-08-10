@@ -24,8 +24,8 @@ p {
 	</style>
 </head>
 <body><?php
-	foreach ( $errors as $error ) {
-		echo '<p>', $error, '</p>';
+	foreach ( $errors->get_error_messages() as $error_msg ) {
+		echo '<p>', $error_msg, '</p>';
 	};
 ?></body>
 </html>

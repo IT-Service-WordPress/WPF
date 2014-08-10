@@ -62,23 +62,24 @@ class Validators
 		$produce_notices = false
 	) {
 		$are_meets = true;
-		$errors = array();
+		$errors = new \WP_Error(
+			'error'
+			, sprintf(
+				__( 'Plugin "%1$s" compatibility check produced errors.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+				, $this->plugin->get_title()
+			)
+		);
 		foreach ( $this->compatibility_requirements as $validator ) {
 			$return = $validator->validate();
 			if ( is_wp_error( $return ) ) {
 				$are_meets = false;
-				array_push( $errors, $return->get_error_message() );
+				$errors->add(
+					$return->get_error_code()
+					, $return->get_error_message()
+				);
 			};
 		};
 		if ( $produce_notices and ! $are_meets ) { 
-			$error = sprintf(
-				__( 'Plugin "%1$s" compatibility check produced errors.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-				, $this->plugin->get_title()
-			);
-			$errors = array_merge(
-				array( $error )
-				, $errors
-			);
 			require_once ( 'wpf_gui_templates.php' );
 			$_template_file = \WPF\v1\GUI\locate_template( 'plugin_activation_error.php' );
 			require( $_template_file );
@@ -86,7 +87,7 @@ class Validators
 			set_error_handler( array( &$this, 'error_handler' ) );
 			trigger_error( $error, E_USER_ERROR );
 		};
-		return $are_meets;
+		return $are_meets ? true : $errors;
 	}
 	
 	public
