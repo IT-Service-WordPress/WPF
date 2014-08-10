@@ -1,6 +1,6 @@
 <?php
 /* 
-Plugin Name:		WordPress-plugin-template
+Plugin Name:		WordPress plugin template
 Plugin URI:			http://sergey-s-betke.blogs.csm.nov.ru/category/web/wordpress/
 Description:		Automatically send HTTP 1.1 headers "Cache-control", "Pragma" and "Expires".
 Version:			0.1.0
