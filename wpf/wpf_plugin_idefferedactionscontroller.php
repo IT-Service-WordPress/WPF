@@ -17,12 +17,10 @@ require_once ( 'wpf_inc.php' );
 interface IDefferedActionsController {
 
 	public
-	function get_deffered_actions();
-
-	public
 	function schedule_deffered_action(
 		$action
-		, $data
+		, $data = true
+		, $ttl = 0
 	);
 
 	public
@@ -36,8 +34,9 @@ interface IDefferedActionsController {
 	);
 
 	public
-	function get_and_reset_deffered_action(
-		$action
+	function run_deffered_actions(
+		$actions // actions names
+		, $reset = false
 	);
 
 }

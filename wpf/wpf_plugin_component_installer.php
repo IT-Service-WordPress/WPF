@@ -104,7 +104,7 @@ class Installer
 		$this->plugin->register_uninstall_hook(
 			array( __CLASS__, '_uninstall' )
 		);
-		$this->plugin->schedule_deffered_action( 'plugin_install', $result );
+		$this->plugin->schedule_deffered_action( 'install', $result );
 	}
 
 	public
@@ -121,7 +121,7 @@ class Installer
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
 		$this->deregister_installed_version();
-		$this->plugin->schedule_deffered_action( 'plugin_uninstall', $result );
+		$this->plugin->schedule_deffered_action( 'uninstall', $result );
 	}
 
 	public
@@ -133,7 +133,16 @@ class Installer
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
 		$this->register_installed_version( $this->plugin->get_version() );
-		$this->plugin->schedule_deffered_action( 'plugin_update', $result );
+		$this->plugin->schedule_deffered_action( 'update', $result );
+	}
+
+	public
+	function run_deffered_actions() {
+		parent::run_deffered_actions();
+		$this->plugin->run_deffered_actions(
+			array( 'install', 'uninstall', 'update' )
+			, true
+		);
 	}
 
 }

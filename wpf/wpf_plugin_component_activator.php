@@ -3,7 +3,7 @@
 namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_plugin_component_defferedactionscontroller.php' );
+require_once ( 'wpf_plugin_component_base.php' );
 require_once ( 'wpf_plugin_component_iactivator.php' );
 
 /*
@@ -18,16 +18,16 @@ Activator component class.
 */
 class Activator
 	extends
-		DefferedActionsController
+		Base
 	implements
 		IActivator
 {
 
 	public
 	function bind_action_handlers_and_filters() {
-		parent::bind_action_handlers_and_filters();
-		$this->plugin->register_activation_hook( array( &$this, 'activate' ) ); 
-		$this->plugin->register_deactivation_hook( array( &$this, 'deactivate' ) ); 
+		$this->plugin->register_activation_hook( array( &$this, 'activate' ) );
+		$this->plugin->register_deactivation_hook( array( &$this, 'deactivate' ) );
+		\add_action( 'admin_init', array( &$this, 'run_deffered_actions' ) );
 	}
 
 	public
@@ -37,7 +37,7 @@ class Activator
 			$component->activate();
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
-		$this->plugin->schedule_deffered_action( 'plugin_activate', $result );
+		$this->plugin->schedule_deffered_action( 'activate', $result );
 	}
 
 	public
@@ -47,7 +47,15 @@ class Activator
 			$component->deactivate();
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
-		$this->plugin->schedule_deffered_action( 'plugin_deactivate', $result );
+		$this->plugin->schedule_deffered_action( 'deactivate', $result );
+	}
+
+	public
+	function run_deffered_actions() {
+		$this->plugin->run_deffered_actions(
+			array( 'activate', 'deactivate' )
+			, true
+		);
 	}
 
 }

@@ -21,6 +21,9 @@ interface IBase
 {
 
 	public
+	function get_parent_slug();
+
+	public
 	function get_page_title();
 
 	public
@@ -33,7 +36,7 @@ interface IBase
 	function get_page_slug();
 
 	public
-	function add_settings_page();
+	function add_submenu_page();
 
 	public
 	function display();

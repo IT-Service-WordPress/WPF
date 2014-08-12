@@ -255,25 +255,24 @@ class Base
 	}
 	
 	public
-	function get_deffered_action_transient_name() {
-		return 'wpf_deffered_actions';
+	function get_deffered_action_transient_name(
+		$action
+	) {
+		return $action . '_' . $this->get_basename();
 	}
 
 	public
 	function schedule_deffered_action(
 		$action
-		, $data
+		, $data = true
+		, $ttl = 0
 	) {
 		// !!! network wide multisite ? !!!
-		$transient_name = $this->get_deffered_action_transient_name();
-		if ( ! $storage = \get_transient( $transient_name ) ) {
-			$storage = array();
-		}
-		$storage[ $this->get_basename() ][ $action ] = $data;
+		$transient_name = $this->get_deffered_action_transient_name( $action );
 		\set_transient(
-			$transient_name
-			, $storage
-			, 5 * MINUTE_IN_SECONDS
+			$this->get_deffered_action_transient_name( $action )
+			, $data
+			, $ttl
 		);
 	}
 
@@ -282,27 +281,9 @@ class Base
 		$action
 	) {
 		// !!! network wide multisite ? !!!
-		$transient_name = $this->get_deffered_action_transient_name();
-		if ( $storage = \get_transient( $transient_name ) ) {
-			if ( array_key_exists( $this->get_basename(), $storage ) ) {
-				if ( array_key_exists( $action, $storage[ $this->get_basename() ] ) ) {
-					return $storage[ $this->get_basename() ][ $action ];
-				};
-			};
-		};
-		return false;
-	}
-
-	public
-	function get_deffered_actions() {
-		// !!! network wide multisite ? !!!
-		$transient_name = $this->get_deffered_action_transient_name();
-		if ( $storage = \get_transient( $transient_name ) ) {
-			if ( array_key_exists( $this->get_basename(), $storage ) ) {
-				return array_keys( $storage[ $this->get_basename() ] );
-			};
-		};
-		return array();
+		return \get_transient(
+			$this->get_deffered_action_transient_name( $action )
+		);
 	}
 
 	public
@@ -310,35 +291,27 @@ class Base
 		$action
 	) {
 		// !!! network wide multisite ? !!!
-		$transient_name = $this->get_deffered_action_transient_name();
-		if ( $storage = \get_transient( $transient_name ) ) {
-			if ( array_key_exists( $this->get_basename(), $storage ) ) {
-				if ( array_key_exists( $action, $storage[ $this->get_basename() ] ) ) {
-					unset( $storage[ $this->get_basename() ][ $action ] );
-				};
-				if ( empty( $storage[ $this->get_basename() ] ) ) {
-					unset( $storage[ $this->get_basename() ] );
-				};
-			};
-			if ( empty( $storage ) ) {
-				\delete_transient( $transient_name );
-			} else {
-				\set_transient(
-					$transient_name
-					, $storage
-					, 5 * MINUTE_IN_SECONDS
-				);
-			};
-		}
+		\delete_transient(
+			$this->get_deffered_action_transient_name( $action )
+		);
 	}
 
 	public
-	function get_and_reset_deffered_action(
-		$action
+	function run_deffered_actions(
+		$actions // actions names
+		, $reset = false
 	) {
-		$result = $this->get_deffered_action( $action );
-		$this->reset_deffered_action( $action );
-		return $result;
+		foreach ( (array) $actions as $action ) {
+			if ( $data = $this->get_deffered_action( $action ) ) {
+				\do_action(
+					'after_' . $action . '_' . $this->get_basename()
+					, $data
+				);
+				if ( $reset ) {
+					$this->reset_deffered_action( $action );
+				};
+			};
+		};
 	}
 
 	public

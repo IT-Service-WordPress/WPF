@@ -34,8 +34,14 @@ class PluginOptions
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
 		\add_action( 'pre_current_active_plugins', array( &$this, '_add_settings_page_link' ) ); 
-		\add_action( 'after_plugin_install_' . $this->plugin->get_basename(), array( &$this, '_add_review_settings_notice' ) ); 
-		\add_action( 'after_plugin_update_' . $this->plugin->get_basename(), array( &$this, '_add_review_settings_notice' ) ); 
+
+		\add_action( 'after_install_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); 
+		\add_action( 'after_update_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); 
+		// \add_action( 'after_activate_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); // just for test
+
+		\add_action( 'after_set_opts_' . $this->plugin->get_basename(), array( &$this, 'add_review_settings_notice' ) ); 
+
+		\add_action( 'admin_init', array( &$this, 'run_deffered_actions' ), 999 );
 	}
 
 	public
@@ -47,22 +53,44 @@ class PluginOptions
 		);
 	}
 
-	protected
-	function get_dependencies() {
-		return array( '\WPF\v1\Plugin\Component\IDefferedActionsController' );
+	public
+	function run_deffered_actions() {
+		$this->plugin->run_deffered_actions( 'set_opts' );
 	}
 
-	final
 	public
-	function _add_review_settings_notice() {
-		new \WPF\v1\GUI\Notice\Admin(
-			sprintf(
-				__( '<a href="%2$s">Review plugin "%1$s" settings</a>. Plugin was installed or updated.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-				, $this->plugin->get_title( false )
-				, $this->get_page_url()
-			)
-			, 'updated'
-		);
+	function schedule_review_settings_notice() {
+		$this->plugin->schedule_deffered_action( 'set_opts', true, 24 * HOUR_IN_SECONDS );
+	}
+
+	public
+	function add_review_settings_notice() {
+		add_action( 'load-plugins.php', array( &$this, 'display_review_settings_notice' ) ); 
+		add_action( 'load-options-general.php', array( &$this, 'display_review_settings_notice' ) ); 
+		add_action( 'load-update-core.php', array( &$this, 'display_review_settings_notice' ) ); 
+		add_action( 'load-index.php', array( &$this, 'display_review_settings_notice' ) ); 
+	}
+
+	public
+	function display_review_settings_notice() {
+		if (
+			\current_user_can( 'manage_options' )
+		) {
+			new \WPF\v1\GUI\Notice\Admin(
+				sprintf(
+					__( '<a href="%2$s">Review plugin "%1$s" settings</a>. Plugin was installed or updated.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+					, $this->plugin->get_title( false )
+					, $this->get_page_url()
+				)
+				, 'updated'
+			);
+		};
+	}
+
+	public
+	function on_page_load() {
+		parent::on_page_load();
+		$this->plugin->reset_deffered_action( 'set_opts' );
 	}
 
 	final
