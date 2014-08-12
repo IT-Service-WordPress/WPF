@@ -4,6 +4,7 @@ namespace WPF\v1\Compatibility;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_compatibility_validators.php' );
+require_once ( 'wpf_gui_notice_admin.php' );
 
 /*
 Software compatibility requirements validators collection, fired on specified action.

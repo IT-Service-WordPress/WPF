@@ -5,7 +5,6 @@ namespace WPF\v1\Compatibility;
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_base.php' );
 require_once ( 'wpf_compatibility_ibase.php' );
-require_once ( 'wpf_gui_notice_admin.php' );
 require_once ( 'wpf_collection.php' );
 
 /*
