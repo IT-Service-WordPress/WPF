@@ -24,20 +24,30 @@ class Admin {
 	protected
 	$message_type;
 
+	protected
+	$predicate;
+
 	public
 	function display() {
-		$_template_file = \WPF\v1\GUI\locate_template( 'admin_notice.php' );
-		require( $_template_file );
+		if (
+			! $this->predicate
+			|| \call_user_func( $this->predicate )
+		) {
+			$_template_file = \WPF\v1\GUI\locate_template( 'admin_notice.php' );
+			require( $_template_file );
+		};
 	}
 	
 	public
 	function __construct (
 		$message
 		, $type = 'updated' // 'updated', 'error', 'update-nag'
+		, callable $predicate = null
 	) {
 		$this->message = $message;
 		$this->message_type = $type;
-		add_action( 'admin_notices', array( &$this, 'display' ) );
+		$this->predicate = $predicate;
+		\add_action( 'admin_notices', array( &$this, 'display' ), 100 );
 		// !!! multisite - network_admin_nontices, all_admin_notices... !!!
 	}
 
