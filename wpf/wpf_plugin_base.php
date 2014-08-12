@@ -4,6 +4,7 @@ namespace WPF\v1\Plugin;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_ibase.php' );
+require_once ( 'wpf_plugin_idefferedactionscontroller.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_plugin_component_collection.php' );
 
@@ -19,6 +20,7 @@ require_once ( 'wpf_plugin_component_collection.php' );
 class Base
 	implements
 		IBase
+		, IDefferedActionsController
 {
 
 	protected
@@ -250,6 +252,93 @@ class Base
 	public
 	function get_plugin_load_action_name() {
 		return 'load_' . $this->get_basename();
+	}
+	
+	public
+	function get_deffered_action_transient_name() {
+		return 'wpf_deffered_actions';
+	}
+
+	public
+	function schedule_deffered_action(
+		$action
+		, $data
+	) {
+		// !!! network wide multisite ? !!!
+		$transient_name = $this->get_deffered_action_transient_name();
+		if ( ! $storage = \get_transient( $transient_name ) ) {
+			$storage = array();
+		}
+		$storage[ $this->get_basename() ][ $action ] = $data;
+		\set_transient(
+			$transient_name
+			, $storage
+			, 5 * MINUTE_IN_SECONDS
+		);
+	}
+
+	public
+	function get_deffered_action(
+		$action
+	) {
+		// !!! network wide multisite ? !!!
+		$transient_name = $this->get_deffered_action_transient_name();
+		if ( $storage = \get_transient( $transient_name ) ) {
+			if ( array_key_exists( $this->get_basename(), $storage ) ) {
+				if ( array_key_exists( $action, $storage[ $this->get_basename() ] ) ) {
+					return $storage[ $this->get_basename() ][ $action ];
+				};
+			};
+		};
+		return false;
+	}
+
+	public
+	function get_deffered_actions() {
+		// !!! network wide multisite ? !!!
+		$transient_name = $this->get_deffered_action_transient_name();
+		if ( $storage = \get_transient( $transient_name ) ) {
+			if ( array_key_exists( $this->get_basename(), $storage ) ) {
+				return array_keys( $storage[ $this->get_basename() ] );
+			};
+		};
+		return array();
+	}
+
+	public
+	function reset_deffered_action(
+		$action
+	) {
+		// !!! network wide multisite ? !!!
+		$transient_name = $this->get_deffered_action_transient_name();
+		if ( $storage = \get_transient( $transient_name ) ) {
+			if ( array_key_exists( $this->get_basename(), $storage ) ) {
+				if ( array_key_exists( $action, $storage[ $this->get_basename() ] ) ) {
+					unset( $storage[ $this->get_basename() ][ $action ] );
+				};
+				if ( empty( $storage[ $this->get_basename() ] ) ) {
+					unset( $storage[ $this->get_basename() ] );
+				};
+			};
+			if ( empty( $storage ) ) {
+				\delete_transient( $transient_name );
+			} else {
+				\set_transient(
+					$transient_name
+					, $storage
+					, 5 * MINUTE_IN_SECONDS
+				);
+			};
+		}
+	}
+
+	public
+	function get_and_reset_deffered_action(
+		$action
+	) {
+		$result = $this->get_deffered_action( $action );
+		$this->reset_deffered_action( $action );
+		return $result;
 	}
 
 	public
