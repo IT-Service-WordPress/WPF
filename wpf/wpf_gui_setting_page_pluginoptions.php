@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_base.php' );
+require_once ( 'wpf_gui_notice_admin.php' );
 
 /*
 Plugin settings page descriptor base class.
@@ -22,14 +23,46 @@ class PluginOptions
 
 	public
 	function __construct(
+		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 	) {
-		parent::__construct();
+		parent::__construct(
+			func_get_args()
+		);
 	}
 
 	public
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
 		\add_action( 'pre_current_active_plugins', array( &$this, '_add_settings_page_link' ) ); 
+		\add_action( 'after_plugin_install_' . $this->plugin->get_basename(), array( &$this, '_add_review_settings_notice' ) ); 
+		\add_action( 'after_plugin_update_' . $this->plugin->get_basename(), array( &$this, '_add_review_settings_notice' ) ); 
+	}
+
+	public
+	function get_page_url() {
+		return add_query_arg(
+			'page'
+			, $this->get_page_slug()
+			, \self_admin_url( 'options-general.php' )
+		);
+	}
+
+	protected
+	function get_dependencies() {
+		return array( '\WPF\v1\Plugin\Component\IDefferedActionsController' );
+	}
+
+	final
+	public
+	function _add_review_settings_notice() {
+		new \WPF\v1\GUI\Notice\Admin(
+			sprintf(
+				__( '<a href="%2$s">Review plugin "%1$s" settings</a>. Plugin was installed or updated.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+				, $this->plugin->get_title( false )
+				, $this->get_page_url()
+			)
+			, 'updated'
+		);
 	}
 
 	final
@@ -49,11 +82,7 @@ class PluginOptions
 	) { 
 		$settings_link =
 			'<a href="'
-				. add_query_arg(
-					'page'
-					, $this->plugin->get_slug()
-					, \self_admin_url( 'options-general.php' )
-				)
+			. $this->get_page_url()
 			. '"' 
 			. ' title="' . esc_attr__( 'Settings' )	. '"'
 			. ' class="settings"'
