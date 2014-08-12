@@ -26,8 +26,7 @@ class Installer
 	public
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
-		$action = 'uninstall_' . $this->plugin->get_basename();
-		\add_action( $action, array( &$this, 'uninstall' ) );
+		\add_action( 'uninstall_' . $this->plugin->get_basename(), array( &$this, 'uninstall' ) );
 	}
 	
 	protected
@@ -96,6 +95,7 @@ class Installer
 	
 	public
 	function install() {
+		$result = new \WP_Error();
 		foreach ( $this->plugin->get_components( '\WPF\v1\Plugin\Component\IInstallable' ) as $component ) {
 			$component->install();
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
@@ -103,7 +103,8 @@ class Installer
 		$this->register_installed_version( $this->plugin->get_version() );
 		$this->plugin->register_uninstall_hook(
 			array( __CLASS__, '_uninstall' )
-		); 
+		);
+		$this->plugin->schedule_deffered_action( 'plugin_install', $result );
 	}
 
 	public
@@ -114,21 +115,25 @@ class Installer
 	
 	public
 	function uninstall() {
+		$result = new \WP_Error();
 		foreach ( $this->plugin->get_components( '\WPF\v1\Plugin\Component\IInstallable' ) as $component ) {
 			$component->uninstall();
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
 		$this->deregister_installed_version();
+		$this->plugin->schedule_deffered_action( 'plugin_uninstall', $result );
 	}
 
 	public
 	function update() {
+		$result = new \WP_Error();
 		$prev_version = $this->get_installed_version();
 		foreach ( $this->plugin->get_components( '\WPF\v1\Plugin\Component\IUpdatable' ) as $component ) {
 			$component->update( $prev_version );
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
 		$this->register_installed_version( $this->plugin->get_version() );
+		$this->plugin->schedule_deffered_action( 'plugin_update', $result );
 	}
 
 }
