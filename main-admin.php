@@ -46,7 +46,17 @@ new WPF\Plugin\Part\Base (
 */
 		)
 		, new WPF\GUI\Setting\Page\Section\Base( 'id2', 'Второй раздел'
-			, new WPF\GUI\Setting\Page\Control\Input( 'test-option' )
+			, new WPF\GUI\Setting\Page\Control\Input(
+				'test-option'
+				, 'test-option'
+				, 'Опция тест'
+				, 'Подробное описание опции.'
+			)
+			, new WPF\GUI\Setting\Page\Control\Input(
+				'test-id-2'
+				, 'second'
+				, 'Опция second'
+			)
 		)
 		, 'id3'
 	)

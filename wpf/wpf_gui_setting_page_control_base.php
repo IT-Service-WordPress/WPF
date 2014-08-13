@@ -29,6 +29,12 @@ class Base
 	$option_name;
 
 	protected
+	$title;
+
+	protected
+	$description;
+
+	protected
 	// \WPF\v1\GUI\Setting\Page\Section\IBase&
 	$section;
 
@@ -36,13 +42,13 @@ class Base
 	function __construct(
 		$id
 		, $option_name = null
+		, $title = null
+		, $description = null
 	) {
 		$this->id = $id;
-		if ( $option_name ) {
-			$this->option_name = $option_name;
-		} else {
-			$this->option_name = $id;
-		};
+		$this->option_name = $option_name ? $option_name : $id;
+		$this->title = $title ? $title : $this->option_name;
+		$this->description = $description;
 	}
 
 	public
@@ -64,7 +70,12 @@ class Base
 
 	public
 	function get_label() {
-		return 'test label';
+		return $this->title;
+	}
+
+	public
+	function get_description() {
+		return $this->description;
 	}
 
 	public
