@@ -18,6 +18,12 @@ interface IBase
 {
 
 	public
+	function get_id();
+
+	public
+	function get_label();
+
+	public
 	function display();
 
 }

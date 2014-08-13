@@ -22,8 +22,24 @@ class Base
 		IBase
 {
 
+	protected
+	$id;
+
 	public
-	function __construct() {
+	function __construct(
+		$id = ''
+	) {
+		$this->id = $id;
+	}
+
+	public
+	function get_id() {
+		return $this->id;
+	}
+
+	public
+	function get_label() {
+		return '';
 	}
 
 }

@@ -1,0 +1,1 @@
+<input id="<?php echo esc_attr( $this->get_id() ); ?>" name="<?php echo esc_attr( $this->get_option_name() ); ?>" class="regular-text" type="text" value="<?php echo esc_attr( $this->get_option_value() ); ?>"></input>

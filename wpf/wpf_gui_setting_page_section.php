@@ -113,9 +113,8 @@ class Section
 
 	public
 	function display() {
-		foreach ( $this->controls as $control ) {
-			$control->display();
-		};
+		$_template_file = \WPF\v1\GUI\locate_template( 'settings_page-section.php' );
+		require( $_template_file );
 	}
 
 }
