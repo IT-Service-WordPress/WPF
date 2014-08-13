@@ -13,8 +13,8 @@ GitHub Plugin URI: 	https://github.com/sergey-s-betke/WordPress-plugin-template
 
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_inc.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_base.php' );
-require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_option_pluginoption.php' );
-require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_option_common.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_setting_base.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_setting_pluginsetting.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_load_admin.php' );
 // require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 
@@ -24,8 +24,8 @@ new WPF\Plugin\Base (
 	__FILE__
 //	, new WPF\TextDomain\Plugin( 'wordpress-plugin-template' )
 
-	, new WPF\Option\PluginOption( 'test-option', 111, false )
-	, new WPF\Option\Common( 'second', 222, false )
+	, new WPF\Setting\Base( 'test-option', 111, false )
+	, new WPF\Setting\Base( 'second', 222, false )
 	
 	, new WPF\Plugin\Part\Load\Admin()
 );

@@ -1,12 +1,12 @@
 <?php 
 
-namespace WPF\v1\Option;
+namespace WPF\v1\Setting;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_iinstallable.php' );
 
 /*
-Option descriptor interface.
+Setting descriptor interface.
 
 @since 1.0.0
 

@@ -1,13 +1,13 @@
 <?php 
 
-namespace WPF\v1\Option;
+namespace WPF\v1\Setting;
 
 require_once ( 'wpf_inc.php' );
-require_once ( 'wpf_option_ibase.php' );
+require_once ( 'wpf_setting_ibase.php' );
 require_once ( 'wpf_plugin_component_updatable.php' );
 
 /*
-Common (shared, non plugin specific) option descriptor base class.
+Setting descriptor class.
 
 @since 1.0.0
 
@@ -16,7 +16,7 @@ Common (shared, non plugin specific) option descriptor base class.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class Common
+class Base
 	extends
 		\WPF\v1\Plugin\Component\Updatable
 	implements
@@ -33,6 +33,9 @@ class Common
 	// bool
 	$autoload;
 
+	protected
+	$option_name;
+
 	public
 	function __construct(
 		$id // option name
@@ -46,7 +49,12 @@ class Common
 	}
 
 	public
-	// string
+	function bind_action_handlers_and_filters() {
+		parent::bind_action_handlers_and_filters();
+		// \add_action( 'admin_init', array( &$this, 'register_setting' ) );
+	}
+
+	public
 	function get_option_id() {
 		return $this->option_id;
 	}
@@ -61,7 +69,6 @@ class Common
 	}
 
 	public
-	// return error, if sanitize callback return error, or true
 	function set_value() {
 	}
 
@@ -86,18 +93,26 @@ class Common
 	
 	public
 	function uninstall() {
+		\delete_option(
+			$this->get_option_name()
+		);
+		// !!!! netwotk wide ? !!!! delete_site_option
 	}
-	
+
 	public
 	function update(
 		$from_version
 	) {
 		$this->install();
 	}
-	
+
 	public
-	function bind_action_handlers_and_filters() {
-		parent::bind_action_handlers_and_filters();
+	function register_setting() {
+		\register_setting(
+			'my_options_group'
+			, 'my_option_name'
+			, 'intval'
+		);
 	}
 
 }
