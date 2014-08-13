@@ -69,7 +69,7 @@ class Base
 
 	public
 	function get_option_value() {
-		return 'test value';
+		return \get_option( $this->get_option_name() );
 	}
 
 	public
