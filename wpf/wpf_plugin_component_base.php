@@ -29,10 +29,12 @@ class Base
 	private
 	function __clone() {}
 
-    private
-	function __sleep() {}
+	private
+	function __sleep() {
+		return array();
+	}
 
-    private
+	private
 	function __wakeup() {}
 
 	protected

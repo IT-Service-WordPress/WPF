@@ -4,7 +4,6 @@ namespace WPF\v1\Plugin;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_ibase.php' );
-require_once ( 'wpf_plugin_idefferedactionscontroller.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_plugin_component_collection.php' );
 
@@ -20,7 +19,6 @@ require_once ( 'wpf_plugin_component_collection.php' );
 class Base
 	implements
 		IBase
-		, IDefferedActionsController
 {
 
 	protected
@@ -157,7 +155,7 @@ class Base
 			foreach ( $components as $component ) {
 				$this->add_components( $component );
 			};
-		} else {
+		} elseif ( ! is_null ( $components ) ) {
 			$this->components->add( $components );
 			$components->bind( $this );
 			$components->bind_action_handlers_and_filters();
@@ -255,66 +253,6 @@ class Base
 	}
 	
 	public
-	function get_deffered_action_transient_name(
-		$action
-	) {
-		return $action . '_' . $this->get_basename();
-	}
-
-	public
-	function schedule_deffered_action(
-		$action
-		, $data = true
-		, $ttl = 0
-	) {
-		// !!! network wide multisite ? !!!
-		$transient_name = $this->get_deffered_action_transient_name( $action );
-		\set_transient(
-			$this->get_deffered_action_transient_name( $action )
-			, $data
-			, $ttl
-		);
-	}
-
-	public
-	function get_deffered_action(
-		$action
-	) {
-		// !!! network wide multisite ? !!!
-		return \get_transient(
-			$this->get_deffered_action_transient_name( $action )
-		);
-	}
-
-	public
-	function reset_deffered_action(
-		$action
-	) {
-		// !!! network wide multisite ? !!!
-		\delete_transient(
-			$this->get_deffered_action_transient_name( $action )
-		);
-	}
-
-	public
-	function run_deffered_actions(
-		$actions // actions names
-		, $reset = false
-	) {
-		foreach ( (array) $actions as $action ) {
-			if ( $data = $this->get_deffered_action( $action ) ) {
-				\do_action(
-					'after_' . $action . '_' . $this->get_basename()
-					, $data
-				);
-				if ( $reset ) {
-					$this->reset_deffered_action( $action );
-				};
-			};
-		};
-	}
-
-	public
 	function __construct( 
 		$plugin_file
 		, /* Component\IBase& */ $components // неопределённое количество компонентов больше одного
@@ -339,8 +277,10 @@ class Base
 	private
 	function __clone() {}
 
-    private
-	function __sleep() {}
+	private
+	function __sleep() {
+		return array();
+	}
 
     private
 	function __wakeup() {}

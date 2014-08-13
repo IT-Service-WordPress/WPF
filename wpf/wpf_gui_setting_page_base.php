@@ -84,6 +84,14 @@ class Base
 	function get_capability() {
 		return 'manage_options';
 	}
+
+	public
+	function get_page_hookname() {
+		return get_plugin_page_hookname(
+			$this->get_page_slug()
+			, $this->get_parent_slug()
+		);
+	}
 	
 	public
 	function add_submenu_page() {

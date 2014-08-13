@@ -27,7 +27,6 @@ class Activator
 	function bind_action_handlers_and_filters() {
 		$this->plugin->register_activation_hook( array( &$this, 'activate' ) );
 		$this->plugin->register_deactivation_hook( array( &$this, 'deactivate' ) );
-		\add_action( 'admin_init', array( &$this, 'run_deffered_actions' ) );
 	}
 
 	public
@@ -37,7 +36,7 @@ class Activator
 			$component->activate();
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
-		$this->plugin->schedule_deffered_action( 'activate', $result );
+		\do_action( 'after_activate_' . $this->plugin->get_basename(), $result );
 	}
 
 	public
@@ -47,15 +46,7 @@ class Activator
 			$component->deactivate();
 			// !!!! error handling ? !!!!, if WP_DEBUG ?
 		};
-		$this->plugin->schedule_deffered_action( 'deactivate', $result );
-	}
-
-	public
-	function run_deffered_actions() {
-		$this->plugin->run_deffered_actions(
-			array( 'activate', 'deactivate' )
-			, true
-		);
+		\do_action( 'after_deactivate_' . $this->plugin->get_basename(), $result );
 	}
 
 }

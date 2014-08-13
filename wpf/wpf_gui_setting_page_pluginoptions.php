@@ -4,7 +4,7 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_base.php' );
-require_once ( 'wpf_gui_notice_admin.php' );
+require_once ( 'wpf_plugin_component_todo.php' );
 
 /*
 Plugin settings page descriptor base class.
@@ -38,10 +38,6 @@ class PluginOptions
 		\add_action( 'after_install_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); 
 		\add_action( 'after_update_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); 
 		// \add_action( 'after_activate_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); // just for test
-
-		\add_action( 'after_set_opts_' . $this->plugin->get_basename(), array( &$this, 'add_review_settings_notice' ) ); 
-
-		\add_action( 'admin_init', array( &$this, 'run_deffered_actions' ), 999 );
 	}
 
 	public
@@ -54,43 +50,24 @@ class PluginOptions
 	}
 
 	public
-	function run_deffered_actions() {
-		$this->plugin->run_deffered_actions( 'set_opts' );
-	}
-
-	public
 	function schedule_review_settings_notice() {
-		$this->plugin->schedule_deffered_action( 'set_opts', true, 24 * HOUR_IN_SECONDS );
-	}
-
-	public
-	function add_review_settings_notice() {
-		add_action( 'load-plugins.php', array( &$this, 'display_review_settings_notice' ) ); 
-		add_action( 'load-options-general.php', array( &$this, 'display_review_settings_notice' ) ); 
-		add_action( 'load-update-core.php', array( &$this, 'display_review_settings_notice' ) ); 
-		add_action( 'load-index.php', array( &$this, 'display_review_settings_notice' ) ); 
-	}
-
-	public
-	function display_review_settings_notice() {
-		if (
-			\current_user_can( 'manage_options' )
-		) {
-			new \WPF\v1\GUI\Notice\Admin(
+		$this->plugin->add_components(
+			new \WPF\v1\Plugin\Component\ToDo(
 				sprintf(
 					__( '<a href="%2$s">Review plugin "%1$s" settings</a>. Plugin was installed or updated.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $this->plugin->get_title( false )
 					, $this->get_page_url()
 				)
-				, 'updated'
-			);
-		};
-	}
-
-	public
-	function on_page_load() {
-		parent::on_page_load();
-		$this->plugin->reset_deffered_action( 'set_opts' );
+				, array(
+					'plugins.php'
+					, 'options-general.php'
+					, 'update-core.php'
+					, 'index.php'
+				)
+				, 'manage_options'
+				, $this->get_page_hookname()
+			)
+		);
 	}
 
 	final

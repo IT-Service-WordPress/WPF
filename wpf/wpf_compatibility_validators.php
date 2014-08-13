@@ -40,15 +40,6 @@ class Validators
 		);
 	}
 	
-	private
-	function __clone() {}
-
-    private
-	function __sleep() {}
-
-    private
-	function __wakeup() {}
-	
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();

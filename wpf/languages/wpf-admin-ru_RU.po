@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-12 19:30+0400\n"
-"PO-Revision-Date: 2014-08-12 19:31+0400\n"
+"POT-Creation-Date: 2014-08-13 06:47+0400\n"
+"PO-Revision-Date: 2014-08-13 06:47+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -19,7 +19,7 @@ msgstr ""
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../wpf_compatibility_validators.php:64
+#: ../wpf_compatibility_validators.php:55
 #, php-format
 msgid "Plugin \"%1$s\" compatibility check produced errors."
 msgstr ""
@@ -44,7 +44,7 @@ msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_gui_setting_page_pluginoptions.php:80
+#: ../wpf_gui_setting_page_pluginoptions.php:57
 #, php-format
 msgid ""
 "<a href=\"%2$s\">Review plugin \"%1$s\" settings</a>. Plugin was installed "
@@ -53,12 +53,12 @@ msgstr ""
 "<a href=\"%2$s\">Проверьте настройки плагина \"%1$s\"</a>. Указанный плагин "
 "был недавно установлен или обновлён."
 
-#: ../wpf_gui_setting_page_pluginoptions.php:114
-#: ../wpf_gui_setting_page_pluginoptions.php:117
+#: ../wpf_gui_setting_page_pluginoptions.php:92
+#: ../wpf_gui_setting_page_pluginoptions.php:95
 msgid "Settings"
 msgstr ""
 
-#: ../wpf_plugin_base.php:244
+#: ../wpf_plugin_base.php:242
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 
