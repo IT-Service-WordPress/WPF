@@ -1,5 +1,3 @@
-<p> 
-	<?php
-		echo $this->get_text();
-	?>
-</p>
+<?php
+	echo $this->get_text();
+?>
