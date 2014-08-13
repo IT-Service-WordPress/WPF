@@ -107,7 +107,7 @@ class DynamicController
 
 	public
 	function get_transient_name() {
-		return 'dyn_comps_' . $this->plugin->get_basename();
+		return $this->plugin->get_namespace() . '-dyn_comps';
 	}
 
 	public
