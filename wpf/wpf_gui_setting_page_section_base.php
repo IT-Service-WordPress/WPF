@@ -109,12 +109,14 @@ class Base
 			, array( &$this, 'display' )
 			, $this->get_page_slug()
 		);
+		foreach ( $this->controls as $control ) {
+			$control->bind_to_page_section( $this );
+			$control->add_settings_field();
+		};
 	}
 
 	public
 	function display() {
-		$_template_file = \WPF\v1\GUI\locate_template( 'settings_page-section-base.php' );
-		require( $_template_file );
 	}
 
 }

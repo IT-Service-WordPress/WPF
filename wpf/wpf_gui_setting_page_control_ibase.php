@@ -21,10 +21,12 @@ interface IBase
 	function get_id();
 
 	public
-	function get_label();
+	function bind_to_page_section(
+		\WPF\v1\GUI\Setting\Page\Section\IBase& $section
+	);
 
 	public
-	function display();
+	function add_settings_field();
 
 }
 ?>

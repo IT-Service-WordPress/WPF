@@ -25,11 +25,31 @@ class Base
 	protected
 	$id;
 
+	protected
+	$option_name;
+
+	protected
+	// \WPF\v1\GUI\Setting\Page\Section\IBase&
+	$section;
+
 	public
 	function __construct(
-		$id = ''
+		$id
+		, $option_name = null
 	) {
 		$this->id = $id;
+		if ( $option_name ) {
+			$this->option_name = $option_name;
+		} else {
+			$this->option_name = $id;
+		};
+	}
+
+	public
+	function bind_to_page_section(
+		\WPF\v1\GUI\Setting\Page\Section\IBase& $section
+	) {
+		$this->section = $section;
 	}
 
 	public
@@ -38,8 +58,30 @@ class Base
 	}
 
 	public
+	function get_option_name() {
+		return $this->option_name;
+	}
+
+	public
 	function get_label() {
-		return '';
+		return 'test label';
+	}
+
+	public
+	function get_option_value() {
+		return 'test value';
+	}
+
+	public
+	function add_settings_field() {
+		\add_settings_field(
+			$this->get_id()
+			, $this->get_label()
+			, array( &$this, 'display' )
+			, $this->section->get_page_slug()
+			, $this->section->get_id()
+			, array( 'label_for' => $this->get_id() )
+		);
 	}
 
 }
