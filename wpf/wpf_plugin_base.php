@@ -90,6 +90,7 @@ class Base
 	function load_data() {
 		if ( is_null( $this->_data ) ) {
 			$this->_data = array();
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			$this->_data[ false ] = \get_plugin_data( $this->_file, false, true );
 			$this->_data[ true ] = \_get_plugin_data_markup_translate( $this->_file, $this->_data[ false ], true, false );
 		};
