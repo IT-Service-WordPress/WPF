@@ -37,6 +37,9 @@ interface IBase
 	function get_page_slug();
 
 	public
+	function get_option_group();
+
+	public
 	function get_page_hookname();
 
 	public

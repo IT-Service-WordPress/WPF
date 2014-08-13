@@ -116,6 +116,11 @@ class Base
 	}
 
 	public
+	function get_option_group() {
+		return $this->plugin->get_namespace();
+	}
+
+	public
 	function get_parent_slug() {
 		return 'options-general.php';
 	}

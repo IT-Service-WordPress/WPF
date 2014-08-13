@@ -3,7 +3,7 @@
 	<form action="<?php echo \self_admin_url( 'options.php' ); ?>" method="post" enctype="multipart/form-data"> 
 	<?php
 		\ob_start(); 
-		\settings_fields( $this->get_page_slug() ); 
+		\settings_fields( $this->get_option_group() ); 
 		\do_settings_sections( $this->get_page_slug() ); 
 		\submit_button();
 		echo \ob_get_clean();
