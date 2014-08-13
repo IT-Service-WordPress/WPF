@@ -24,7 +24,10 @@ class Base
 {
 
 	protected
-	$option_id;
+	$option_group;
+
+	protected
+	$option_name;
 
 	protected
 	$default_value;
@@ -34,34 +37,43 @@ class Base
 	$autoload;
 
 	protected
-	$option_name;
+	$sanitize_callback;
 
 	public
 	function __construct(
-		$id // option name
-		, $value = null
+		$option_group
+		, $option_name
+		, $default_value = null
 		, $autoload = true
+		, callable $sanitize_callback = null
 	) {
 		parent::__construct();
-		$this->option_id = $id;
-		$this->default_value = $value;
+		$this->option_group = $option_group;
+		$this->option_name = $option_name;
+		$this->default_value = $default_value;
 		$this->autoload = $autoload;
+		$this->sanitize_callback = $sanitize_callback;
 	}
 
 	public
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
-		// \add_action( 'admin_init', array( &$this, 'register_setting' ) );
+		\add_action( 'admin_init', array( &$this, 'register_setting' ) );
 	}
 
 	public
-	function get_option_id() {
-		return $this->option_id;
+	function get_option_group() {
+		return $this->option_group;
 	}
 
 	public
 	function get_option_name() {
-		return $this->option_id;
+		return $this->option_name;
+	}
+
+	public
+	function get_sanitize_callback() {
+		return $this->sanitize_callback ? $this->sanitize_callback : '';
 	}
 
 	public
@@ -78,6 +90,7 @@ class Base
 	
 	public
 	function deactivate() {
+		$this->unregister_setting();
 	}
 
 	public
@@ -109,9 +122,18 @@ class Base
 	public
 	function register_setting() {
 		\register_setting(
-			'my_options_group'
-			, 'my_option_name'
-			, 'intval'
+			$this->get_option_group()
+			, $this->get_option_name()
+			, $this->get_sanitize_callback()
+		);
+	}
+
+	public
+	function unregister_setting() {
+		\unregister_setting(
+			$this->get_option_group()
+			, $this->get_option_name()
+			, $this->get_sanitize_callback()
 		);
 	}
 

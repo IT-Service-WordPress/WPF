@@ -22,30 +22,23 @@ class PluginSetting
 
 	public
 	function __construct(
-		$id // option name without plugin prefix
-		, $value = null
+		$option_name
+		, $default_value = null
 		, $autoload = true
+		, callable $sanitize_callback = null
 	) {
 		parent::__construct(
-			$id
-			, $value
+			''
+			, $option_name
+			, $default_value
 			, $autoload
+			, $sanitize_callback
 		);
-	}
-	
-	public
-	function bind_action_handlers_and_filters() {
-		parent::bind_action_handlers_and_filters();
-		// \add_action( 'admin_init', array( &$this, 'register_setting' ) );
 	}
 
 	public
-	function register_setting() {
-		\register_setting(
-			'my_options_group'
-			, 'my_option_name'
-			, 'intval'
-		);
+	function get_option_group() {
+		return $this->plugin->get_namespace();
 	}
 
 }

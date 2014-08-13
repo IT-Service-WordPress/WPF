@@ -21,18 +21,25 @@ interface IBase
 {
 
 	public
-	// string
-	function get_option_id();
+	function get_option_group();
 
 	public
 	function get_option_name();
 
 	public
+	function get_sanitize_callback();
+
+	public
 	function get_value();
 
 	public
-	// return error, if sanitize callback return error, or true
 	function set_value();
+
+	public
+	function register_setting();
+
+	public
+	function unregister_setting();
 
 }
 ?>

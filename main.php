@@ -24,8 +24,8 @@ new WPF\Plugin\Base (
 	__FILE__
 //	, new WPF\TextDomain\Plugin( 'wordpress-plugin-template' )
 
-	, new WPF\Setting\Base( 'test-option', 111, false )
-	, new WPF\Setting\Base( 'second', 222, false )
+	, new WPF\Setting\PluginSetting( 'test-option', 111, false )
+	, new WPF\Setting\PluginSetting( 'second', 222, false )
 	
 	, new WPF\Plugin\Part\Load\Admin()
 );
