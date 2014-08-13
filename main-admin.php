@@ -12,7 +12,7 @@ require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_installer.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_pluginoptions.php' );
-require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_section.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_section_base.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_control_text.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_control_input.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_dynamiccontroller.php' );
@@ -37,7 +37,7 @@ new WPF\Plugin\Part\Base (
 	)
 	
 	, new WPF\GUI\Setting\Page\PluginOptions(
-		new WPF\GUI\Setting\Page\Section( 'id1', 'Первый раздел'
+		new WPF\GUI\Setting\Page\Section\Base( 'id1', 'Первый раздел'
 			, new WPF\GUI\Setting\Page\Control\Text(
 				'Такой вот очень длинный текст. Такой вот очень длинный текст. Такой вот очень длинный текст. Такой вот очень длинный текст. ' 
 				. 'Такой вот очень длинный текст. Такой вот очень длинный текст. Такой вот очень длинный текст. Такой вот очень длинный текст. ' 
@@ -53,12 +53,12 @@ new WPF\Plugin\Part\Base (
 				. 'Такой вот очень длинный текст. Такой вот очень длинный текст. Такой вот очень длинный текст. Такой вот очень длинный текст. !!!!!' 
 			)
 		)
-		, new WPF\GUI\Setting\Page\Section( 'id2', 'Второй раздел'
+		, new WPF\GUI\Setting\Page\Section\Base( 'id2', 'Второй раздел'
 			, new WPF\GUI\Setting\Page\Control\Input( 'test-option' )
 		)
 		, 'id3'
 	)
-	, new WPF\GUI\Setting\Page\Section( 'id3', 'Третий раздел' )
+	, new WPF\GUI\Setting\Page\Section\Base( 'id3', 'Третий раздел' )
 
 	, new WPF\Plugin\Component\Installer()
 	, new WPF\Plugin\Component\DynamicController()

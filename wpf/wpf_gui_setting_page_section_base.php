@@ -1,10 +1,10 @@
 <?php 
 
-namespace WPF\v1\GUI\Setting\Page;
+namespace WPF\v1\GUI\Setting\Page\Section;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
-require_once ( 'wpf_gui_setting_page_isection.php' );
+require_once ( 'wpf_gui_setting_page_section_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
 require_once ( 'wpf_gui_setting_page_control_ibase.php' );
 
@@ -18,15 +18,15 @@ Settings page section descriptor base class.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class Section
+class Base
 	extends
 		\WPF\v1\Plugin\Component\Base
 	implements
-		ISection
+		IBase
 {
 
 	protected
-	// IBase&
+	// WPF\v1\GUI\Setting\Page\IBase&
 	$page;
 
 	protected
@@ -36,12 +36,12 @@ class Section
 	$title;
 	
 	protected
-	// Control\IBase&[]
+	// WPF\v1\GUI\Setting\Page\Control\IBase&[]
 	$controls;
 	
 	public
 	function add_controls(
-		// произвольное количество Control\IBase&.
+		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
 		$controls
 	) {
 		if ( is_array( $controls ) || ( $controls instanceof \Traversable ) ) {
@@ -81,7 +81,7 @@ class Section
 	
 	public
 	function bind_to_page(
-		IBase& $page
+		\WPF\v1\GUI\Setting\Page\IBase& $page
 	) {
 		$this->page = $page;
 	}

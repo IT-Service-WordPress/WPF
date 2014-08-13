@@ -1,6 +1,6 @@
 <?php 
 
-namespace WPF\v1\GUI\Setting\Page;
+namespace WPF\v1\GUI\Setting\Page\Section;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
@@ -16,14 +16,14 @@ Settings page section descriptor interface.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-interface ISection
+interface IBase
 	extends
 		\WPF\v1\Plugin\Component\IBase
 {
 
 	public
 	function bind_to_page(
-		IBase& $page
+		\WPF\v1\GUI\Setting\Page\IBase& $page
 	);
 
 	public
@@ -43,7 +43,7 @@ interface ISection
 
 	public
 	function add_controls(
-		// произвольное количество Control\IBase&.
+		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
 		$controls
 	);
 

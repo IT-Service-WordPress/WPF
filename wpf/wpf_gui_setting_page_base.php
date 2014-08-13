@@ -4,7 +4,7 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
-require_once ( 'wpf_gui_setting_page_isection.php' );
+require_once ( 'wpf_gui_setting_page_section_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
 
 /*
@@ -30,15 +30,15 @@ class Base
 	
 	public
 	function add_sections(
-		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
-		/* ISection& */ $sections
+		// произвольное количество Section\IBase или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
+		/* Section\IBase& */ $sections
 	) {
 		if ( is_array( $sections ) || ( $sections instanceof \Traversable ) ) {
 			foreach ( $sections as $section ) {
 				$this->add_sections( $section );
 			};
 		} else {
-			if ( $sections instanceof ISection ) {
+			if ( $sections instanceof Section\IBase ) {
 				$this->sections[ $sections->get_id() ] = $sections;
 			} elseif ( is_string( $sections ) ) {
 				$this->sections[ $sections ] = true;
@@ -53,7 +53,7 @@ class Base
 
 	public
 	function bind_external_sections() {
-		$plugin_sections = $this->plugin->get_components( '\WPF\v1\GUI\Setting\Page\ISection' );
+		$plugin_sections = $this->plugin->get_components( '\WPF\v1\GUI\Setting\Page\Section\IBase' );
 		foreach ( $plugin_sections as $section ) {
 			if (
 				array_key_exists( $section->get_id(), $this->sections )
@@ -101,7 +101,7 @@ class Base
 	) {
 		parent::bind( $plugin );
 		foreach ( $this->sections as $section_id => $section ) {
-			if ( $section instanceof ISection ) { // sections from __construct call
+			if ( $section instanceof Section\IBase ) { // sections from __construct call
 				$this->plugin->add_components( $section );
 			};
 		};
@@ -154,7 +154,7 @@ class Base
 			, array( &$this, 'display' )
 		);
 		foreach ( $this->sections as $section ) {
-			if ( $section instanceof ISection ) {
+			if ( $section instanceof Section\IBase ) {
 				$section->bind_to_page( $this );
 				$section->add_settings_section();
 			};
