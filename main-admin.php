@@ -12,6 +12,7 @@ require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_wpf.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_installer.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_pluginoptions.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_section.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_component_dynamiccontroller.php' );
 
 
@@ -33,7 +34,12 @@ new WPF\Plugin\Part\Base (
 		, new WPF\Compatibility\Version\PHP( '5.5.0' )
 	)
 	
-	, new WPF\GUI\Setting\Page\PluginOptions()
+	, new WPF\GUI\Setting\Page\PluginOptions(
+		new WPF\GUI\Setting\Page\Section( 'id1', 'Первый раздел' )
+		, new WPF\GUI\Setting\Page\Section( 'id2', 'Второй раздел' )
+		, 'id3'
+	)
+	, new WPF\GUI\Setting\Page\Section( 'id3', 'Третий раздел' )
 
 	, new WPF\Plugin\Component\Installer()
 	, new WPF\Plugin\Component\DynamicController()

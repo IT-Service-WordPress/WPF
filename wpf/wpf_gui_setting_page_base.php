@@ -4,8 +4,8 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
+require_once ( 'wpf_gui_setting_page_isection.php' );
 require_once ( 'wpf_plugin_component_base.php' );
-require_once ( 'wpf_collection.php' );
 
 /*
 Settings page descriptor base class.
@@ -26,7 +26,6 @@ class Base
 {
 
 	protected
-	// \WPF\v1\Collection
 	$sections;
 	
 	public
@@ -34,18 +33,17 @@ class Base
 		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 		/* ISection& */ $sections
 	) {
-		$this->sections->add( $sections );
-		/*
-		if ( is_array( $components ) || ( $components instanceof \Traversable ) ) {
-			foreach ( $components as $component ) {
-				$this->add_components( $component );
+		if ( is_array( $sections ) || ( $sections instanceof \Traversable ) ) {
+			foreach ( $sections as $section ) {
+				$this->add_sections( $section );
 			};
 		} else {
-			$this->components->add( $components );
-			$components->bind( $this );
-			$components->bind_action_handlers_and_filters();
+			if ( $sections instanceof ISection ) {
+				$this->sections[ $sections->get_id() ] = $sections;
+			} elseif ( is_string( $sections ) ) {
+				$this->sections[ $sections ] = true;
+			};
 		};
-		*/
 	}
 
 	public
@@ -54,18 +52,65 @@ class Base
 	}
 
 	public
+	function bind_external_sections() {
+		$plugin_sections = $this->plugin->get_components( '\WPF\v1\GUI\Setting\Page\ISection' );
+		foreach ( $plugin_sections as $section ) {
+			if (
+				array_key_exists( $section->get_id(), $this->sections )
+				&& ( true === $this->sections[ $section->get_id() ] )
+			) { // it's no object now
+				$this->sections[ $section->get_id() ] = $section;
+			};
+		};
+		if ( 
+			\WP_DEBUG
+			&& \is_admin()
+			// && \current_user_can( 'install_plugins' )
+		) {
+			foreach ( $this->sections as $section_id => $section ) {
+				if ( true === $section ) { // it's no object now
+					require_once( 'wpf_gui_notice_admin.php' );
+					new \WPF\v1\GUI\Notice\Admin(
+						sprintf(
+							__( 'Plugin "%1$s" coding error: settings page <code>%2$s</code> requires <code>%3$s</code> settings section, but specified section doesn`t exists.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+							, $this->plugin->get_title()
+							, $this->get_page_slug()
+							, $section_id
+						)
+						, 'error'
+					);
+				};
+			};
+		};
+	}
+
+	public
 	function __construct(
 		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 	) {
-		$this->sections = new \WPF\v1\Collection();
+		parent::__construct();
+		$this->sections = array();
 		$this->add_sections(
 			func_get_args()
 		);
 	}
 
 	public
+	function bind(
+		\WPF\v1\Plugin\IBase& $plugin
+	) {
+		parent::bind( $plugin );
+		foreach ( $this->sections as $section_id => $section ) {
+			if ( $section instanceof ISection ) { // sections from __construct call
+				$this->plugin->add_components( $section );
+			};
+		};
+	}
+
+	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
+		\add_action( 'init', array( &$this, 'bind_external_sections' ) );
 		\add_action( 'admin_menu', array( &$this, 'add_submenu_page' ) );
 		// !!! network !!!
 	}
@@ -103,6 +148,12 @@ class Base
 			, $this->get_page_slug()
 			, array( &$this, 'display' )
 		);
+		foreach ( $this->sections as $section ) {
+			if ( $section instanceof ISection ) {
+				$section->bind_to_page( $this );
+				$section->add_settings_section();
+			};
+		};
 		\add_action( $page_load_action, array( &$this, 'on_page_load' ) );
 	}
 

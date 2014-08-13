@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
+require_once ( 'wpf_gui_setting_page_isection.php' );
 
 /*
 Settings page descriptor interface.
@@ -43,6 +44,15 @@ interface IBase
 
 	public
 	function display();
+
+	public
+	function add_sections(
+		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
+		/* ISection& */ $sections
+	);
+
+	public
+	function get_sections();
 
 }
 ?>

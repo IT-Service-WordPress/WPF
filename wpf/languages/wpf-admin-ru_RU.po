@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-13 06:47+0400\n"
-"PO-Revision-Date: 2014-08-13 06:47+0400\n"
+"POT-Creation-Date: 2014-08-13 14:05+0400\n"
+"PO-Revision-Date: 2014-08-13 14:07+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -44,6 +44,16 @@ msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
 
+#: ../wpf_gui_setting_page_base.php:75
+#, php-format
+msgid ""
+"Plugin \"%1$s\" coding error: settings page <code>%2$s</code> requires <code>"
+"%3$s</code> settings section, but specified section doesn`t exists."
+msgstr ""
+"Ошибка в коде плагина \"%1$s\": страница настроек <code>%2$s</code> требует "
+"секции настроек с id=<code>%3$s</code>, но секции настроек с указанным id в "
+"плагине не обнаружено."
+
 #: ../wpf_gui_setting_page_pluginoptions.php:57
 #, php-format
 msgid ""
@@ -58,7 +68,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../wpf_plugin_base.php:242
+#: ../wpf_plugin_base.php:243
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 
