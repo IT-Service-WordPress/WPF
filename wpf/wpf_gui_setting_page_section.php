@@ -6,6 +6,7 @@ require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_isection.php' );
 require_once ( 'wpf_plugin_component_base.php' );
+require_once ( 'wpf_gui_setting_page_control_ibase.php' );
 
 /*
 Settings page section descriptor base class.
@@ -33,6 +34,29 @@ class Section
 
 	protected
 	$title;
+	
+	protected
+	// Control\IBase&[]
+	$controls;
+	
+	public
+	function add_controls(
+		// произвольное количество Control\IBase&.
+		$controls
+	) {
+		if ( is_array( $controls ) || ( $controls instanceof \Traversable ) ) {
+			foreach ( $controls as $control ) {
+				$this->add_controls( $control );
+			};
+		} else {
+			$this->controls[] = $controls;
+		};
+	}
+
+	public
+	function get_controls() {
+		return $this->controls;
+	}
 
 	public
 	function __construct(
@@ -44,6 +68,11 @@ class Section
 		$this->page = null;
 		$this->id = $id;
 		$this->title = $title;
+
+		$this->controls = array();
+		$this->add_controls(
+			array_slice( func_get_args(), 2 )
+		);
 	}
 
 	public
@@ -84,9 +113,9 @@ class Section
 
 	public
 	function display() {
-		//$_template_file = \WPF\v1\GUI\locate_template( 'settings_page.php' );
-		//require( $_template_file );
-		echo 'test---------------------';
+		foreach ( $this->controls as $control ) {
+			$control->display();
+		};
 	}
 
 }

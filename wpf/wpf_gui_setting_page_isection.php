@@ -41,5 +41,14 @@ interface ISection
 	public
 	function display();
 
+	public
+	function add_controls(
+		// произвольное количество Control\IBase&.
+		$controls
+	);
+
+	public
+	function get_controls();
+
 }
 ?>
