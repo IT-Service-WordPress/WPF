@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-13 14:05+0400\n"
-"PO-Revision-Date: 2014-08-13 14:07+0400\n"
+"POT-Creation-Date: 2014-08-14 15:13+0400\n"
+"PO-Revision-Date: 2014-08-14 15:17+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -18,6 +18,20 @@ msgstr ""
 "_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: ../views/plugin_help_sidebar.php:1
+msgid "For more information:"
+msgstr ""
+
+#: ../views/plugin_help_sidebar.php:3
+#, php-format
+msgid "<a href=\"%2$s\" target=\"_blank\">About plugin</a>"
+msgstr "<a href=\"%2$s\" target=\"_blank\">О плагине</a>"
+
+#: ../views/plugin_help_sidebar.php:4
+#, php-format
+msgid "<a href=\"%2$s\" target=\"_blank\">About author</a>"
+msgstr "<a href=\"%2$s\" target=\"_blank\">Об авторе</a>"
 
 #: ../wpf_compatibility_validators.php:55
 #, php-format
@@ -44,7 +58,18 @@ msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_gui_setting_page_base.php:75
+#: ../wpf_gui_setting_page_base.php:57
+#: ../wpf_gui_setting_page_component_help_base.php:50
+#, php-format
+msgid ""
+"Plugin coding error: class <code>%2$s</code> doesn`t support component <code>"
+"%3$s</code>. Components must implement <code>%4$s</code> interface."
+msgstr ""
+"Ошибка в коде плагина: класс <code>%2$s</code> не поддерживает "
+"компонент<code>%3$s</code>. Компонент должен реализовать интерфейс<code>"
+"%4$s</code>."
+
+#: ../wpf_gui_setting_page_base.php:106
 #, php-format
 msgid ""
 "Plugin \"%1$s\" coding error: settings page <code>%2$s</code> requires <code>"
@@ -53,6 +78,20 @@ msgstr ""
 "Ошибка в коде плагина \"%1$s\": страница настроек <code>%2$s</code> требует "
 "секции настроек с id=<code>%3$s</code>, но секции настроек с указанным id в "
 "плагине не обнаружено."
+
+#: ../wpf_gui_setting_page_component_base.php:60
+#, php-format
+msgid ""
+"Plugin \"%1$s\" coding error: component <code>%2$s</code> must be associated "
+"with an instance of settings page, not with the instance of the plugin "
+"directly."
+msgstr ""
+"Ошибка в коде плагина \"%1$s\": компонент <code>%2$s</code> должен быть "
+"связан со страницей настроек, а не с экземпляром плагина непосредственно."
+
+#: ../wpf_gui_setting_page_component_help_plugindata.php:48
+msgid "Overview"
+msgstr ""
 
 #: ../wpf_gui_setting_page_pluginoptions.php:57
 #, php-format
@@ -68,7 +107,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../wpf_plugin_base.php:243
+#: ../wpf_plugin_base.php:244
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 

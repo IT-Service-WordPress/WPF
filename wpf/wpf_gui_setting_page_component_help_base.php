@@ -39,7 +39,6 @@ class Base
 			};
 		} elseif ( $component instanceof IComponent ) {
 			$this->components[] = $component;
-			$component->bind_to_help( $this );
 		} else { // unsupported component
 			if ( 
 				\WP_DEBUG
@@ -70,7 +69,17 @@ class Base
 			func_get_args()
 		);
 	}
-	
+
+	public
+	function bind(
+		\WPF\v1\Plugin\IBase& $plugin
+	) {
+		parent::bind( $plugin );
+		foreach ( $this->components as $component ) {
+			$component->bind_to_help( $this );
+		};
+	}
+
 	public
 	function on_page_load() {
 		foreach ( $this->components as $component ) {

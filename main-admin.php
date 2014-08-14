@@ -16,7 +16,9 @@ require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_pluginoptions
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_section_base.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_control_input.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_component_help_base.php' );
-
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_component_help_sidebar.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_component_help_tab.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_component_help_plugindata.php' );
 
 use \WPF\v1 as WPF;
 
@@ -53,12 +55,20 @@ new WPF\Plugin\Part\Base (
 		, 'id2'
 		
 		, new WPF\GUI\Setting\Page\Component\Help\Base(
-			new WPF\GUI\Setting\Page\Component\Help\Tab( 'id', __( 'title' )
+			new WPF\GUI\Setting\Page\Component\Help\PluginData()
+			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id', __( 'title' )
 				, __( '<p>Содержание справки.</p>' )
 			)
 			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id2', __( 'title2' )
 				, __( '<p>Содержание справки 2.</p>' )
 			)
+			/*
+			, new WPF\GUI\Setting\Page\Component\Help\Sidebar(
+				'<p><strong>' . __( 'For more information:' ) . '</strong></p>'
+				. '<p>' . __( '<a href="http://codex.wordpress.org/Appearance_Header_Screen" target="_blank">Documentation on Custom Header</a>' ) . '</p>'
+				. '<p>' . __( '<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+   			)
+			*/
 		)
 	)
 	, new WPF\GUI\Setting\Page\Section\Base( 'id2', 'Второй раздел'

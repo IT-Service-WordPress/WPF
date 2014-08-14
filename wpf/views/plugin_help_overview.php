@@ -1,0 +1,1 @@
+<p><?php echo $this->plugin->get_description(); ?></p>

@@ -18,9 +18,13 @@ interface IBase {
 
 	public
 	function bind( \WPF\v1\Plugin\IBase& $plugin );
-	
+
+	public
+	// \WPF\v1\Plugin\IBase&
+	function get_plugin();
+
 	public
 	function bind_action_handlers_and_filters();
-	
+
 }
 ?>

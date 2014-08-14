@@ -48,7 +48,9 @@ interface IBase {
 	function get_plugin_load_action_name();
 	
 	public
-	function get_title();
+	function get_title(
+		$markup = true
+	);
 	
 	public
 	function get_plugin_uri();
@@ -57,10 +59,14 @@ interface IBase {
 	function get_version();
 	
 	public
-	function get_description();
+	function get_description(
+		$markup = true
+	);
 	
 	public
-	function get_author_name();
+	function get_author_name(
+		$markup = true
+	);
 	
 	public
 	function get_author_uri();

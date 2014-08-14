@@ -40,14 +40,19 @@ class Base
 	protected
 	// \WPF\v1\Plugin\IBase&
 	$plugin;
-	
+
 	public
 	function bind(
 		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		$this->plugin = $plugin;
 	}
-	
+
+	public
+	function get_plugin() {
+		return $this->plugin;
+	}
+
 	protected
 	function check_bind() {
 		if ( is_null( $this->plugin ) ) {
