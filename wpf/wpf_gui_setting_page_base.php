@@ -26,29 +26,60 @@ class Base
 {
 
 	protected
-	$sections;
+	$components;
 	
 	public
-	function add_sections(
-		// произвольное количество Section\IBase или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
-		/* Section\IBase& */ $sections
+	function add_components(
+		// произвольное количество ISection, string или Component\IBase. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
+		$components
 	) {
-		if ( is_array( $sections ) || ( $sections instanceof \Traversable ) ) {
-			foreach ( $sections as $section ) {
-				$this->add_sections( $section );
+		$component = $components;
+		if ( is_array( $components ) || ( $components instanceof \Traversable ) ) {
+			foreach ( $components as $component ) {
+				$this->add_components( $component );
 			};
-		} elseif ( $sections instanceof Section\IBase ) {
-			$section = $sections;
-			$this->sections[ $section->get_id() ] = $section;
-			$section->bind_to_page( $this );
-		} elseif ( is_string( $sections ) ) {
-			$this->sections[ $sections ] = true;
+		} elseif ( $component instanceof Section\IBase ) {
+			$this->components[ $component->get_id() ] = $component;
+			$component->bind_to_page( $this );
+		} elseif ( $component instanceof Component\IBase ) {
+			$this->components[] = $component;
+			$component->bind_to_page( $this );
+		} elseif ( is_string( $component ) ) {
+			$this->components[ $component ] = true;
+		} else { // unsupported component
+			if ( 
+				\WP_DEBUG
+				&& \is_admin()
+			) {
+				require_once( 'wpf_gui_notice_admin.php' );
+				new \WPF\v1\GUI\Notice\Admin(
+					sprintf(
+						__( 'Plugin coding error: settings page class <code>%2$s</code> doesn`t support component <code>%3$s</code>. Settins page pluggable components must implement <code>%4$s</code> interface.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+						, '' // $this->plugin->get_title()
+						, get_class( $this )
+						, get_class( $component )
+						, '\WPF\v1\GUI\Setting\Page\Component\IBase'
+					)
+					, 'error'
+				);
+			};
 		};
 	}
 
 	public
+	function get_components() {
+		return $this->components;
+	}
+
+	public
 	function get_sections() {
-		return $this->sections;
+		$sections = array();
+		foreach ( $this->components as $component ) {
+			if ( $component instanceof Section\IBase ) {
+				$sections[] = $component;
+			};
+		};
+		return $sections;
 	}
 
 	public
@@ -56,19 +87,18 @@ class Base
 		$plugin_sections = $this->plugin->get_components( '\WPF\v1\GUI\Setting\Page\Section\IBase' );
 		foreach ( $plugin_sections as $section ) {
 			if (
-				array_key_exists( $section->get_id(), $this->sections )
-				&& ( true === $this->sections[ $section->get_id() ] )
+				array_key_exists( $section->get_id(), $this->components )
+				&& ( true === $this->components[ $section->get_id() ] )
 			) { // it's no object now
-				$this->sections[ $section->get_id() ] = $section;
+				$this->components[ $section->get_id() ] = $section;
 				$section->bind_to_page( $this );
 			};
 		};
 		if ( 
 			\WP_DEBUG
 			&& \is_admin()
-			// && \current_user_can( 'install_plugins' )
 		) {
-			foreach ( $this->sections as $section_id => $section ) {
+			foreach ( $this->components as $section_id => $section ) {
 				if ( true === $section ) { // it's no object now
 					require_once( 'wpf_gui_notice_admin.php' );
 					new \WPF\v1\GUI\Notice\Admin(
@@ -90,8 +120,8 @@ class Base
 		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 	) {
 		parent::__construct();
-		$this->sections = array();
-		$this->add_sections(
+		$this->components = array();
+		$this->add_components(
 			func_get_args()
 		);
 	}
@@ -101,8 +131,8 @@ class Base
 		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		parent::bind( $plugin );
-		foreach ( $this->sections as $section_id => $section ) {
-			if ( $section instanceof Section\IBase ) { // sections from __construct call
+		foreach ( $this->components as $section_id => $section ) {
+			if ( $section instanceof \WPF\v1\Plugin\Component\IBase ) {
 				$this->plugin->add_components( $section );
 			};
 		};
@@ -154,10 +184,8 @@ class Base
 			, $this->get_page_slug()
 			, array( &$this, 'display' )
 		);
-		foreach ( $this->sections as $section ) {
-			if ( $section instanceof Section\IBase ) {
-				$section->add_settings_section();
-			};
+		foreach ( $this->get_sections() as $section ) {
+			$section->add_settings_section();
 		};
 		\add_action( $page_load_action, array( &$this, 'on_page_load' ) );
 	}

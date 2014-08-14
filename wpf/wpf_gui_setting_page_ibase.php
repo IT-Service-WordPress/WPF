@@ -49,10 +49,13 @@ interface IBase
 	function display();
 
 	public
-	function add_sections(
-		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
-		/* Section\IBase& */ $sections
+	function add_components(
+		// произвольное количество ISection, string или Component\IBase. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
+		$components
 	);
+
+	public
+	function get_components();
 
 	public
 	function get_sections();

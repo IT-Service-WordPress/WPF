@@ -143,7 +143,7 @@ class Base
 		$this->load_data();
 		return $this->_data[ false ][ 'Network' ];
 	}
-	
+
 	protected
 	// \WPF\v1\Plugin\Component\Collection
 	$components;
