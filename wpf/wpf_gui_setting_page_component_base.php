@@ -35,6 +35,10 @@ class Base
 	}
 
 	public
+	function bind_action_handlers_and_filters() {
+	}
+
+	public
 	function bind_to_page(
 		\WPF\v1\GUI\Setting\Page\IBase& $page
 	) {
@@ -61,6 +65,10 @@ class Base
 				);
 			};
 		};
+	}
+	
+	public
+	function on_page_load() {
 	}
 
 }

@@ -54,7 +54,7 @@ class Base
 				require_once( 'wpf_gui_notice_admin.php' );
 				new \WPF\v1\GUI\Notice\Admin(
 					sprintf(
-						__( 'Plugin coding error: settings page class <code>%2$s</code> doesn`t support component <code>%3$s</code>. Settins page pluggable components must implement <code>%4$s</code> interface.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+						__( 'Plugin coding error: class <code>%2$s</code> doesn`t support component <code>%3$s</code>. Components must implement <code>%4$s</code> interface.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 						, '' // $this->plugin->get_title()
 						, get_class( $this )
 						, get_class( $component )
@@ -187,7 +187,7 @@ class Base
 		foreach ( $this->get_sections() as $section ) {
 			$section->add_settings_section();
 		};
-		\add_action( $page_load_action, array( &$this, 'on_page_load' ) );
+		\add_action( 'load-' . $page_load_action, array( &$this, 'on_page_load' ) );
 	}
 
 	public
@@ -198,6 +198,9 @@ class Base
 
 	public
 	function on_page_load() {
+		foreach ( $this->components as $component ) {
+			$component->on_page_load();
+		};
 	}
 
 }
