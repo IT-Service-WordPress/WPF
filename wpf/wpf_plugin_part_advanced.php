@@ -34,13 +34,27 @@ class Advanced
 			'\WPF\v1\Plugin\Component\IInstaller' => false
 			, '\WPF\v1\Plugin\Component\IActivator' => false
 			, '\WPF\v1\Plugin\Component\IDynamicController' => false
+			, '\WPF\v1\Compatibility\IBase' => true
 		);
 		foreach ( $this->plugin->get_components( '\WPF\v1\Plugin\Component\IDependable' ) as $component ) {
 			foreach ( $component->get_dependencies() as $dependency ) {
 				$dependencies[ $dependency ] = true;
 			};
 		};
+		if ( 
+			$dependencies[ '\WPF\v1\Plugin\Component\IDynamicController' ]
+			|| $dependencies[ '\WPF\v1\Plugin\Component\IInstaller' ]
+		) {
+			// strong before Installer !
+			if ( ! $this->plugin->has_component( '\WPF\v1\Plugin\Component\IDynamicController' ) ) {
+				require_once ( 'wpf_plugin_component_dynamiccontroller.php' );
+				$this->plugin->add_components(
+					new \WPF\v1\Plugin\Component\DynamicController()
+				);
+			};
+		};
 		if ( $dependencies[ '\WPF\v1\Plugin\Component\IInstaller' ] ) {
+			// strong before Activator !
 			if ( ! $this->plugin->has_component( '\WPF\v1\Plugin\Component\IInstaller' ) ) {
 				require_once ( 'wpf_plugin_component_installer.php' );
 				$this->plugin->add_components(
@@ -56,11 +70,16 @@ class Advanced
 				);
 			};
 		};
-		if ( $dependencies[ '\WPF\v1\Plugin\Component\IDynamicController' ] ) {
-			if ( ! $this->plugin->has_component( '\WPF\v1\Plugin\Component\IDynamicController' ) ) {
-				require_once ( 'wpf_plugin_component_dynamiccontroller.php' );
+		if ( $dependencies[ '\WPF\v1\Compatibility\IBase' ] ) {
+			if ( ! $this->plugin->has_component( '\WPF\v1\Compatibility\IBase' ) ) {
+				require_once ( 'wpf_compatibility_validators.php' );
+				require_once ( 'wpf_compatibility_version_wp.php' );
+				require_once ( 'wpf_compatibility_version_php.php' );
 				$this->plugin->add_components(
-					new \WPF\v1\Plugin\Component\DynamicController()
+					new \WPF\v1\Compatibility\Validators (
+						new \WPF\v1\Compatibility\Version\WP( '3.9.0' )
+						, new \WPF\v1\Compatibility\Version\PHP( '5.5.0' )
+					)
 				);
 			};
 		};
