@@ -62,7 +62,7 @@ class Tab
 	}
 
 	public
-	function add_help_tab() {
+	function add_help() {
 		$screen = \get_current_screen();
 		$screen->add_help_tab( array( 
 		   'id' => $this->get_id()

@@ -4,10 +4,9 @@ namespace WPF\v1\GUI\Setting\Page\Component\Help;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_component_help_ibase.php' );
-require_once ( 'wpf_gui_setting_page_component_help_icomponent.php' );
 
 /*
-Settings page Help "tab" component interface.
+Settings page Help "tab" and sidebar base interface.
 
 @since 1.0.0
 
@@ -16,19 +15,16 @@ Settings page Help "tab" component interface.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-interface ITab
-	extends
-		IComponent
+interface IComponent
 {
 
 	public
-	function get_id();
+	function bind_to_help(
+		IBase& $help
+	);
 
 	public
-	function get_title();
-
-	public
-	function get_content();
+	function add_help();
 
 }
 ?>
