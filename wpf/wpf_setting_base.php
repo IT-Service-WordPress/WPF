@@ -45,14 +45,23 @@ class Base
 		, $option_name
 		, $default_value = null
 		, $autoload = true
-		, callable $sanitize_callback = null
+		, $sanitize_callback = null
 	) {
 		parent::__construct();
 		$this->option_group = $option_group;
 		$this->option_name = $option_name;
 		$this->default_value = $default_value;
 		$this->autoload = $autoload;
-		$this->sanitize_callback = $sanitize_callback;
+		if ( $sanitize_callback ) {
+			if ( $sanitize_callback instanceof \WPF\v1\Setting\Validate\IBase ) {
+				$sanitize_callback->bind( $this );
+				$this->sanitize_callback = $sanitize_callback->get_callback();
+			} elseif ( is_callable( $sanitize_callback ) ) {
+				$this->sanitize_callback = $sanitize_callback;
+			} else {
+				// !!! throw error !!!
+			};
+		};
 	}
 
 	public
@@ -78,10 +87,14 @@ class Base
 
 	public
 	function get_value() {
+		\get_option( $this->get_option_name() );
 	}
 
 	public
-	function set_value() {
+	function set_value(
+		$new_value
+	) {
+		\set_option( $this->get_option_name( $new_value ) );
 	}
 
 	public

@@ -33,7 +33,9 @@ interface IBase
 	function get_value();
 
 	public
-	function set_value();
+	function set_value(
+		$new_value
+	);
 
 	public
 	function register_setting();

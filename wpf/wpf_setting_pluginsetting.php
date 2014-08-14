@@ -25,7 +25,7 @@ class PluginSetting
 		$option_name
 		, $default_value = null
 		, $autoload = true
-		, callable $sanitize_callback = null
+		, $sanitize_callback = null
 	) {
 		parent::__construct(
 			''

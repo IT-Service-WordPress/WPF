@@ -15,6 +15,7 @@ require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_inc.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_base.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_setting_base.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_setting_pluginsetting.php' );
+require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_setting_validator_base.php' );
 require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_load_admin.php' );
 // require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_textdomain_plugin.php' );
 
@@ -25,8 +26,14 @@ use \WPF\v1 as WPF;
 new WPF\Plugin\Base (
 	__FILE__
 
-	, new WPF\Setting\PluginSetting( 'test-option', 111, false )
-	, new WPF\Setting\PluginSetting( 'second', 222, false )
+	, new WPF\Setting\PluginSetting( 'test-option', 111, false, 'intval' )
+	, new WPF\Setting\PluginSetting( 'second', 222, false,
+		new WPF\Setting\Validate\Base( 
+			__( 'error message' )
+			, false
+			, 'is_email'
+		)
+	)
 	
 	, new WPF\Plugin\Part\Load\Admin()
 );
