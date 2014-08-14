@@ -67,8 +67,34 @@ class Base
 	}
 
 	public
-	function get_components() {
-		return $this->components;
+	function get_components(
+		$component_type = null // interface id, or null for all components
+	) {
+		if ( $component_type ) {
+			$found = array();
+			foreach ( $this->components as $component ) {
+				if ( $component instanceof $component_type ) {
+					$found[] = $component;
+				};
+			};
+			return $found;
+		} else {
+			return $this->components;
+		};
+	}
+
+	public
+	function has_component(
+		$component_type // interface id
+	) {
+		$found = false;
+		foreach ( $this->components as $component ) {
+			if ( $component instanceof $component_type ) {
+				$found = true;
+				break;
+			};
+		};
+		return $found;
 	}
 
 	public

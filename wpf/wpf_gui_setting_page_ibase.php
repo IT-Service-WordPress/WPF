@@ -55,7 +55,14 @@ interface IBase
 	);
 
 	public
-	function get_components();
+	function get_components(
+		$component_type = null // interface id, or null for all components
+	);
+
+	public
+	function has_component(
+		$component_type // interface id
+	);
 
 	public
 	function get_sections();

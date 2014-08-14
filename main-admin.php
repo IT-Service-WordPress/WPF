@@ -37,7 +37,7 @@ new WPF\Plugin\Part\Base (
 		new WPF\Compatibility\Version\WP( '3.9.0' )
 		, new WPF\Compatibility\Version\PHP( '5.5.0' )
 	)
-	
+
 	, new WPF\GUI\Setting\Page\PluginOptions(
 		new WPF\GUI\Setting\Page\Section\Base( 'id1', 'Первый раздел'
 			, new WPF\GUI\Setting\Page\Control\Input(
@@ -53,7 +53,8 @@ new WPF\Plugin\Part\Base (
 			)
 		)
 		, 'id2'
-		
+
+		/*
 		, new WPF\GUI\Setting\Page\Component\Help\Base(
 			new WPF\GUI\Setting\Page\Component\Help\PluginData()
 			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id', __( 'title' )
@@ -62,14 +63,13 @@ new WPF\Plugin\Part\Base (
 			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id2', __( 'title2' )
 				, __( '<p>Содержание справки 2.</p>' )
 			)
-			/*
 			, new WPF\GUI\Setting\Page\Component\Help\Sidebar(
 				'<p><strong>' . __( 'For more information:' ) . '</strong></p>'
 				. '<p>' . __( '<a href="http://codex.wordpress.org/Appearance_Header_Screen" target="_blank">Documentation on Custom Header</a>' ) . '</p>'
 				. '<p>' . __( '<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
    			)
-			*/
 		)
+		*/
 	)
 	, new WPF\GUI\Setting\Page\Section\Base( 'id2', 'Второй раздел'
 	)
