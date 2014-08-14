@@ -22,23 +22,11 @@ require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_gui_setting_page_component_hel
 
 use \WPF\v1 as WPF;
 
+new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN );
+
 new WPF\Plugin\Part\Base (
-	new WPF\TextDomain\WPF( WPF\WPF_ADMINTEXTDOMAIN )
 
-	/*
-	, new WPF\Compatibility\Validators_On (
-		'admin_init'
-		, new WPF\Compatibility\Version\WP( '3.9.0' )
-		, new WPF\Compatibility\Version\PHP( '5.5.0' )
-		, new WPF\Compatibility\Version\PHP( '5.7.0' )
-	)
-	*/
-	, new WPF\Compatibility\Validators (
-		new WPF\Compatibility\Version\WP( '3.9.0' )
-		, new WPF\Compatibility\Version\PHP( '5.5.0' )
-	)
-
-	, new WPF\GUI\Setting\Page\PluginOptions(
+	new WPF\GUI\Setting\Page\PluginOptions(
 		new WPF\GUI\Setting\Page\Section\Base( 'id1', 'Первый раздел'
 			, new WPF\GUI\Setting\Page\Control\Input(
 				'test-option'
@@ -60,14 +48,9 @@ new WPF\Plugin\Part\Base (
 			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id', __( 'title' )
 				, __( '<p>Содержание справки.</p>' )
 			)
-			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id2', __( 'title2' )
+			, new WPF\GUI\Setting\Page\Component\Help\Tab( 'id2', __( '<a href="%2$s" target="_blank">About author</a>', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 				, __( '<p>Содержание справки 2.</p>' )
 			)
-			, new WPF\GUI\Setting\Page\Component\Help\Sidebar(
-				'<p><strong>' . __( 'For more information:' ) . '</strong></p>'
-				. '<p>' . __( '<a href="http://codex.wordpress.org/Appearance_Header_Screen" target="_blank">Documentation on Custom Header</a>' ) . '</p>'
-				. '<p>' . __( '<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
-   			)
 		)
 		*/
 	)
@@ -76,6 +59,18 @@ new WPF\Plugin\Part\Base (
 
 	, new WPF\Plugin\Component\Installer()
 	, new WPF\Plugin\Component\DynamicController()
+	/*
+	, new WPF\Compatibility\Validators_On (
+		'admin_init'
+		, new WPF\Compatibility\Version\WP( '3.9.0' )
+		, new WPF\Compatibility\Version\PHP( '5.5.0' )
+	)
+	*/
+	, new WPF\Compatibility\Validators (
+		new WPF\Compatibility\Version\WP( '3.9.0' )
+		, new WPF\Compatibility\Version\PHP( '5.5.0' )
+		//, new WPF\Compatibility\Version\PHP( '5.7.0' )
+	)
 );
 
 ?>

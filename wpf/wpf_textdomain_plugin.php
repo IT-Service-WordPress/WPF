@@ -30,12 +30,10 @@ class Plugin
 		$text_domain
 		, $text_domain_path = '/languages/'
 	) {
+		$this->text_domain_path = $text_domain_path;
 		parent::__construct( $text_domain );
 		
-		// $this->plugin->load_data();
 		// $this->text_domain = $this->plugin->_data[ 'TextDomain' ];
-
-		$this->text_domain_path = $text_domain_path;
 		// $this->text_domain_path = $this->plugin->data[ 'DomainPath' ];
 	}
 	

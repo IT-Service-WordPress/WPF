@@ -31,15 +31,13 @@ class Base
 		$text_domain
 	) {
 		$this->text_domain = $text_domain;
+		$this->load_textdomain();
 	}
 	
 	public
 	function bind_action_handlers_and_filters() {
-		$this->check_bind();
-		\add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) ); 
-		$this->plugin->register_activation_hook( array( &$this, 'load_textdomain' ) );
 	}
-	
+
 	abstract
 	public
 	function get_text_domain_path();

@@ -20,9 +20,10 @@ require_once ( 'wpf' . DIRECTORY_SEPARATOR . 'wpf_plugin_part_load_admin.php' );
 
 use \WPF\v1 as WPF;
 
+// new WPF\TextDomain\Plugin( 'wordpress-plugin-template' );
+
 new WPF\Plugin\Base (
 	__FILE__
-//	, new WPF\TextDomain\Plugin( 'wordpress-plugin-template' )
 
 	, new WPF\Setting\PluginSetting( 'test-option', 111, false )
 	, new WPF\Setting\PluginSetting( 'second', 222, false )
