@@ -6,6 +6,7 @@ require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
+require_once ( 'wpf_gui_setting_page_component_base.php' );
 require_once ( 'wpf_gui_setting_page_control_ibase.php' );
 
 /*
@@ -20,14 +21,10 @@ Settings page section descriptor base class.
 */
 class Base
 	extends
-		\WPF\v1\Plugin\Component\Base
+		\WPF\v1\GUI\Setting\Page\Component\Base
 	implements
 		IBase
 {
-
-	protected
-	// WPF\v1\GUI\Setting\Page\IBase&
-	$page;
 
 	protected
 	$id;
@@ -44,12 +41,13 @@ class Base
 		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
 		$controls
 	) {
+		$control = $controls;
 		if ( is_array( $controls ) || ( $controls instanceof \Traversable ) ) {
 			foreach ( $controls as $control ) {
 				$this->add_controls( $control );
 			};
-		} else {
-			$this->controls[] = $controls;
+		} elseif ( $control instanceof \WPF\v1\GUI\Setting\Page\Control\IBase ) {
+			$this->controls[] = $control;
 		};
 	}
 
@@ -65,7 +63,6 @@ class Base
 		// произвольное количество визуальных элементов
 	) {
 		parent::__construct();
-		$this->page = null;
 		$this->id = $id;
 		$this->title = $title;
 
@@ -77,15 +74,9 @@ class Base
 
 	public
 	function bind_action_handlers_and_filters() {
+		$this->check_bind();
 	}
 	
-	public
-	function bind_to_page(
-		\WPF\v1\GUI\Setting\Page\IBase& $page
-	) {
-		$this->page = $page;
-	}
-
 	public
 	function get_id() {
 		return $this->id;
@@ -103,6 +94,7 @@ class Base
 
 	public
 	function add_settings_section() {
+		$this->check_page_bind();
 		\add_settings_section(
 			$this->get_id()
 			, $this->get_title()

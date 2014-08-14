@@ -37,12 +37,12 @@ class Base
 			foreach ( $sections as $section ) {
 				$this->add_sections( $section );
 			};
-		} else {
-			if ( $sections instanceof Section\IBase ) {
-				$this->sections[ $sections->get_id() ] = $sections;
-			} elseif ( is_string( $sections ) ) {
-				$this->sections[ $sections ] = true;
-			};
+		} elseif ( $sections instanceof Section\IBase ) {
+			$section = $sections;
+			$this->sections[ $section->get_id() ] = $section;
+			$section->bind_to_page( $this );
+		} elseif ( is_string( $sections ) ) {
+			$this->sections[ $sections ] = true;
 		};
 	}
 
@@ -60,6 +60,7 @@ class Base
 				&& ( true === $this->sections[ $section->get_id() ] )
 			) { // it's no object now
 				$this->sections[ $section->get_id() ] = $section;
+				$section->bind_to_page( $this );
 			};
 		};
 		if ( 
@@ -155,7 +156,6 @@ class Base
 		);
 		foreach ( $this->sections as $section ) {
 			if ( $section instanceof Section\IBase ) {
-				$section->bind_to_page( $this );
 				$section->add_settings_section();
 			};
 		};

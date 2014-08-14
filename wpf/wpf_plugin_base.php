@@ -152,14 +152,15 @@ class Base
 	function add_components(
 		/* Component\IBase& */ $components // неопределённое количество компонентов больше одного
 	) {
+		$component = $components;
 		if ( is_array( $components ) || ( $components instanceof \Traversable ) ) {
 			foreach ( $components as $component ) {
 				$this->add_components( $component );
 			};
-		} elseif ( ! is_null ( $components ) ) {
-			$this->components->add( $components );
-			$components->bind( $this );
-			$components->bind_action_handlers_and_filters();
+		} elseif ( $component instanceof Component\IBase ) {
+			$this->components->add( $component );
+			$component->bind( $this );
+			$component->bind_action_handlers_and_filters();
 		};
 	}
 

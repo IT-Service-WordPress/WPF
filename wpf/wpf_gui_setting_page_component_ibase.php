@@ -26,8 +26,5 @@ interface IBase
 		\WPF\v1\GUI\Setting\Page\IBase& $page
 	);
 
-	public
-	function get_page_slug();
-
 }
 ?>
