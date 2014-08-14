@@ -4,6 +4,7 @@ namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_base.php' );
+require_once ( 'wpf_plugin_component_idependable.php' );
 require_once ( 'wpf_plugin_component_iactivable.php' );
 
 /*
@@ -20,6 +21,8 @@ abstract
 class Dependable
 	extends
 		Base
+	implements
+		IDependable
 {
 
 	public
@@ -32,7 +35,7 @@ class Dependable
 	}
 
 	abstract
-	protected
+	public
 	// array
 	function get_dependencies();
 

@@ -24,6 +24,11 @@ class Base
 	public
 	function __construct( 
 	) {
+		$this->__after_construct();
+	}
+	
+	protected
+	function __after_construct() {
 	}
 
 	private

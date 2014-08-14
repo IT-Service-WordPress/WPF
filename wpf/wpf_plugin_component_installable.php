@@ -24,7 +24,7 @@ class Installable
 		IInstallable
 {
 
-	protected
+	public
 	function get_dependencies() {
 		return array_merge(
 			parent::get_dependencies()

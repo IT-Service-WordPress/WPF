@@ -25,7 +25,7 @@ class Activable
 		IActivable
 {
 
-	protected
+	public
 	function get_dependencies() {
 		return array( '\WPF\v1\Plugin\Component\IActivator' );
 	}
