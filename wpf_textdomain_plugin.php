@@ -28,7 +28,7 @@ class Plugin
 	public
 	function __construct (
 		$text_domain
-		, $text_domain_path = '/languages/'
+		, $text_domain_path
 	) {
 		$this->text_domain_path = $text_domain_path;
 		parent::__construct( $text_domain );
@@ -39,7 +39,8 @@ class Plugin
 	
 	public
 	function get_text_domain_path() {
-		return dirname( plugin_basename( $this->plugin->get_file() ) ) . $this->text_domain_path;
+		return $this->text_domain_path;
+		// return dirname( plugin_basename( $this->plugin->get_file() ) ) . $this->text_domain_path;
 	}
 
 }
