@@ -31,7 +31,7 @@ class WPF
 	
 	public
 	function get_text_domain_path() {
-		return plugin_basename( \WPF\v1\WPF_DIR ) . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR;
+		return plugin_basename( __DIR__ ) . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR;
 	}
 
 }
