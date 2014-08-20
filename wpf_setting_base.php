@@ -108,6 +108,23 @@ class Base
 
 	public
 	function install() {
+		$this->add_option();
+	}
+	
+	public
+	function uninstall() {
+		$this->delete_option();
+	}
+
+	public
+	function update(
+		$from_version
+	) {
+		$this->install();
+	}
+
+	protected
+	function add_option() {
 		\add_option(
 			$this->get_option_name()
 			, $this->default_value ? $this->default_value : ''
@@ -117,19 +134,12 @@ class Base
 		// !!!! netwotk wide ? !!!! add_site_option
 	}
 	
-	public
-	function uninstall() {
+	protected
+	function delete_option() {
 		\delete_option(
 			$this->get_option_name()
 		);
 		// !!!! netwotk wide ? !!!! delete_site_option
-	}
-
-	public
-	function update(
-		$from_version
-	) {
-		$this->install();
 	}
 
 	public
