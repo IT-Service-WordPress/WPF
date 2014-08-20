@@ -29,10 +29,10 @@ class Loader
 	function set_root_dir(
 		$dir = ''
 	) {
-		self::$root_dir = self::calc_dir( $dir ?
-			$dir
-			: self::get_root_dir()
-		);
+		self::$root_dir = $dir ?
+			self::calc_dir( $dir )
+			: __DIR__ . DIRECTORY_SEPARATOR
+		;
 	}
 
 	public

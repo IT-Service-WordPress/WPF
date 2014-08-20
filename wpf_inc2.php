@@ -18,6 +18,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 const WPF_TEXTDOMAIN = 'wpf';
-const WPF_ADMINTEXTDOMAIN = 'wpf-admin';
+const WPF_ADMINTEXTDOMAIN = 'wpf';
 
 ?>
