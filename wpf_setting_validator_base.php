@@ -43,14 +43,33 @@ class Base
 	function __construct(
 		$error_message
 		, $success_message = false
-		, callable $validator = null
-		, callable $sanitizer = null
+		, $validator = null
+		, $sanitizer = null
 		// , $params
 	) {
 		$this->error_message = $error_message;
 		$this->success_message = $success_message;
-		$this->validator = $validator;
-		$this->sanitizer = $sanitizer;
+
+		if ( is_callable( $validator ) ) {
+			$this->validator = $validator;
+		} elseif ( is_int( $validator ) ) {
+			$this->validator = function ( $value ) use( $validator ) {
+				return \filter_var( $value, $validator );
+			};
+		} else {
+			// !!! throw error !!!
+		};
+
+		if ( is_callable( $sanitizer ) ) {
+			$this->sanitizer = $sanitizer;
+		} elseif ( is_int( $sanitizer ) ) {
+			$this->sanitizer = function ( $value ) use( $sanitizer ) {
+				return \filter_var( $value, $sanitizer );
+			};
+		} else {
+			// !!! throw error !!!
+		};
+
 		$this->params = array_slice( func_get_args(), 4 );
 	}
 
