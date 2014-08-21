@@ -51,7 +51,7 @@ class Base
 		$this->success_message = $success_message;
 		$this->validator = $validator;
 		$this->sanitizer = $sanitizer;
-		$this->params = array_slice( func_get_args(), 2 );
+		$this->params = array_slice( func_get_args(), 4 );
 	}
 
 	public
