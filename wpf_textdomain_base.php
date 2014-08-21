@@ -44,7 +44,6 @@ class Base
 
 	public
 	function load_textdomain() {
-		$this->check_bind();
 		load_plugin_textdomain(
 			$this->text_domain
 			, false
