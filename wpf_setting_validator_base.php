@@ -56,6 +56,8 @@ class Base
 			$this->validator = function ( $value ) use( $validator ) {
 				return \filter_var( $value, $validator );
 			};
+		} elseif ( is_null( $validator ) ) {
+			$this->validator = $validator;
 		} else {
 			// !!! throw error !!!
 		};
@@ -66,6 +68,8 @@ class Base
 			$this->sanitizer = function ( $value ) use( $sanitizer ) {
 				return \filter_var( $value, $sanitizer );
 			};
+		} elseif ( is_null( $sanitizer ) ) {
+			$this->sanitizer = $sanitizer;
 		} else {
 			// !!! throw error !!!
 		};
