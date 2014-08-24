@@ -35,6 +35,9 @@ class Base
 	$description;
 
 	protected
+	$postfix;
+
+	protected
 	// \WPF\v1\GUI\Setting\Page\Section\IBase&
 	$section;
 
@@ -44,11 +47,13 @@ class Base
 		, $option_name = null
 		, $title = null
 		, $description = null
+		, $postfix = null
 	) {
 		$this->id = $id;
 		$this->option_name = $option_name ? $option_name : $id;
 		$this->title = $title ? $title : $this->option_name;
 		$this->description = $description;
+		$this->postfix = $postfix;
 	}
 
 	public
@@ -76,6 +81,11 @@ class Base
 	public
 	function get_description() {
 		return $this->description;
+	}
+
+	public
+	function get_postfix() {
+		return $this->postfix;
 	}
 
 	public
