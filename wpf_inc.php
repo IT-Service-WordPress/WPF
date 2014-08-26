@@ -20,7 +20,10 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! defined( 'WPFINCv1' ) ) {
 	// WPF instance isn't already loaded
 
-	if ( $wpf_basedir = \get_option( 'wpf_basepath_v1' ) ) {
+	if (
+		! defined( 'WPFMUPv1' )
+		&& ( $wpf_basedir = \get_option( 'wpf_basepath_v1' ) )
+	) {
 		// "plugin" WPF-v${version} installed
 		require_once( 'wpf_loader.php' );
 		$current_wpf_root_dir = Loader::get_root_dir();
