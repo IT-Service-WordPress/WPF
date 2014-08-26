@@ -2,7 +2,6 @@
 
 namespace WPF\v1\GUI\Setting\Page;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_base.php' );
 require_once ( 'wpf_plugin_component_todo.php' );
 require_once ( 'wpf_gui_setting_page_component_help_base.php' );

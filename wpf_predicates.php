@@ -2,8 +2,6 @@
 
 namespace WPF\v1;
 
-require_once ( 'wpf_inc.php' );
-
 /*
 WPF predicates functions..
 

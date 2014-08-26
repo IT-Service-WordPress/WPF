@@ -2,7 +2,6 @@
 
 namespace WPF\v1\Setting\Validate;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_setting_validator_ibase.php' );
 
 /*

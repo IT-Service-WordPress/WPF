@@ -2,7 +2,6 @@
 
 namespace WPF\v1\Compatibility;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_compatibility_ibase.php' );
 
 /*

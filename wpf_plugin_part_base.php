@@ -2,7 +2,6 @@
 
 namespace WPF\v1\Plugin\Part;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_part_ibase.php' );
 require_once ( 'wpf_plugin_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );

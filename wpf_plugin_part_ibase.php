@@ -2,10 +2,7 @@
 
 namespace WPF\v1\Plugin\Part;
 
-require_once ( 'wpf_inc.php' );
-
 /*
-
 
 @since 1.0.0
 

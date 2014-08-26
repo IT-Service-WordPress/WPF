@@ -2,7 +2,6 @@
 
 namespace WPF\v1\Setting;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_iinstallable.php' );
 
 /*

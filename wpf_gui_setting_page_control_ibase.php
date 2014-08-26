@@ -2,8 +2,6 @@
 
 namespace WPF\v1\GUI\Setting\Page\Control;
 
-require_once ( 'wpf_inc.php' );
-
 /*
 Settings page control interface.
 

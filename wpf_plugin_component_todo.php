@@ -2,7 +2,6 @@
 
 namespace WPF\v1\Plugin\Component;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_component_dynamic.php' );
 require_once ( 'wpf_gui_notice_admin.php' );
 

@@ -2,7 +2,6 @@
 
 namespace WPF\v1\Plugin\Part\Load;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_part_load_base.php' );
 require_once ( 'wpf_predicates.php' );
 

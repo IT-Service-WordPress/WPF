@@ -2,8 +2,6 @@
 
 namespace WPF\v1\GUI\Setting\Page\Component\Help;
 
-require_once ( 'wpf_inc.php' );
-
 /*
 Settings page Help component interface.
 

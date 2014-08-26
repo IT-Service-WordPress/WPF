@@ -2,7 +2,6 @@
 
 namespace WPF\v1\GUI\Setting\Page\Control;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_control_base.php' );
 require_once ( 'wpf_gui_templates.php' );
 

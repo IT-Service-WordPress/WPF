@@ -2,7 +2,6 @@
 
 namespace WPF\v1\TextDomain;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_textdomain_base.php' );
 
 /*

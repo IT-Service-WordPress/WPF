@@ -2,10 +2,8 @@
 
 namespace WPF\v1\Plugin\Part;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_plugin_part_base.php' );
 require_once ( 'wpf_plugin_component_idependable.php' );
-
 
 /*
 Plugin part container (admin-side, frontend, so on) with advanced functions:

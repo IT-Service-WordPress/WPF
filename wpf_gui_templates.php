@@ -2,8 +2,6 @@
 
 namespace WPF\v1\GUI;
 
-require_once ( 'wpf_inc.php' );
-
 /*
 Functions for plugin templates processing.
 

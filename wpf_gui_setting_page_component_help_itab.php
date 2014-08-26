@@ -2,7 +2,6 @@
 
 namespace WPF\v1\GUI\Setting\Page\Component\Help;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_component_help_ibase.php' );
 require_once ( 'wpf_gui_setting_page_component_help_icomponent.php' );
 

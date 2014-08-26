@@ -2,7 +2,6 @@
 
 namespace WPF\v1\GUI\Notice;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_templates.php' );
 
 /*

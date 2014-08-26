@@ -2,11 +2,9 @@
 
 namespace WPF\v1\Compatibility\Version;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_compatibility_version_base.php' );
 
 /*
-
 
 @since 1.0.0
 

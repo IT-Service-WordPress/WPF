@@ -2,7 +2,6 @@
 
 namespace WPF\v1;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_textdomain_wpf.php' );
 
 /*

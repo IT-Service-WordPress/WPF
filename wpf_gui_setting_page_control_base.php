@@ -2,7 +2,6 @@
 
 namespace WPF\v1\GUI\Setting\Page\Control;
 
-require_once ( 'wpf_inc.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
 
