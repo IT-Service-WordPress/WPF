@@ -44,15 +44,28 @@ class Base
 	function __construct(
 		$id
 		, $option_name = null
-		, $title = null
-		, $description = null
-		, $postfix = null
+		, $args = array()
+		// , $title = null
+		// , $description = null
+		// , $postfix = null
 	) {
+		if ( ! is_array ( $args ) ) { // old style call
+			$old_args = func_get_args();
+			$args = array();
+			if ( isset( $old_args[ 2 ] ) ) $args[ 'title' ] = $old_args[ 2 ];
+			if ( isset( $old_args[ 3 ] ) ) $args[ 'description' ] = $old_args[ 3 ];
+			if ( isset( $old_args[ 4 ] ) ) $args[ 'postfix' ] = $old_args[ 4 ];
+		};
+		$properties = array_keys( get_object_vars( $this ) );
+		foreach ( $properties as $property ) {
+			if ( isset( $args[ $property ] ) ) {
+				$this->$property = $args[ $property ];
+			};
+		};
+
 		$this->id = $id;
 		$this->option_name = $option_name ? $option_name : $id;
-		$this->title = $title ? $title : $this->option_name;
-		$this->description = $description;
-		$this->postfix = $postfix;
+		if ( empty ( $this->title ) ) $this->title = $this->option_name;
 	}
 
 	public
