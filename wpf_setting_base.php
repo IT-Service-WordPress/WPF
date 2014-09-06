@@ -86,7 +86,7 @@ class Base
 
 	public
 	function get_value() {
-		\get_option( $this->get_option_name() );
+		return \get_option( $this->get_option_name(), $this->default_value );
 	}
 
 	public
