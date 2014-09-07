@@ -264,7 +264,7 @@ class Base
 		$this->_slug = \sanitize_title( $this->_namespace );
 		$basename = basename( $this->_file, '.php' );
 		if ( 'main' != $basename ) {
-			$this->_slug += '_' . $basename;
+			$this->_slug .= '_' . $basename;
 		};
 
 		$this->components = new Component\Collection();
