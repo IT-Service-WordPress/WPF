@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Setting\Page\Component;
 
 require_once ( 'wpf_gui_setting_page_component_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
+require_once ( 'wpf_functions.php' );
 
 /*
 Settings page pluggable component base class.
@@ -48,21 +49,14 @@ class Base
 	function check_page_bind() {
 		$this->check_bind();
 		if ( is_null( $this->page ) ) {
-			// !!! throw error !!!
-			if (
-				\WP_DEBUG
-				&& \is_admin()
-			) {
-				require_once( 'wpf_gui_notice_admin.php' );
-				new \WPF\v1\GUI\Notice\Admin(
-					sprintf(
-						__( 'Plugin "%1$s" coding error: component <code>%2$s</code> must be associated with an instance of settings page, not with the instance of the plugin directly.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-						, $this->plugin->get_title()
-						, \get_class( $this )
-					)
-					, 'error'
-				);
-			};
+			\WPF\v1\trigger_wpf_error(
+				sprintf(
+					__( 'Plugin "%1$s" coding error: component <code>%2$s</code> must be associated with an instance of settings page, not with the instance of the plugin directly.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+					, $this->plugin->get_title()
+					, \get_class( $this )
+				)
+				, E_USER_NOTICE
+			);
 		};
 	}
 	
