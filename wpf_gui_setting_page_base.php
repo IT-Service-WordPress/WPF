@@ -5,6 +5,7 @@ namespace WPF\v1\GUI\Setting\Page;
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
+require_once ( 'wpf_functions.php' );
 
 /*
 Settings page descriptor base class.
@@ -46,22 +47,16 @@ class Base
 		} elseif ( is_string( $component ) ) {
 			$this->components[ $component ] = true;
 		} else { // unsupported component
-			if ( 
-				\WP_DEBUG
-				&& \is_admin()
-			) {
-				require_once( 'wpf_gui_notice_admin.php' );
-				new \WPF\v1\GUI\Notice\Admin(
-					sprintf(
-						__( 'Plugin coding error: class <code>%2$s</code> doesn`t support component <code>%3$s</code>. Components must implement <code>%4$s</code> interface.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-						, '' // $this->plugin->get_title()
-						, get_class( $this )
-						, get_class( $component )
-						, '\WPF\v1\GUI\Setting\Page\Component\IBase'
-					)
-					, 'error'
-				);
-			};
+			\WPF\v1\trigger_wpf_error(
+				sprintf(
+					__( 'Plugin coding error: class <code>%2$s</code> doesn`t support component <code>%3$s</code>. Components must implement <code>%4$s</code> interface.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+					, '' // $this->plugin->get_title()
+					, get_class( $this )
+					, get_class( $component )
+					, '\WPF\v1\GUI\Setting\Page\Component\IBase'
+				)
+				, E_USER_ERROR
+			);
 		};
 	}
 
@@ -70,13 +65,10 @@ class Base
 		$component_type = null // interface id, or null for all components
 	) {
 		if ( $component_type ) {
-			$found = array();
-			foreach ( $this->components as $component ) {
-				if ( $component instanceof $component_type ) {
-					$found[] = $component;
-				};
-			};
-			return $found;
+			return array_filter(
+				$this->components
+				, function ( $component ) use( $component_type ) { return ( $component instanceof $component_type ); }
+			);
 		} else {
 			return $this->components;
 		};
