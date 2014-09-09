@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace WPF\v1\Plugin;
 
 require_once ( 'wpf_plugin_ibase.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_plugin_component_collection.php' );
+require_once ( 'wpf_properties.php' );
 
 /*
 
@@ -28,7 +29,7 @@ class Base
 	function get_file() {
 		return $this->_file;
 	}
-	
+
 	protected
 	$base_name; // __FILE__;
 
@@ -37,7 +38,7 @@ class Base
 	function get_basename() {
 		return $this->base_name;
 	}
-	
+
 	protected
 	$_slug; // dirname( plugin_basename( __FILE__ ) );
 
@@ -65,7 +66,7 @@ class Base
 	function get_dir_url() {
 		return \plugin_dir_url( $this->_file );
 	}
-	
+
 	final
 	public
 	function get_file_url(
@@ -73,7 +74,7 @@ class Base
 	) {
 		return \plugins_url( $path, $this->_file );
 	}
-	
+
 	final
 	public
 	function get_file_path(
@@ -81,7 +82,7 @@ class Base
 	) {
 		return $this->get_dir_path() . $path;
 	}
-	
+
 	private
 	$_data;
 
@@ -94,7 +95,7 @@ class Base
 			$this->_data[ true ] = \_get_plugin_data_markup_translate( $this->_file, $this->_data[ false ], true, false );
 		};
 	}
-	
+
 	public
 	function get_title(
 		$markup = true
@@ -102,19 +103,19 @@ class Base
 		$this->load_data();
 		return $this->_data[ $markup ][ 'Title' ];
 	}
-	
+
 	public
 	function get_plugin_uri() {
 		$this->load_data();
 		return $this->_data[ false ][ 'PluginURI' ];
 	}
-	
+
 	public
 	function get_version() {
 		$this->load_data();
 		return $this->_data[ false ][ 'Version' ];
 	}
-	
+
 	public
 	function get_description(
 		$markup = true
@@ -122,7 +123,7 @@ class Base
 		$this->load_data();
 		return $this->_data[ $markup ][ 'Description' ];
 	}
-	
+
 	public
 	function get_author_name(
 		$markup = true
@@ -130,7 +131,7 @@ class Base
 		$this->load_data();
 		return $this->_data[ $markup ][ 'AuthorName' ];
 	}
-	
+
 	public
 	function get_author_uri() {
 		$this->load_data();
@@ -146,7 +147,7 @@ class Base
 	protected
 	// \WPF\v1\Plugin\Component\Collection
 	$components;
-	
+
 	public
 	function add_components(
 		/* Component\IBase& */ $components // неопределённое количество компонентов больше одного
@@ -156,10 +157,20 @@ class Base
 			foreach ( $components as $component ) {
 				$this->add_components( $component );
 			};
-		} elseif ( $component instanceof Component\IBase ) {
-			$this->components->add( $component );
-			$component->bind( $this );
-			$component->bind_action_handlers_and_filters();
+		} else {
+			$this->add_component( $component );
+		};
+	}
+
+	protected
+	function add_component(
+		Component\IBase& $component
+	) {
+		$this->components->add( $component );
+		$component->bind( $this );
+		$component->bind_action_handlers_and_filters();
+		if ( $component instanceof \WPF\v1\Setting\IBase ) {
+			$this->settings->add( $component );
 		};
 	}
 
@@ -192,6 +203,15 @@ class Base
 		} else {
 			return $this->components;
 		};
+	}
+
+	protected
+	// \WPF\v1\Properties // \WPF\v1\Setting\Base collection
+	$settings;
+
+	public
+	function get_settings() {
+		return $this->settings;
 	}
 
 	final
@@ -237,7 +257,7 @@ class Base
 	function deactivate() {
 		if ( current_user_can( 'activate_plugins' ) ) {
 			\deactivate_plugins( $this->get_file() );
-			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] ); 
+			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
 			new \WPF\v1\GUI\Notice\Admin(
 				\sprintf(
 					__( 'Plugin <strong>deactivated</strong>.' )
@@ -247,14 +267,14 @@ class Base
 			);
 		};
 	}
-	
+
 	public
 	function get_plugin_load_action_name() {
 		return 'load_' . $this->get_basename();
 	}
-	
+
 	public
-	function __construct( 
+	function __construct(
 		$plugin_file
 		, /* Component\IBase& */ $components // неопределённое количество компонентов больше одного
 	) {
@@ -268,6 +288,7 @@ class Base
 		};
 
 		$this->components = new Component\Collection();
+		$this->settings = new \WPF\v1\Properties();
 		$this->add_components(
 			array_slice( func_get_args(), 1 )
 		);
@@ -279,11 +300,10 @@ class Base
 	function __clone() {}
 
 	private
-	function __sleep() {
-		return array();
-	}
+	function __sleep() {}
 
     private
 	function __wakeup() {}
+
 }
 ?>

@@ -2,6 +2,7 @@
 
 namespace WPF\v1\Setting;
 
+require_once ( 'wpf_iproperty.php' );
 require_once ( 'wpf_plugin_component_iinstallable.php' );
 
 /*
@@ -16,25 +17,15 @@ Setting descriptor interface.
 */
 interface IBase
 	extends
-		\WPF\v1\Plugin\Component\IInstallable
+		\WPF\v1\IProperty
+		, \WPF\v1\Plugin\Component\IInstallable
 {
 
 	public
 	function get_option_group();
 
 	public
-	function get_option_name();
-
-	public
 	function get_sanitize_callback();
-
-	public
-	function get_value();
-
-	public
-	function set_value(
-		$new_value
-	);
 
 	public
 	function register_setting();

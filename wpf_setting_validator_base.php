@@ -97,7 +97,7 @@ class Base
 		} elseif ( ! $this->params ) {
 			return call_user_func( $this->validator, $new_value );
 		} else {
-			return call_user_func_array( $this->validator, array( $new_value ) + $this->params );
+			return call_user_func_array( $this->validator, array_merge( array( $new_value ), $this->params ) );
 		};
 	}
 
@@ -110,7 +110,7 @@ class Base
 		} elseif ( ! $this->params ) {
 			return call_user_func( $this->sanitizer, $new_value );
 		} else {
-			return call_user_func_array( $this->sanitizer, array( $new_value ) + $this->params );
+			return call_user_func_array( $this->sanitizer, array_merge( array( $new_value ), $this->params ) );
 		};
 	}
 
@@ -119,12 +119,12 @@ class Base
 		$new_value
 	) {
 		$sanitized_value = $this->sanitize( $new_value );
-		$old_value = \get_option( $this->setting->get_option_name() );
-		$params = array( $old_value, $new_value, $sanitized_value ) + $this->params;
+		$old_value = $this->setting->get_value();
+		$params = array_merge( array( $old_value, $new_value, $sanitized_value ), $this->params );
 		if ( $this->is_valid( $sanitized_value ) ) {
 			if ( $this->success_message ) {
 				\add_settings_error(
-					$this->setting->get_option_name()
+					$this->setting->get_name()
 					, 'settings_updated'
 					, vsprintf( $this->success_message, $params )
 					, 'updated'
@@ -134,7 +134,7 @@ class Base
 		} else {
 			if ( $this->error_message ) {
 				\add_settings_error(
-					$this->setting->get_option_name()
+					$this->setting->get_name()
 					, 'settings_updated'
 					, vsprintf( $this->error_message, $params )
 					, 'error'

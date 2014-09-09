@@ -75,8 +75,14 @@ class Base
 	}
 
 	public
-	function get_option_name() {
+	function get_name() {
 		return $this->option_name;
+	}
+
+	public
+	function get_option_name() {
+		\_deprecated_function ( __FUNCTION__, '1.1', __CLASS__ . '::' . 'get_name()' );
+		return $this->get_name();
 	}
 
 	public
@@ -86,14 +92,26 @@ class Base
 
 	public
 	function get_value() {
-		return \get_option( $this->get_option_name(), $this->default_value );
+		return \get_option( $this->get_name(), $this->default_value );
 	}
 
 	public
 	function set_value(
 		$new_value
 	) {
-		\set_option( $this->get_option_name( $new_value ) );
+		\update_option( $this->get_name(), $new_value );
+	}
+
+	public
+	function isset_value() {
+		return ( false !== \get_option( $this->get_name() ) );
+		// !!! to-do: пересмотреть определение
+	}
+
+	public
+	function unset_value() {
+		return \update_option( $this->get_name(), null );
+		// !!! to-do: пересмотреть определение
 	}
 
 	public
@@ -125,7 +143,7 @@ class Base
 	protected
 	function add_option() {
 		\add_option(
-			$this->get_option_name()
+			$this->get_name()
 			, $this->default_value ? $this->default_value : ''
 			, ''
 			, $this->autoload ? 'yes' : 'no'
@@ -136,7 +154,7 @@ class Base
 	protected
 	function delete_option() {
 		\delete_option(
-			$this->get_option_name()
+			$this->get_name()
 		);
 		// !!!! netwotk wide ? !!!! delete_site_option
 	}
@@ -145,7 +163,7 @@ class Base
 	function register_setting() {
 		\register_setting(
 			$this->get_option_group()
-			, $this->get_option_name()
+			, $this->get_name()
 			, $this->get_sanitize_callback()
 		);
 	}
@@ -154,7 +172,7 @@ class Base
 	function unregister_setting() {
 		\unregister_setting(
 			$this->get_option_group()
-			, $this->get_option_name()
+			, $this->get_name()
 			, $this->get_sanitize_callback()
 		);
 	}

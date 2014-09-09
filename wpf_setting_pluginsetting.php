@@ -2,7 +2,7 @@
 
 namespace WPF\v1\Setting;
 
-require_once ( 'wpf_setting_base.php' );
+require_once ( 'wpf_setting_serializable.php' );
 
 /*
 Plugin setting descriptor class.
@@ -16,7 +16,7 @@ Plugin setting descriptor class.
 */
 class PluginSetting
 	extends
-		Base
+		Serializable
 {
 
 	public

@@ -87,6 +87,9 @@ interface IBase {
 	);
 
 	public
+	function get_settings();
+
+	public
 	function activate();
 
 	public

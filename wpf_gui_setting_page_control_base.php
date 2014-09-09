@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Setting\Page\Control;
 
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
+require_once ( 'wpf_setting_ibase.php' );
 
 /*
 Settings page control base class.
@@ -28,6 +29,10 @@ class Base
 	$option_name;
 
 	protected
+	// \WPF\v1\Setting\IBase&
+	$option;
+
+	protected
 	$title;
 
 	protected
@@ -43,7 +48,7 @@ class Base
 	public
 	function __construct(
 		$id
-		, $option_name = null
+		, $option = null
 		, $args = array()
 		// , $title = null
 		// , $description = null
@@ -64,7 +69,17 @@ class Base
 		};
 
 		$this->id = $id;
-		$this->option_name = $option_name ? $option_name : $id;
+		if ( null === $option ) {
+			$option = $id;
+		};
+		if ( $option instanceof \WPF\v1\Setting\IBase ) {
+			$this->option = $option;
+			$this->option_name = $this->option->get_name();
+		} elseif ( is_string( $option ) ) {
+			$this->option_name = $option;
+		} else {
+			// !!! throw error !!!
+		};
 		if ( empty ( $this->title ) ) $this->title = $this->option_name;
 	}
 
@@ -73,6 +88,11 @@ class Base
 		\WPF\v1\GUI\Setting\Page\Section\IBase& $section
 	) {
 		$this->section = $section;
+	}
+
+	protected
+	function get_plugin() {
+		return $this->section->get_plugin();
 	}
 
 	public
@@ -102,7 +122,11 @@ class Base
 
 	public
 	function get_option_value() {
-		return \get_option( $this->get_option_name() );
+		if ( $this->option ) {
+			return $this->option->get_value();
+		} else {
+			return $this->get_plugin()->get_settings()->__get( $this->get_option_name() );
+		};
 	}
 
 	public
