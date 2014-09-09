@@ -98,13 +98,7 @@ class Base
 
 	public
 	function get_sections() {
-		$sections = array();
-		foreach ( $this->components as $component ) {
-			if ( $component instanceof Section\IBase ) {
-				$sections[] = $component;
-			};
-		};
-		return $sections;
+		return $this->get_components( '\WPF\v1\GUI\Setting\Page\Section\IBase' );
 	}
 
 	public
