@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Setting\Page;
 
@@ -42,10 +42,10 @@ class PluginOptions
 	public
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
-		\add_action( 'pre_current_active_plugins', array( &$this, '_add_settings_page_link' ) ); 
+		\add_action( 'pre_current_active_plugins', array( &$this, '_add_settings_page_link' ) );
 
-		\add_action( 'after_install_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); 
-		\add_action( 'after_update_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); 
+		\add_action( 'after_install_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) );
+		\add_action( 'after_update_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) );
 		// \add_action( 'after_activate_' . $this->plugin->get_basename(), array( &$this, 'schedule_review_settings_notice' ) ); // just for test
 	}
 
@@ -82,30 +82,30 @@ class PluginOptions
 	final
 	public
 	function _add_settings_page_link() {
-		\add_filter( 'plugin_action_links_' . $this->plugin->get_basename(), array( &$this, 'add_settings_page_link' ) ); 
+		\add_filter( 'plugin_action_links_' . $this->plugin->get_basename(), array( &$this, 'add_settings_page_link' ) );
 	}
 
-	/** 
-	 * Add settings link to plugin list table 
-	 * @param  array $links Existing links 
-	 * @return array 		Modified links 
-	 */ 
+	/**
+	 * Add settings link to plugin list table
+	 * @param  array $links Existing links
+	 * @return array 		Modified links
+	 */
 	public
 	function add_settings_page_link(
 		$links
-	) { 
+	) {
 		$settings_link =
 			'<a href="'
 			. $this->get_page_url()
-			. '"' 
+			. '"'
 			. ' title="' . esc_attr__( 'Settings' )	. '"'
 			. ' class="settings"'
 			. '>'
 			. __( 'Settings' )
 			. '</a>'
 		;
-		array_push( $links, $settings_link ); 
-		return $links; 
+		array_push( $links, $settings_link );
+		return $links;
 	}
 
 	public
@@ -116,6 +116,24 @@ class PluginOptions
 	public
 	function get_page_slug() {
 		return $this->plugin->get_slug();
+	}
+
+	protected
+	function do_add_submenu_page() {
+		\add_submenu_page(
+			$this->get_parent_slug()
+			, $this->get_page_title()
+			, $this->get_menu_title()
+			, $this->get_capability()
+			, $this->get_page_slug()
+			, array( &$this, 'display' )
+		);
+	}
+
+	public
+	function display() {
+		$_template_file = \WPF\v1\GUI\locate_template( 'settings_page.php' );
+		require( $_template_file );
 	}
 
 }

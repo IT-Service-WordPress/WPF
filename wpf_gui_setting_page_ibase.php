@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Setting\Page;
 
@@ -24,28 +24,10 @@ interface IBase
 	function get_parent_slug();
 
 	public
-	function get_page_title();
-
-	public
-	function get_menu_title();
-
-	public
-	function get_capability();
-
-	public
 	function get_page_slug();
 
 	public
-	function get_option_group();
-
-	public
 	function get_page_hookname();
-
-	public
-	function add_submenu_page();
-
-	public
-	function display();
 
 	public
 	function add_components(

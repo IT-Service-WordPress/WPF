@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Setting\Page;
 
@@ -27,7 +27,7 @@ class Base
 
 	protected
 	$components;
-	
+
 	public
 	function add_components(
 		// произвольное количество ISection, string или Component\IBase. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
@@ -105,7 +105,7 @@ class Base
 				$section->bind_to_page( $this );
 			};
 		};
-		if ( 
+		if (
 			\WP_DEBUG
 			&& \is_admin()
 		) {
@@ -184,27 +184,21 @@ class Base
 			, $this->get_parent_slug()
 		);
 	}
-	
+
 	public
 	function add_submenu_page() {
-		$page_load_action = \add_submenu_page(
-			$this->get_parent_slug()
-			, $this->get_page_title()
-			, $this->get_menu_title()
-			, $this->get_capability()
-			, $this->get_page_slug()
-			, array( &$this, 'display' )
-		);
+		$this->do_add_submenu_page();
 		foreach ( $this->get_sections() as $section ) {
 			$section->add_settings_section();
 		};
-		\add_action( 'load-' . $page_load_action, array( &$this, 'on_page_load' ) );
+		\add_action(
+			'load-' . $this->get_page_hookname()
+			, array( &$this, 'on_page_load' )
+		);
 	}
 
-	public
-	function display() {
-		$_template_file = \WPF\v1\GUI\locate_template( 'settings_page.php' );
-		require( $_template_file );
+	protected
+	function do_add_submenu_page() {
 	}
 
 	public
