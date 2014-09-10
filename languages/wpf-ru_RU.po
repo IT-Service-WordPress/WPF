@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-08-21 00:27+0400\n"
-"PO-Revision-Date: 2014-08-21 00:27+0400\n"
+"POT-Creation-Date: 2014-09-10 19:41+0400\n"
+"PO-Revision-Date: 2014-09-10 19:43+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -33,14 +33,14 @@ msgstr "<a href=\"%2$s\" target=\"_blank\">О плагине</a>"
 msgid "<a href=\"%2$s\" target=\"_blank\">About author</a>"
 msgstr "<a href=\"%2$s\" target=\"_blank\">Об авторе</a>"
 
-#: ../wpf_compatibility_validators.php:55
+#: ../wpf_compatibility_validators.php:54
 #, php-format
 msgid "Plugin \"%1$s\" compatibility check produced errors."
 msgstr ""
 "При проверке требований программной совместимости плагина \"%1$s\" выявлены "
 "ошибки."
 
-#: ../wpf_compatibility_version_php.php:33
+#: ../wpf_compatibility_version_php.php:31
 #, php-format
 msgid ""
 "PHP %1$s or newer is required. Current version - %2$s. <a href=\"%3$s"
@@ -49,7 +49,7 @@ msgstr ""
 "Требуется PHP версии %1$s или более поздней. Текущая версия - %2$s. <a href="
 "\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_compatibility_version_wp.php:33
+#: ../wpf_compatibility_version_wp.php:31
 #, php-format
 msgid ""
 "WordPress %1$s or newer is required. Current version - %2$s. <a href=\"%3$s"
@@ -58,8 +58,8 @@ msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_gui_setting_page_base.php:57
-#: ../wpf_gui_setting_page_component_help_base.php:50
+#: ../wpf_gui_setting_page_base.php:52
+#: ../wpf_gui_setting_page_component_help_base.php:49
 #, php-format
 msgid ""
 "Plugin coding error: class <code>%2$s</code> doesn`t support component <code>"
@@ -69,7 +69,7 @@ msgstr ""
 "компонент<code>%3$s</code>. Компонент должен реализовать интерфейс<code>"
 "%4$s</code>."
 
-#: ../wpf_gui_setting_page_base.php:132
+#: ../wpf_gui_setting_page_base.php:117
 #, php-format
 msgid ""
 "Plugin \"%1$s\" coding error: settings page <code>%2$s</code> requires <code>"
@@ -79,7 +79,7 @@ msgstr ""
 "секции настроек с id=<code>%3$s</code>, но секции настроек с указанным id в "
 "плагине не обнаружено."
 
-#: ../wpf_gui_setting_page_component_base.php:60
+#: ../wpf_gui_setting_page_component_base.php:54
 #, php-format
 msgid ""
 "Plugin \"%1$s\" coding error: component <code>%2$s</code> must be associated "
@@ -89,11 +89,23 @@ msgstr ""
 "Ошибка в коде плагина \"%1$s\": компонент <code>%2$s</code> должен быть "
 "связан со страницей настроек, а не с экземпляром плагина непосредственно."
 
-#: ../wpf_gui_setting_page_component_help_plugindata.php:48
+#: ../wpf_gui_setting_page_component_help_plugindata.php:47
 msgid "Overview"
 msgstr ""
 
-#: ../wpf_gui_setting_page_pluginoptions.php:67
+#: ../wpf_gui_setting_page_control_base.php:79
+#: ../wpf_gui_setting_page_control_base.php:99
+#: ../wpf_gui_setting_validator_base.php:64
+#: ../wpf_gui_setting_validator_base.php:85 ../wpf_meta_base.php:58
+#, php-format
+msgid ""
+"Plugin coding error: unsupported parameter <code>%3$s</code> type <code>"
+"%4$s</code>."
+msgstr ""
+"Ошибка в плагине: неподдерживаемый типа <code>%4$s</code> параметра <code>"
+"%3$s</code>."
+
+#: ../wpf_gui_setting_page_pluginoptions.php:66
 #, php-format
 msgid ""
 "<a href=\"%2$s\">Review plugin \"%1$s\" settings</a>. Plugin was installed "
@@ -102,16 +114,16 @@ msgstr ""
 "<a href=\"%2$s\">Проверьте настройки плагина \"%1$s\"</a>. Указанный плагин "
 "был недавно установлен или обновлён."
 
-#: ../wpf_gui_setting_page_pluginoptions.php:102
-#: ../wpf_gui_setting_page_pluginoptions.php:105
+#: ../wpf_gui_setting_page_pluginoptions.php:101
+#: ../wpf_gui_setting_page_pluginoptions.php:104
 msgid "Settings"
 msgstr ""
 
-#: ../wpf_plugin_base.php:244
+#: ../wpf_plugin_base.php:270
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 
-#: ../wpf_plugin_component_dependable.php:49
+#: ../wpf_plugin_component_dependable.php:48
 #, php-format
 msgid ""
 "Plugin \"%1$s\" coding error: component <code>%2$s</code> requires <code>"
@@ -120,6 +132,16 @@ msgstr ""
 "Ошибка в коде плагина \"%1$s\": для компонента <code>%2$s</code> ожидается "
 "наличие компонента с интерфейсом <code>%3$s</code> в плагине. Включите "
 "необходимый компонент в плагин."
+
+#: ../wpf_properties.php:77 ../wpf_properties.php:96 ../wpf_properties.php:116
+#: ../wpf_properties.php:135 ../wpf_properties.php:154
+#, php-format
+msgid ""
+"WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</"
+"code>."
+msgstr ""
+"Ошибка WPF: запрошено неизвестное свойство <code>%1$s</code> из коллекции "
+"<code>%2$s</code>."
 
 #: ../wpf_textdomain_wpf_header.php:13
 msgid "WordPress plugin framework WPF v1"

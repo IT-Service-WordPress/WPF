@@ -1,14 +1,12 @@
 <?php
 
-namespace WPF\v1\Setting;
-
-\_deprecated_file( __FILE__, '1.1', 'wpf_option_ibase.php' ); // https://github.com/IT-Service-WordPress/WPF/issues/48
+namespace WPF\v1\Option;
 
 require_once ( 'wpf_iproperty.php' );
 require_once ( 'wpf_plugin_component_iinstallable.php' );
 
 /*
-Setting descriptor interface.
+Option descriptor interface.
 
 @since 1.0.0
 
@@ -22,18 +20,6 @@ interface IBase
 		\WPF\v1\IProperty
 		, \WPF\v1\Plugin\Component\IInstallable
 {
-
-	public
-	function get_option_group();
-
-	public
-	function get_sanitize_callback();
-
-	public
-	function register_setting();
-
-	public
-	function unregister_setting();
 
 }
 ?>

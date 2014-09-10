@@ -47,6 +47,13 @@ class Existing
 	function get_page_slug() {
 		return $this->page_slug;
 	}
+	
+!!!!!		public
+	function get_option_group() {
+		return $this->plugin->get_namespace();
+	}
+
+
 
 }
 ?>

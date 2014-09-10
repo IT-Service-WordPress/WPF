@@ -1,6 +1,8 @@
-<?php 
+<?php
 
 namespace WPF\v1\Setting;
+
+\_deprecated_file( __FILE__, '1.1', 'wpf_option_serializable.php' ); // https://github.com/IT-Service-WordPress/WPF/issues/48
 
 require_once ( 'wpf_setting_base.php' );
 

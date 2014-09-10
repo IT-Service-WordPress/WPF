@@ -1,15 +1,14 @@
 <?php
 
-namespace WPF\v1\Setting\Validate;
+namespace WPF\v1\GUI\Setting\Validator;
 
-\_deprecated_file( __FILE__, '1.1', 'wpf_gui_setting_validator_base.php' ); // https://github.com/IT-Service-WordPress/WPF/issues/48
-
-require_once ( 'wpf_setting_validator_ibase.php' );
+require_once ( 'wpf_gui_setting_validator_ibase.php' );
+require_once ( 'wpf_functions.php' );
 
 /*
 Setting validator / sanitizer interface.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>
@@ -22,7 +21,7 @@ class Base
 {
 
 	protected
-	// \WPF\v1\Setting\IBase&
+	// \WPF\v1\GUI\Setting\IBase&
 	$setting;
 
 	protected
@@ -60,7 +59,16 @@ class Base
 		} elseif ( is_null( $validator ) ) {
 			$this->validator = $validator;
 		} else {
-			// !!! throw error !!!
+			\WPF\v1\trigger_wpf_error(
+				sprintf(
+					__( 'Plugin coding error: unsupported parameter <code>%3$s</code> type <code>%4$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+					, '' // $this->plugin->get_title()
+					, get_class( $this )
+					, 'validator'
+					, gettype( $validator )
+				)
+				, E_USER_ERROR
+			);
 		};
 
 		if ( is_callable( $sanitizer ) ) {
@@ -72,7 +80,16 @@ class Base
 		} elseif ( is_null( $sanitizer ) ) {
 			$this->sanitizer = $sanitizer;
 		} else {
-			// !!! throw error !!!
+			\WPF\v1\trigger_wpf_error(
+				sprintf(
+					__( 'Plugin coding error: unsupported parameter <code>%3$s</code> type <code>%4$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+					, '' // $this->plugin->get_title()
+					, get_class( $this )
+					, 'sanitizer'
+					, gettype( $sanitizer )
+				)
+				, E_USER_ERROR
+			);
 		};
 
 		$this->params = array_slice( func_get_args(), 4 );
@@ -80,7 +97,7 @@ class Base
 
 	public
 	function bind(
-		\WPF\v1\Setting\IBase& $setting
+		\WPF\v1\GUI\Setting\IBase& $setting
 	) {
 		$this->setting = $setting;
 	}
@@ -125,20 +142,16 @@ class Base
 		$params = array_merge( array( $old_value, $new_value, $sanitized_value ), $this->params );
 		if ( $this->is_valid( $sanitized_value ) ) {
 			if ( $this->success_message ) {
-				\add_settings_error(
-					$this->setting->get_name()
-					, 'settings_updated'
-					, vsprintf( $this->success_message, $params )
+				$this->setting->set_status_message(
+					vsprintf( $this->success_message, $params )
 					, 'updated'
 				);
 			};
 			return $sanitized_value;
 		} else {
 			if ( $this->error_message ) {
-				\add_settings_error(
-					$this->setting->get_name()
-					, 'settings_updated'
-					, vsprintf( $this->error_message, $params )
+				$this->setting->set_status_message(
+					vsprintf( $this->error_message, $params )
 					, 'error'
 				);
 			};

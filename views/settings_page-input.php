@@ -1,4 +1,4 @@
-<input id="<?php echo esc_attr( $this->get_id() ); ?>" name="<?php echo esc_attr( $this->get_option_name() ); ?>" class="regular-text" type="text" value="<?php echo esc_attr( $this->get_option_value() ); ?>"></input><?php
+<input id="<?php echo esc_attr( $this->get_id() ); ?>" name="<?php echo esc_attr( $this->get_name() ); ?>" class="regular-text" type="text" value="<?php echo esc_attr( $this->get_value() ); ?>"></input><?php
 	if ( $this->get_postfix() ) { 
 		echo ' ' . $this->get_postfix();
 	};

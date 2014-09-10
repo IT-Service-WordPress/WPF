@@ -30,6 +30,9 @@ interface IBase
 	function get_page_hookname();
 
 	public
+	function get_option_group();
+
+	public
 	function add_components(
 		// произвольное количество ISection, string или Component\IBase. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 		$components

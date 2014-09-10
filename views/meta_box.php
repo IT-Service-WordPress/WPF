@@ -1,6 +1,5 @@
 <?php
-	\ob_start(); 
-	$this->meta_fields(); 
+	\ob_start();
+	$this->meta_fields();
 	echo \ob_get_clean();
 ?>
-<p>zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</p>

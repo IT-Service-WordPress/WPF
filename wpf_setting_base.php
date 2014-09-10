@@ -2,6 +2,8 @@
 
 namespace WPF\v1\Setting;
 
+\_deprecated_file( __FILE__, '1.1', 'wpf_option_base.php' ); // https://github.com/IT-Service-WordPress/WPF/issues/48
+
 require_once ( 'wpf_setting_ibase.php' );
 require_once ( 'wpf_plugin_component_updatable.php' );
 

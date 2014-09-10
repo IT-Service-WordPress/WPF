@@ -66,6 +66,25 @@ class Properties
 	}
 
 	public
+	function get(
+		$name
+	) {
+		if ( array_key_exists( $name, $this->items ) ) {
+			return $this->items[ $name ];
+		} else {
+			\WPF\v1\trigger_wpf_error(
+				sprintf(
+					__( 'WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
+					, $name
+					, get_class( $this )
+				)
+				, E_USER_WARNING
+			);
+			return null;
+		};
+	}
+
+	public
 	function __get(
 		$name
 	) {

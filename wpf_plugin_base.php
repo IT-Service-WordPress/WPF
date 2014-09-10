@@ -6,6 +6,7 @@ require_once ( 'wpf_plugin_ibase.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_plugin_component_collection.php' );
 require_once ( 'wpf_properties.php' );
+require_once ( 'wpf_option_ibase.php' );
 
 /*
 
@@ -169,8 +170,8 @@ class Base
 		$this->components->add( $component );
 		$component->bind( $this );
 		$component->bind_action_handlers_and_filters();
-		if ( $component instanceof \WPF\v1\Setting\IBase ) {
-			$this->settings->add( $component );
+		if ( $component instanceof \WPF\v1\Option\IBase ) {
+			$this->options->add( $component );
 		};
 	}
 
@@ -206,12 +207,18 @@ class Base
 	}
 
 	protected
-	// \WPF\v1\Properties // \WPF\v1\Setting\Base collection
-	$settings;
+	// \WPF\v1\Properties // \WPF\v1\Option\Base collection
+	$options;
+
+	public
+	function get_options() {
+		return $this->options;
+	}
 
 	public
 	function get_settings() {
-		return $this->settings;
+		\_deprecated_function ( __FUNCTION__, '1.1', __CLASS__ . '::' . 'get_options()' );
+		return $this->get_options();
 	}
 
 	final
@@ -288,7 +295,7 @@ class Base
 		};
 
 		$this->components = new Component\Collection();
-		$this->settings = new \WPF\v1\Properties();
+		$this->options = new \WPF\v1\Properties();
 		$this->add_components(
 			array_slice( func_get_args(), 1 )
 		);

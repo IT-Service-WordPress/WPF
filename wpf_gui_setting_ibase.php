@@ -1,16 +1,13 @@
 <?php
 
-namespace WPF\v1\Setting;
-
-\_deprecated_file( __FILE__, '1.1', 'wpf_option_ibase.php' ); // https://github.com/IT-Service-WordPress/WPF/issues/48
+namespace WPF\v1\GUI\Setting;
 
 require_once ( 'wpf_iproperty.php' );
-require_once ( 'wpf_plugin_component_iinstallable.php' );
 
 /*
 Setting descriptor interface.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>
@@ -20,7 +17,6 @@ Setting descriptor interface.
 interface IBase
 	extends
 		\WPF\v1\IProperty
-		, \WPF\v1\Plugin\Component\IInstallable
 {
 
 	public
@@ -34,6 +30,11 @@ interface IBase
 
 	public
 	function unregister_setting();
+
+	public
+	function set_status_message(
+		$message
+	);
 
 }
 ?>
