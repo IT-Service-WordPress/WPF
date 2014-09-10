@@ -1,22 +1,22 @@
-<?php 
+<?php
 
-namespace WPF\v1\Setting;
+namespace WPF\v1\Option;
 
-require_once ( 'wpf_setting_pluginsetting.php' );
+require_once ( 'wpf_option_serializable.php' );
 
 /*
 Plugin setting class. Remove option from database on plugin deactivation.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-class ActivePluginSetting
+class Activable
 	extends
-		PluginSetting
+		Serializable
 {
 
 	public
