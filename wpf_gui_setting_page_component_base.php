@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Setting\Page\Component;
 
@@ -29,7 +29,7 @@ class Base
 	$page;
 
 	public
-	function __construct( 
+	function __construct(
 	) {
 		parent::__construct();
 	}
@@ -43,6 +43,13 @@ class Base
 		\WPF\v1\GUI\Setting\Page\IBase& $page
 	) {
 		$this->page = $page;
+	}
+
+	public
+	// \WPF\v1\GUI\Setting\Page\IBase& $page
+	function get_page() {
+		$this->check_page_bind();
+		return $this->page;
 	}
 
 	protected
@@ -59,7 +66,7 @@ class Base
 			);
 		};
 	}
-	
+
 	public
 	function on_page_load() {
 	}

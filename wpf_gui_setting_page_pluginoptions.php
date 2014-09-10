@@ -27,7 +27,9 @@ class PluginOptions
 		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 	) {
 		parent::__construct(
-			func_get_args()
+			'options-general.php'
+			, ''
+			, func_get_args()
 		);
 
 		if ( ! $this->has_component( '\WPF\v1\GUI\Setting\Page\Component\Help\IBase' ) ) {

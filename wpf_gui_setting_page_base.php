@@ -17,13 +17,18 @@ Settings page descriptor base class.
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-abstract
 class Base
 	extends
 		\WPF\v1\Plugin\Component\Base
 	implements
 		IBase
 {
+
+	protected
+	$parent_slug;
+
+	protected
+	$page_slug;
 
 	protected
 	$components;
@@ -128,12 +133,18 @@ class Base
 
 	public
 	function __construct(
-		// произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
+		$parent_slug
+		, $page_slug
+		, $sections // произвольное количество ISection или string. В случае строк - строки являются идентификаторами отдельно загружаемых секций.
 	) {
 		parent::__construct();
+
+		$this->parent_slug = $parent_slug;
+		$this->page_slug = $page_slug;
+
 		$this->components = array();
 		$this->add_components(
-			func_get_args()
+			array_slice( func_get_args(), 2 )
 		);
 	}
 
@@ -158,13 +169,18 @@ class Base
 	}
 
 	public
-	function get_option_group() {
-		return $this->plugin->get_namespace();
+	function get_parent_slug() {
+		return $this->parent_slug;
 	}
 
 	public
-	function get_parent_slug() {
-		return 'options-general.php';
+	function get_page_slug() {
+		return $this->page_slug;
+	}
+
+	public
+	function get_option_group() {
+		return $this->get_page_slug();
 	}
 
 	public

@@ -133,7 +133,7 @@ class Base
 
 	public
 	function get_option_group() {
-		return $this->get_plugin()->get_namespace();
+		return $this->section->get_page()->get_option_group();
 	}
 
 	public

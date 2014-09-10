@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Setting\Page\Section;
 
 require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
+require_once ( 'wpf_gui_setting_page_component_ibase.php' );
 
 /*
 Settings page section descriptor interface.
@@ -18,12 +19,8 @@ Settings page section descriptor interface.
 interface IBase
 	extends
 		\WPF\v1\Plugin\Component\IBase
+		, \WPF\v1\GUI\Setting\Page\Component\IBase
 {
-
-	public
-	function bind_to_page(
-		\WPF\v1\GUI\Setting\Page\IBase& $page
-	);
 
 	public
 	function get_id();

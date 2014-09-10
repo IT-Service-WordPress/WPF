@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Setting\Page\Section;
 
@@ -30,11 +30,11 @@ class Base
 
 	protected
 	$title;
-	
+
 	protected
 	// WPF\v1\GUI\Setting\Page\Control\IBase&[]
 	$controls;
-	
+
 	public
 	function add_controls(
 		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
@@ -75,7 +75,7 @@ class Base
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
 	}
-	
+
 	public
 	function get_id() {
 		return $this->id;
