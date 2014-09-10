@@ -67,6 +67,13 @@ class Base
 	}
 
 	public
+	function sanitize_value(
+		$new_value
+	) {
+		return $new_value;
+	}
+
+	public
 	function isset_value() {
 		return ( ! is_null( \get_option( $this->get_name(), null ) ) );
 	}

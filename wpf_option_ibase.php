@@ -21,5 +21,10 @@ interface IBase
 		, \WPF\v1\Plugin\Component\IInstallable
 {
 
+	public
+	function sanitize_value(
+		$new_value
+	);
+
 }
 ?>

@@ -36,6 +36,16 @@ class Serializable
 		return parent::set_value( $new_value );
 	}
 
+	public
+	function sanitize_value(
+		$value
+	) {
+		return ( $this->is_wrapped( $value ) ) ?
+			$value
+			: $this->wrap( $value )
+		;
+	}
+
 	protected
 	function is_wrapped(
 		$value

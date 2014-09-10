@@ -193,8 +193,19 @@ class Base
 	}
 
 	public
+	function _sanitize(
+		$new_value
+	) {
+		if ( $this->sanitize_callback ) {
+			$new_value = call_user_func( $this->sanitize_callback, $new_value );
+		};
+		$new_value = $this->get_option()->sanitize_value( $new_value );
+		return $new_value;
+	}
+
+	public
 	function get_sanitize_callback() {
-		return $this->sanitize_callback ? $this->sanitize_callback : '';
+		return array( &$this, '_sanitize' );
 	}
 
 	public
