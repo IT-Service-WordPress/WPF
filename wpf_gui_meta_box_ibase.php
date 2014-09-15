@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Meta\Box;
 
@@ -42,7 +42,7 @@ interface IBase
 
 	public
 	function add_controls(
-		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
+		// произвольное количество \WPF\v1\GUI\Control\IBase&.
 		$controls
 	);
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace WPF\v1\GUI\Setting\Page\Control;
+namespace WPF\v1\GUI\Control;
 
 require_once ( 'wpf_gui_setting_ibase.php' );
 require_once ( 'wpf_ipluggable.php' );
 
 /*
-Settings page control interface.
+UI control interface.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>

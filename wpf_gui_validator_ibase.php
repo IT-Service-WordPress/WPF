@@ -1,6 +1,6 @@
 <?php
 
-namespace WPF\v1\GUI\Setting\Validator;
+namespace WPF\v1\GUI\Validator;
 
 require_once ( 'wpf_gui_setting_ibase.php' );
 

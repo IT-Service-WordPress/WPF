@@ -1,17 +1,17 @@
 <?php
 
-namespace WPF\v1\GUI\Setting\Page\Control;
+namespace WPF\v1\GUI\Control;
 
-require_once ( 'wpf_gui_setting_page_control_ibase.php' );
+require_once ( 'wpf_gui_control_ibase.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
-require_once ( 'wpf_gui_setting_validator_ibase.php' );
+require_once ( 'wpf_gui_validator_ibase.php' );
 require_once ( 'wpf_functions.php' );
 
 /*
-Settings page control base class.
+UI control base class.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>
@@ -88,7 +88,7 @@ class Base
 		if ( empty ( $this->title ) ) $this->title = $this->option_name;
 
 		if ( $sanitize_callback ) {
-			if ( $sanitize_callback instanceof \WPF\v1\GUI\Setting\Validator\IBase ) {
+			if ( $sanitize_callback instanceof \WPF\v1\GUI\Validator\IBase ) {
 				$sanitize_callback->bind( $this );
 				$this->sanitize_callback = $sanitize_callback->get_callback();
 			} elseif ( is_callable( $sanitize_callback ) ) {

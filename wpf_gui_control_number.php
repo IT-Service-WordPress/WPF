@@ -1,14 +1,14 @@
-<?php 
+<?php
 
-namespace WPF\v1\GUI\Setting\Page\Control;
+namespace WPF\v1\GUI\Control;
 
-require_once ( 'wpf_gui_setting_page_control_input.php' );
+require_once ( 'wpf_gui_control_input.php' );
 require_once ( 'wpf_gui_templates.php' );
 
 /*
-Input number control class (for settings page).
+Input number control class.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>

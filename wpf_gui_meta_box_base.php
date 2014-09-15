@@ -4,7 +4,7 @@ namespace WPF\v1\GUI\Meta\Box;
 
 require_once ( 'wpf_gui_meta_box_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
-require_once ( 'wpf_gui_setting_page_control_ibase.php' );
+require_once ( 'wpf_gui_control_ibase.php' );
 require_once ( 'wpf_gui_templates.php' );
 
 /*
@@ -40,7 +40,7 @@ class Base
 	$priority;
 
 	// protected
-	// WPF\v1\GUI\Setting\Page\Control\IBase&[]
+	// \WPF\v1\GUI\Control\IBase&[]
 	// $controls;
 
 	public
@@ -72,7 +72,7 @@ class Base
 
 	public
 	function add_controls(
-		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
+		// произвольное количество \WPF\v1\GUI\Control\IBase&.
 		$controls
 	) {
 		/*
@@ -81,7 +81,7 @@ class Base
 			foreach ( $controls as $control ) {
 				$this->add_controls( $control );
 			};
-		} elseif ( $control instanceof \WPF\v1\GUI\Setting\Page\Control\IBase ) {
+		} elseif ( $control instanceof \WPF\v1\GUI\Control\IBase ) {
 			$this->controls[] = $control;
 		};
 		*/
@@ -172,18 +172,6 @@ class Base
 	function save_meta(
 		$post_id
 	) {
-		if ( ! check_admin_referer( $this->get_nonce_action(), $this->get_nonce_name() ) ) return;
-		// if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-
-		if (
-			isset( $_POST[ 'post_type' ] )
-			&& ( 'page' == $_POST[ 'post_type' ] )
-		) {
-			if ( ! current_user_can( 'edit_page', $post_id ) ) return;
-		} else {
-			if ( ! current_user_can( 'edit_post', $post_id ) ) return;
-		};
-
 		/*
 		// metas ...
 		if ( ! isset( $_POST[ 'myplugin_new_field' ] ) ) return;

@@ -6,7 +6,7 @@ require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
 require_once ( 'wpf_plugin_component_base.php' );
 require_once ( 'wpf_gui_setting_page_component_base.php' );
-require_once ( 'wpf_gui_setting_page_control_ibase.php' );
+require_once ( 'wpf_gui_control_ibase.php' );
 
 /*
 Settings page section descriptor base class.
@@ -32,12 +32,12 @@ class Base
 	$title;
 
 	protected
-	// WPF\v1\GUI\Setting\Page\Control\IBase&[]
+	// \WPF\v1\GUI\Control\IBase&[]
 	$controls;
 
 	public
 	function add_controls(
-		// произвольное количество WPF\v1\GUI\Setting\Page\Control\IBase&.
+		// произвольное количество \WPF\v1\GUI\Control\IBase&.
 		$controls
 	) {
 		$control = $controls;
@@ -52,7 +52,7 @@ class Base
 
 	protected
 	function add_control(
-		\WPF\v1\GUI\Setting\Page\Control\IBase& $control
+		\WPF\v1\GUI\Control\IBase& $control
 	) {
 		$this->controls[] = $control;
 		$control->bind_action_handlers_and_filters();
