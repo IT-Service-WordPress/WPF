@@ -1,6 +1,8 @@
-<?php 
+<?php
 
 namespace WPF\v1\Plugin\Component;
+
+require_once ( 'wpf_ipluggable.php' );
 
 /*
 
@@ -11,7 +13,10 @@ namespace WPF\v1\Plugin\Component;
 @license   GPL-2.0+
 @copyright 2014 ООО "Инженер-53"
 */
-interface IBase {
+interface IBase
+	extends
+		\WPF\v1\IPluggable
+{
 
 	public
 	function bind( \WPF\v1\Plugin\IBase& $plugin );
@@ -19,9 +24,6 @@ interface IBase {
 	public
 	// \WPF\v1\Plugin\IBase&
 	function get_plugin();
-
-	public
-	function bind_action_handlers_and_filters();
 
 }
 ?>
