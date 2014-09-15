@@ -78,7 +78,7 @@ class Base
 			);
 		};
 		$this->data_name = $data_name;
-		if ( empty ( $this->title ) ) $this->title = $this->option_name;
+		if ( empty ( $this->title ) ) $this->title = $this->data_name;
 
 		if ( $validator ) {
 			if ( $validator instanceof \WPF\v1\GUI\Validator\IBase ) {
