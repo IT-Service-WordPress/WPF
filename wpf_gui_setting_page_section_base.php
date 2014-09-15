@@ -45,9 +45,17 @@ class Base
 			foreach ( $controls as $control ) {
 				$this->add_controls( $control );
 			};
-		} elseif ( $control instanceof \WPF\v1\GUI\Setting\Page\Control\IBase ) {
-			$this->controls[] = $control;
+		} else {
+			$this->add_control( $control );
 		};
+	}
+
+	protected
+	function add_control(
+		\WPF\v1\GUI\Setting\Page\Control\IBase& $control
+	) {
+		$this->controls[] = $control;
+		$control->bind_action_handlers_and_filters();
 	}
 
 	public
