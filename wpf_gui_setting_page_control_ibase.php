@@ -3,6 +3,7 @@
 namespace WPF\v1\GUI\Setting\Page\Control;
 
 require_once ( 'wpf_gui_setting_ibase.php' );
+require_once ( 'wpf_ipluggable.php' );
 
 /*
 Settings page control interface.
@@ -17,6 +18,7 @@ Settings page control interface.
 interface IBase
 	extends
 		\WPF\v1\GUI\Setting\IBase
+		, \WPF\v1\IPluggable
 {
 
 	public

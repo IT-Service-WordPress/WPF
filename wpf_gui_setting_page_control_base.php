@@ -122,6 +122,10 @@ class Base
 	}
 
 	public
+	function bind_action_handlers_and_filters() {
+	}
+
+	public
 	function get_id() {
 		return $this->id;
 	}
