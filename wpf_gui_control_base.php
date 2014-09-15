@@ -3,9 +3,9 @@
 namespace WPF\v1\GUI\Control;
 
 require_once ( 'wpf_gui_control_ibase.php' );
-require_once ( 'wpf_gui_setting_page_ibase.php' );
-require_once ( 'wpf_gui_setting_page_section_ibase.php' );
+require_once ( 'wpf_gui_controller_ibase.php' );
 require_once ( 'wpf_gui_validator_ibase.php' );
+require_once ( 'wpf_gui_validator_base.php' );
 require_once ( 'wpf_functions.php' );
 
 /*
@@ -28,11 +28,7 @@ class Base
 	$id;
 
 	protected
-	$option_name;
-
-	protected
-	// \WPF\v1\Option\IBase&
-	$option;
+	$data_name;
 
 	protected
 	$title;
@@ -44,18 +40,19 @@ class Base
 	$postfix;
 
 	protected
-	// \WPF\v1\GUI\Setting\Page\Section\IBase&
-	$section;
+	// \WPF\v1\GUI\Controller\IBase&
+	$contoller;
 
 	protected
-	$sanitize_callback;
+	// \WPF\v1\GUI\Validator\IBase&
+	$validator;
 
 	public
 	function __construct(
 		$id
-		, $option = null
+		, $data_name = null
 		, $args = array()
-		, $sanitize_callback = null
+		, $validator = null
 	) {
 		$properties = array_keys( get_object_vars( $this ) );
 		foreach ( $properties as $property ) {
@@ -65,60 +62,56 @@ class Base
 		};
 
 		$this->id = $id;
-		if ( null === $option ) {
-			$option = $id;
+		if ( null === $data_name ) {
+			$data_name = $id;
 		};
-		if ( $option instanceof \WPF\v1\Option\IBase ) {
-			$this->option = $option;
-			$this->option_name = $this->option->get_name();
-		} elseif ( is_string( $option ) ) {
-			$this->option_name = $option;
-		} else {
+		if ( ! is_string( $data_name ) ) {
 			\WPF\v1\trigger_wpf_error(
 				sprintf(
 					__( 'Plugin coding error: unsupported parameter <code>%3$s</code> type <code>%4$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, '' // $this->plugin->get_title()
 					, get_class( $this )
-					, 'option'
+					, 'data_name'
 					, gettype( $option )
 				)
 				, E_USER_ERROR
 			);
 		};
+		$this->data_name = $data_name;
 		if ( empty ( $this->title ) ) $this->title = $this->option_name;
 
-		if ( $sanitize_callback ) {
-			if ( $sanitize_callback instanceof \WPF\v1\GUI\Validator\IBase ) {
-				$sanitize_callback->bind( $this );
-				$this->sanitize_callback = $sanitize_callback->get_callback();
-			} elseif ( is_callable( $sanitize_callback ) ) {
-				$this->sanitize_callback = $sanitize_callback;
+		if ( $validator ) {
+			if ( $validator instanceof \WPF\v1\GUI\Validator\IBase ) {
+				$this->validator = $validator;
+			} elseif ( is_callable( $validator ) ) {
+				$this->validator = new \WPF\v1\GUI\Validator\Base( null, null, null, $validator );
 			} else {
 				\WPF\v1\trigger_wpf_error(
 					sprintf(
 						__( 'Plugin coding error: unsupported parameter <code>%3$s</code> type <code>%4$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 						, '' // $this->plugin->get_title()
 						, get_class( $this )
-						, 'sanitize_callback'
-						, gettype( $sanitize_callback )
+						, 'validator'
+						, gettype( $validator )
 					)
 					, E_USER_ERROR
 				);
 			};
+			$this->validator->bind_datamanipulator( $this );
 		};
 	}
 
 	public
-	function bind_to_page_section(
-		\WPF\v1\GUI\Setting\Page\Section\IBase& $section
+	function bind_controller(
+		\WPF\v1\GUI\Controller\IBase& $controller
 	) {
-		$this->section = $section;
-		\add_action( 'admin_init', array( &$this, 'register_setting' ) );
+		$this->controller = $controller;
 	}
 
-	protected
-	function get_plugin() {
-		return $this->section->get_plugin();
+	public
+	// \WPF\v1\GUI\Controller\IBase&
+	function get_controller() {
+		return $this->controller;
 	}
 
 	public
@@ -128,16 +121,6 @@ class Base
 	public
 	function get_id() {
 		return $this->id;
-	}
-
-	public
-	function get_option_name() {
-		return $this->option_name;
-	}
-
-	public
-	function get_option_group() {
-		return $this->section->get_page()->get_option_group();
 	}
 
 	public
@@ -157,99 +140,44 @@ class Base
 
 	public
 	function get_name() {
-		return $this->option_name;
+		return $this->data_name;
 	}
 
 	protected
-	function get_option() {
-		if ( ! $this->option ) {
-			$this->option = $this->get_plugin()->get_options()->get( $this->get_name() );
-		};
-		return $this->option;
-	}
-
-	public
 	function get_value() {
-		return $this->get_option()->get_value();
+		return $this->controller->get_value( $this->get_name() );
 	}
 
 	public
 	function set_value(
 		$new_value
 	) {
-		return $this->get_option()->set_value( $new_value );
+		return $this->controller->set_value( $this->get_name(), $new_value );
 	}
 
 	public
 	function isset_value() {
-		return $this->get_option()->isset_value();
+		return $this->controller->isset_value( $this->get_name() );
 	}
 
 	public
 	function unset_value() {
-		return $this->get_option()->unset_value();
+		return $this->controller->unset_value( $this->get_name() );
 	}
 
 	public
-	function get_option_value() {
-		\_deprecated_function ( __FUNCTION__, '1.1', __CLASS__ . '::' . 'get_value()' );
-		return $this->get_value();
+	// \WPF\v1\GUI\Validator\IBase&
+	function get_validator() {
+		return $this->validator;
 	}
 
 	public
-	function _sanitize(
-		$new_value
-	) {
-		if ( $this->sanitize_callback ) {
-			$new_value = call_user_func( $this->sanitize_callback, $new_value );
-		};
-		$new_value = $this->get_option()->sanitize_value( $new_value );
-		return $new_value;
-	}
-
-	public
-	function get_sanitize_callback() {
-		return array( &$this, '_sanitize' );
-	}
-
-	public
-	function register_setting() {
-		\register_setting(
-			$this->get_option_group()
-			, $this->get_name()
-			, $this->get_sanitize_callback()
-		);
-	}
-
-	public
-	function unregister_setting() {
-		\unregister_setting(
-			$this->get_option_group()
-			, $this->get_name()
-			, $this->get_sanitize_callback()
-		);
-	}
-
-	public
-	function add_settings_field() {
-		\add_settings_field(
-			$this->get_id()
-			, $this->get_label()
-			, array( &$this, 'display' )
-			, $this->section->get_page_slug()
-			, $this->section->get_id()
-			, array( 'label_for' => $this->get_id() )
-		);
-	}
-
-	public
-	function set_status_message(
+	function set_status(
 		$message
 		, $code = 'updated'
 	) {
-		\add_settings_error(
+		$this->controller->set_status(
 			$this->get_name()
-			, 'settings_updated'
 			, $message
 			, $code
 		);

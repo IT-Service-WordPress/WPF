@@ -2,7 +2,7 @@
 
 namespace WPF\v1\GUI\Validator;
 
-require_once ( 'wpf_gui_setting_ibase.php' );
+require_once ( 'wpf_gui_datamanipulator_ibase.php' );
 
 /*
 Setting validator / sanitizer interface.
@@ -18,8 +18,8 @@ interface IBase
 {
 
 	public
-	function bind(
-		\WPF\v1\GUI\Setting\IBase& $setting
+	function bind_datamanipulator(
+		\WPF\v1\GUI\DataManipulator\IBase& $data_manipulator
 	);
 
 	public

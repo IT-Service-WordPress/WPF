@@ -204,9 +204,7 @@ class Base
 	public
 	function add_submenu_page() {
 		$this->do_add_submenu_page();
-		foreach ( $this->get_sections() as $section ) {
-			$section->add_settings_section();
-		};
+		$this->do_settings();
 		\add_action(
 			'load-' . $this->get_page_hookname()
 			, array( &$this, 'on_page_load' )
@@ -221,6 +219,91 @@ class Base
 	function on_page_load() {
 		foreach ( $this->components as $component ) {
 			$component->on_page_load();
+		};
+	}
+
+	public
+	function get_value(
+		$name
+	) {
+		return $this->get_plugin()->get_options()->$name;
+	}
+
+	public
+	function set_value(
+		$name
+		, $new_value
+	) {
+		return $this->get_plugin()->get_options()->$name = $new_value;
+	}
+
+	public
+	function unset_value(
+		$name
+	) {
+		return $this->get_plugin()->get_options()->get( $name )->unset_value();
+	}
+
+	public
+	function isset_value(
+		$name
+	) {
+		return $this->get_plugin()->get_options()->get( $name )->isset_value();
+	}
+
+	public
+	function set_status(
+		$name
+		, $message
+		, $code = 'updated'
+	) {
+		\add_settings_error(
+			$name
+			, 'settings_updated'
+			, $message
+			, $code
+		);
+	}
+
+	protected
+	function do_settings() {
+		$plugin = $this->get_plugin();
+		foreach ( $this->get_sections() as $section ) {
+			\add_settings_section(
+				$section->get_id()
+				, $section->get_title()
+				, array( $section, 'display' )
+				, $this->get_page_slug()
+			);
+			foreach ( $section->get_controls() as $control ) {
+				$data_manipulator = $control;
+				$data_manipulator->bind_controller( $this );
+				\register_setting(
+					$this->get_option_group()
+					, $data_manipulator->get_name()
+					, function (
+						$new_value
+					) use (
+						$data_manipulator
+						, $plugin
+					) {
+						if ( $validator = $data_manipulator->get_validator() ) {
+							$new_value = call_user_func( $validator->get_callback(), $new_value );
+						};
+						$option = $plugin->get_options()->get( $data_manipulator->get_name() );
+						$new_value = $option->sanitize_value( $new_value );
+						return $new_value;
+					}
+				);
+				\add_settings_field(
+					$control->get_id()
+					, $control->get_label()
+					, array( $control, 'display' )
+					, $this->get_page_slug()
+					, $section->get_id()
+					, array( 'label_for' => $control->get_id() )
+				);
+			};
 		};
 	}
 

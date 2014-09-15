@@ -2,7 +2,7 @@
 
 namespace WPF\v1\GUI\Control;
 
-require_once ( 'wpf_gui_setting_ibase.php' );
+require_once ( 'wpf_gui_datamanipulator_ibase.php' );
 require_once ( 'wpf_ipluggable.php' );
 
 /*
@@ -17,20 +17,12 @@ UI control interface.
 */
 interface IBase
 	extends
-		\WPF\v1\GUI\Setting\IBase
+		\WPF\v1\GUI\DataManipulator\IBase
 		, \WPF\v1\IPluggable
 {
 
 	public
 	function get_id();
-
-	public
-	function bind_to_page_section(
-		\WPF\v1\GUI\Setting\Page\Section\IBase& $section
-	);
-
-	public
-	function add_settings_field();
 
 }
 ?>

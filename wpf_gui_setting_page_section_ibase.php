@@ -29,12 +29,6 @@ interface IBase
 	function get_title();
 
 	public
-	function get_page_slug();
-
-	public
-	function add_settings_section();
-
-	public
 	function display();
 
 	public

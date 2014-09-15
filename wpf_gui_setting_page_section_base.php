@@ -81,7 +81,6 @@ class Base
 
 	public
 	function bind_action_handlers_and_filters() {
-		$this->check_bind();
 	}
 
 	public
@@ -92,26 +91,6 @@ class Base
 	public
 	function get_title() {
 		return $this->title;
-	}
-
-	public
-	function get_page_slug() {
-		return $this->page->get_page_slug();
-	}
-
-	public
-	function add_settings_section() {
-		$this->check_page_bind();
-		\add_settings_section(
-			$this->get_id()
-			, $this->get_title()
-			, array( &$this, 'display' )
-			, $this->get_page_slug()
-		);
-		foreach ( $this->controls as $control ) {
-			$control->bind_to_page_section( $this );
-			$control->add_settings_field();
-		};
 	}
 
 	public

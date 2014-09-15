@@ -21,8 +21,8 @@ class Base
 {
 
 	protected
-	// \WPF\v1\GUI\Setting\IBase&
-	$setting;
+	// \WPF\v1\GUI\DataManipulator\IBase&
+	$data_manipulator;
 
 	protected
 	$error_message;
@@ -96,10 +96,10 @@ class Base
 	}
 
 	public
-	function bind(
-		\WPF\v1\GUI\Setting\IBase& $setting
+	function bind_datamanipulator(
+		\WPF\v1\GUI\DataManipulator\IBase& $data_manipulator
 	) {
-		$this->setting = $setting;
+		$this->data_manipulator = $data_manipulator;
 	}
 
 	public
@@ -138,11 +138,11 @@ class Base
 		$new_value
 	) {
 		$sanitized_value = $this->sanitize( $new_value );
-		$old_value = $this->setting->get_value();
+		$old_value = $this->data_manipulator->get_controller()->get_value( $this->data_manipulator->get_name() );
 		$params = array_merge( array( $old_value, $new_value, $sanitized_value ), $this->params );
 		if ( $this->is_valid( $sanitized_value ) ) {
 			if ( $this->success_message ) {
-				$this->setting->set_status_message(
+				$this->data_manipulator->set_status(
 					vsprintf( $this->success_message, $params )
 					, 'updated'
 				);
@@ -150,7 +150,7 @@ class Base
 			return $sanitized_value;
 		} else {
 			if ( $this->error_message ) {
-				$this->setting->set_status_message(
+				$this->data_manipulator->set_status(
 					vsprintf( $this->error_message, $params )
 					, 'error'
 				);
