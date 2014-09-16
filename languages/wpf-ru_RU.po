@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-09-17 01:02+0400\n"
-"PO-Revision-Date: 2014-09-17 01:02+0400\n"
+"POT-Creation-Date: 2014-09-17 01:25+0400\n"
+"PO-Revision-Date: 2014-09-17 01:26+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -69,7 +69,7 @@ msgstr ""
 "Ошибка в плагине: неподдерживаемый типа <code>%4$s</code> параметра <code>"
 "%3$s</code>."
 
-#: ../wpf_gui_help_plugindata.php:48 ../wpf_gui_help_plugintab.php:28
+#: ../wpf_gui_help_plugintab.php:28
 msgid "Overview"
 msgstr ""
 

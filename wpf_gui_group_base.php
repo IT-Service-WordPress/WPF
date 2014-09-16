@@ -47,6 +47,15 @@ trait Base
 		$this->components[] = $component;
 	}
 
+	public
+	// \WPF\v1\Plugin\IBase&
+	function get_plugin() {
+		return ( $this instanceof \WPF\v1\GUI\Component\IBase ) ?
+			$this->get_group()->get_plugin()
+			: parent::get_plugin()
+		;
+	}
+
 	protected
 	function after_bind() {
 		foreach ( $this->get_components() as $component ) {
