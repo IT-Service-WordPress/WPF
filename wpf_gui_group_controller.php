@@ -17,10 +17,13 @@ Collection of UI components for data controllers.
 */
 trait Controller
 {
-	use Base;
+	use Base{
+		Base::after_bind as group_after_bind;
+	}
 
 	protected
 	function after_bind() {
+		$this->group_after_bind();
 		foreach ( $this->get_components_recursive( '\WPF\v1\GUI\DataManipulator\IBase' ) as $data_manipulator ) {
 			$data_manipulator->bind_controller( $this );
 		};

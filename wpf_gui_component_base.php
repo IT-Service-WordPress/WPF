@@ -39,6 +39,11 @@ class Base
 		\WPF\v1\GUI\Group\IBase& $group
 	) {
 		$this->group = $group;
+		$this->after_bind();
+	}
+
+	protected
+	function after_bind() {
 	}
 
 	public

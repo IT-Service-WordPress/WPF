@@ -45,7 +45,13 @@ trait Base
 		\WPF\v1\GUI\Component\IBase& $component
 	) {
 		$this->components[] = $component;
-		$component->bind_group( $this );
+	}
+
+	protected
+	function after_bind() {
+		foreach ( $this->get_components() as $component ) {
+			$component->bind_group( $this );
+		};
 	}
 
 	public
