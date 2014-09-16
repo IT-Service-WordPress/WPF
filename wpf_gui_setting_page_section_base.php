@@ -4,9 +4,10 @@ namespace WPF\v1\GUI\Setting\Page\Section;
 
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
-require_once ( 'wpf_plugin_component_base.php' );
-require_once ( 'wpf_gui_setting_page_component_base.php' );
-require_once ( 'wpf_gui_control_ibase.php' );
+require_once ( 'wpf_gui_component_ibase.php' );
+require_once ( 'wpf_gui_component_base.php' );
+require_once ( 'wpf_gui_group_ibase.php' );
+require_once ( 'wpf_gui_group_base.php' );
 
 /*
 Settings page section descriptor base class.
@@ -20,10 +21,12 @@ Settings page section descriptor base class.
 */
 class Base
 	extends
-		\WPF\v1\GUI\Setting\Page\Component\Base
+		\WPF\v1\GUI\Component\Base
 	implements
 		IBase
+		// , \WPF\v1\GUI\Group\IBase
 {
+	use \WPF\v1\GUI\Group\Base;
 
 	protected
 	$id;
@@ -31,25 +34,7 @@ class Base
 	protected
 	$title;
 
-	protected
-	// \WPF\v1\GUI\Control\IBase&[]
-	$controls;
-
-	public
-	function add_controls(
-		// произвольное количество \WPF\v1\GUI\Control\IBase&.
-		$controls
-	) {
-		$control = $controls;
-		if ( is_array( $controls ) || ( $controls instanceof \Traversable ) ) {
-			foreach ( $controls as $control ) {
-				$this->add_controls( $control );
-			};
-		} else {
-			$this->add_control( $control );
-		};
-	}
-
+	/*
 	protected
 	function add_control(
 		\WPF\v1\GUI\Control\IBase& $control
@@ -57,11 +42,7 @@ class Base
 		$this->controls[] = $control;
 		$control->bind_action_handlers_and_filters();
 	}
-
-	public
-	function get_controls() {
-		return $this->controls;
-	}
+	*/
 
 	public
 	function __construct(
@@ -73,14 +54,16 @@ class Base
 		$this->id = $id;
 		$this->title = $title;
 
-		$this->controls = array();
-		$this->add_controls(
+		$this->components = array();
+		$this->add_components(
 			array_slice( func_get_args(), 2 )
 		);
 	}
 
 	public
-	function bind_action_handlers_and_filters() {
+	// \WPF\v1\Plugin\IBase&
+	function get_plugin() {
+		return $this->get_group()->get_plugin();
 	}
 
 	public
@@ -91,6 +74,12 @@ class Base
 	public
 	function get_title() {
 		return $this->title;
+	}
+
+	public
+	// \WPF\v1\GUI\Control\IBase&[]
+	function get_controls() {
+		return $this->get_components( '\WPF\v1\GUI\Control\IBase' );
 	}
 
 	public

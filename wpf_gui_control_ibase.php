@@ -3,6 +3,7 @@
 namespace WPF\v1\GUI\Control;
 
 require_once ( 'wpf_gui_datamanipulator_ibase.php' );
+require_once ( 'wpf_gui_component_ibase.php' );
 require_once ( 'wpf_ipluggable.php' );
 
 /*
@@ -18,6 +19,7 @@ UI control interface.
 interface IBase
 	extends
 		\WPF\v1\GUI\DataManipulator\IBase
+		, \WPF\v1\GUI\Component\IBase
 		, \WPF\v1\IPluggable
 {
 

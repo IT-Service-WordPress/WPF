@@ -40,6 +40,10 @@ class Base
 	$postfix;
 
 	protected
+	// \WPF\v1\GUI\Group\IBase&
+	$group;
+
+	protected
 	// \WPF\v1\GUI\Controller\IBase&
 	$contoller;
 
@@ -102,10 +106,27 @@ class Base
 	}
 
 	public
+	function bind_group(
+		\WPF\v1\GUI\Group\IBase& $group
+	) {
+		$this->group = $group;
+	}
+
+	public
+	// \WPF\v1\GUI\Group\IBase&
+	function get_group() {
+		return $this->group;
+	}
+
+	public
 	function bind_controller(
 		\WPF\v1\GUI\Controller\IBase& $controller
 	) {
 		$this->controller = $controller;
+	}
+
+	public
+	function on_page_load() {
 	}
 
 	public

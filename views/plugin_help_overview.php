@@ -1,1 +1,1 @@
-<p><?php echo $this->plugin->get_description(); ?></p>
+<p><?php echo $this->get_plugin()->get_description(); ?></p>

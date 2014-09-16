@@ -1,11 +1,11 @@
-<?php 
+<?php
 
-namespace WPF\v1\GUI\Setting\Page\Component\Help;
+namespace WPF\v1\GUI\Help;
 
 /*
-Settings page Help component interface.
+Base interface for help components.
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>
@@ -14,6 +14,5 @@ Settings page Help component interface.
 */
 interface IBase
 {
-
 }
 ?>

@@ -1,8 +1,9 @@
-<?php 
+<?php
 
-namespace WPF\v1\GUI\Setting\Page\Component\Help;
+namespace WPF\v1\GUI\Help;
 
-require_once ( 'wpf_gui_setting_page_component_help_itab.php' );
+require_once ( 'wpf_gui_help_ibase.php' );
+require_once ( 'wpf_gui_component_base.php' );
 
 /*
 Settings page pluggable help "tab" component class.
@@ -15,8 +16,11 @@ Settings page pluggable help "tab" component class.
 @copyright 2014 ООО "Инженер-53"
 */
 class Tab
+	extends
+		\WPF\v1\GUI\Component\Base
 	implements
-		ITab
+		\WPF\v1\GUI\Help\IBase
+		, \WPF\v1\GUI\Component\IBase
 {
 
 	protected
@@ -38,12 +42,6 @@ class Tab
 		$this->title = $title;
 		$this->content = $content;
 	}
-	
-	public
-	function bind_to_help(
-		IBase& $help
-	) {
-	}
 
 	public
 	function get_id() {
@@ -61,9 +59,14 @@ class Tab
 	}
 
 	public
+	function on_page_load() {
+		$this->add_help();
+	}
+
+	public
 	function add_help() {
 		$screen = \get_current_screen();
-		$screen->add_help_tab( array( 
+		$screen->add_help_tab( array(
 		   'id' => $this->get_id()
 		   , 'title' => $this->get_title()
 		   , 'content' => $this->get_content()

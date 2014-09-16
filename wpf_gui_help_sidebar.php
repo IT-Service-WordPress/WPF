@@ -1,8 +1,9 @@
-<?php 
+<?php
 
-namespace WPF\v1\GUI\Setting\Page\Component\Help;
+namespace WPF\v1\GUI\Help;
 
-require_once ( 'wpf_gui_setting_page_component_help_icomponent.php' );
+require_once ( 'wpf_gui_help_ibase.php' );
+require_once ( 'wpf_gui_component_base.php' );
 
 /*
 Settings page pluggable help "sidebar" component class.
@@ -15,8 +16,11 @@ Settings page pluggable help "sidebar" component class.
 @copyright 2014 ООО "Инженер-53"
 */
 class Sidebar
+	extends
+		\WPF\v1\GUI\Component\Base
 	implements
-		IComponent
+		\WPF\v1\GUI\Help\IBase
+		, \WPF\v1\GUI\Component\IBase
 {
 
 	protected
@@ -28,16 +32,15 @@ class Sidebar
 	) {
 		$this->content = $content;
 	}
-	
-	public
-	function bind_to_help(
-		IBase& $help
-	) {
-	}
 
 	public
 	function get_content() {
 		return $this->content;
+	}
+
+	public
+	function on_page_load() {
+		$this->add_help();
 	}
 
 	public

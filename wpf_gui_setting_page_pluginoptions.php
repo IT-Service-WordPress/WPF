@@ -4,8 +4,7 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_gui_setting_page_base.php' );
 require_once ( 'wpf_plugin_component_todo.php' );
-require_once ( 'wpf_gui_setting_page_component_help_base.php' );
-require_once ( 'wpf_gui_setting_page_component_help_plugindata.php' );
+require_once ( 'wpf_gui_help_plugindata.php' );
 
 /*
 Plugin settings page descriptor base class.
@@ -32,11 +31,9 @@ class PluginOptions
 			, func_get_args()
 		);
 
-		if ( ! $this->has_component( '\WPF\v1\GUI\Setting\Page\Component\Help\IBase' ) ) {
+		if ( ! $this->has_component( '\WPF\v1\GUI\Help\IBase' ) ) {
 			$this->add_components(
-				new Component\Help\Base(
-					new Component\Help\PluginData()
-				)
+				new \WPF\v1\GUI\Help\PluginData()
 			);
 		};
 	}

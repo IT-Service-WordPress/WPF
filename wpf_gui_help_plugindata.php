@@ -1,9 +1,11 @@
-<?php 
+<?php
 
-namespace WPF\v1\GUI\Setting\Page\Component\Help;
+namespace WPF\v1\GUI\Help;
 
-require_once ( 'wpf_gui_setting_page_component_help_itab.php' );
+require_once ( 'wpf_gui_help_ibase.php' );
+require_once ( 'wpf_gui_component_base.php' );
 require_once ( 'wpf_gui_templates.php' );
+require_once ( 'wpf_plugin_ilink.php' );
 
 /*
 Settings page pluggable help component for including plugin header data into help.
@@ -16,23 +18,26 @@ Settings page pluggable help component for including plugin header data into hel
 @copyright 2014 ООО "Инженер-53"
 */
 class PluginData
+	extends
+		\WPF\v1\GUI\Component\Base
 	implements
-		IComponent
+		\WPF\v1\GUI\Help\IBase
+		, \WPF\v1\GUI\Component\IBase
+		, \WPF\v1\Plugin\ILink
 {
 
 	public
 	function __construct() {
 	}
-	
-	protected
-	// \WPF\v1\Plugin\IBase&
-	$plugin;
 
 	public
-	function bind_to_help(
-		IBase& $help
-	) {
-		$this->plugin = $help->get_plugin();
+	function get_plugin() {
+		return $this->group->get_plugin();
+	}
+
+	public
+	function on_page_load() {
+		$this->add_help();
 	}
 
 	public

@@ -3,6 +3,7 @@
 namespace WPF\v1\Plugin\Component;
 
 require_once ( 'wpf_ipluggable.php' );
+require_once ( 'wpf_plugin_ilink.php' );
 
 /*
 
@@ -15,15 +16,12 @@ require_once ( 'wpf_ipluggable.php' );
 */
 interface IBase
 	extends
-		\WPF\v1\IPluggable
+		\WPF\v1\Plugin\ILink
+		, \WPF\v1\IPluggable
 {
 
 	public
 	function bind( \WPF\v1\Plugin\IBase& $plugin );
-
-	public
-	// \WPF\v1\Plugin\IBase&
-	function get_plugin();
 
 }
 ?>

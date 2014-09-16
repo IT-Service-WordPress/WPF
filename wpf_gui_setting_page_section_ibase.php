@@ -2,9 +2,9 @@
 
 namespace WPF\v1\GUI\Setting\Page\Section;
 
-require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_gui_setting_page_ibase.php' );
-require_once ( 'wpf_gui_setting_page_component_ibase.php' );
+require_once ( 'wpf_gui_group_ibase.php' );
+require_once ( 'wpf_gui_component_ibase.php' );
 
 /*
 Settings page section descriptor interface.
@@ -18,8 +18,8 @@ Settings page section descriptor interface.
 */
 interface IBase
 	extends
-		\WPF\v1\Plugin\Component\IBase
-		, \WPF\v1\GUI\Setting\Page\Component\IBase
+		\WPF\v1\GUI\Component\IBase
+		, \WPF\v1\GUI\Group\IBase
 {
 
 	public
@@ -32,12 +32,7 @@ interface IBase
 	function display();
 
 	public
-	function add_controls(
-		// произвольное количество \WPF\v1\GUI\Control\IBase&.
-		$controls
-	);
-
-	public
+	// \WPF\v1\GUI\Control\IBase&[]
 	function get_controls();
 
 }
