@@ -2,8 +2,7 @@
 
 namespace WPF\v1\GUI\Help;
 
-require_once ( 'wpf_gui_help_ibase.php' );
-require_once ( 'wpf_gui_component_base.php' );
+require_once ( 'wpf_gui_help_base.php' );
 require_once ( 'wpf_gui_templates.php' );
 
 /*
@@ -18,10 +17,7 @@ Settings page pluggable help "sidebar" component class.
 */
 class Sidebar
 	extends
-		\WPF\v1\GUI\Component\Base
-	implements
-		\WPF\v1\GUI\Help\IBase
-		, \WPF\v1\GUI\Component\IBase
+		Base
 {
 
 	protected
@@ -38,11 +34,6 @@ class Sidebar
 	public
 	function get_content() {
 		return $this->content;
-	}
-
-	public
-	function on_page_load() {
-		add_action( 'admin_head', array( &$this, 'add_help' ) );
 	}
 
 	public
