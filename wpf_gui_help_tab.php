@@ -50,7 +50,7 @@ class Tab
 
 	public
 	function on_page_load() {
-		$this->add_help();
+		add_action( 'admin_head', array( &$this, 'add_help' ) );
 	}
 
 	public
