@@ -3,6 +3,8 @@
 namespace WPF\v1\GUI\Meta\Box;
 
 require_once ( 'wpf_plugin_component_ibase.php' );
+require_once ( 'wpf_gui_group_ibase.php' );
+require_once ( 'wpf_gui_controller_ibase.php' );
 
 /*
 Meta box descriptor interface.
@@ -17,6 +19,8 @@ Meta box descriptor interface.
 interface IBase
 	extends
 		\WPF\v1\Plugin\Component\IBase
+		, \WPF\v1\GUI\Group\IBase
+		, \WPF\v1\GUI\Controller\IBase
 {
 
 	public
@@ -33,21 +37,6 @@ interface IBase
 
 	public
 	function get_priority();
-
-	public
-	function add_meta_box();
-
-	public
-	function display();
-
-	public
-	function add_controls(
-		// произвольное количество \WPF\v1\GUI\Control\IBase&.
-		$controls
-	);
-
-	public
-	function get_controls();
 
 }
 ?>

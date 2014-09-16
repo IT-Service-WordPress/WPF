@@ -3,9 +3,10 @@
 namespace WPF\v1\GUI\Meta\Box;
 
 require_once ( 'wpf_gui_meta_box_ibase.php' );
+require_once ( 'wpf_gui_group_controller.php' );
 require_once ( 'wpf_plugin_component_base.php' );
-require_once ( 'wpf_gui_control_ibase.php' );
 require_once ( 'wpf_gui_templates.php' );
+require_once ( 'wpf_functions.php' );
 
 /*
 Meta box base class.
@@ -23,6 +24,7 @@ class Base
 	implements
 		IBase
 {
+	use \WPF\v1\GUI\Group\Controller;
 
 	protected
 	$id;
@@ -38,10 +40,6 @@ class Base
 
 	protected
 	$priority;
-
-	// protected
-	// \WPF\v1\GUI\Control\IBase&[]
-	// $controls;
 
 	public
 	function __construct(
@@ -62,40 +60,25 @@ class Base
 		$this->id = $id;
 		if ( empty ( $this->title ) ) $this->title = $this->id;
 
-		/*
-		$this->controls = array();
-		$this->add_controls(
+		$this->_init_components();
+		$this->add_components(
 			array_slice( func_get_args(), 2 )
 		);
-		*/
 	}
 
 	public
-	function add_controls(
-		// произвольное количество \WPF\v1\GUI\Control\IBase&.
-		$controls
-	) {
-		/*
-		$control = $controls;
-		if ( is_array( $controls ) || ( $controls instanceof \Traversable ) ) {
-			foreach ( $controls as $control ) {
-				$this->add_controls( $control );
-			};
-		} elseif ( $control instanceof \WPF\v1\GUI\Control\IBase ) {
-			$this->controls[] = $control;
-		};
-		*/
-	}
-
-	public
-	function get_controls() {
-		//return $this->controls;
+	function get_page_hookname() {
+		return 'page.php';
 	}
 
 	public
 	function bind_action_handlers_and_filters() {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_meta' ) );
+		add_action(
+			'load-' . $this->get_page_hookname()
+			, array( &$this, 'on_page_load' )
+		);
 	}
 
 	public
@@ -133,32 +116,40 @@ class Base
 			, $this->get_context()
 			, $this->get_priority()
 		);
-		/*
-		foreach ( $this->controls as $control ) {
-			$control->bind_to_page_section( $this );
-			$control->add_settings_field();
+		foreach ( $this->get_controls() as $control ) {
+			$data_manipulator = $control;
+			/*
+			\register_setting(
+				$this->get_option_group()
+				, $data_manipulator->get_name()
+				, function (
+					$new_value
+				) use (
+					$data_manipulator
+					, $plugin
+				) {
+					if ( $validator = $data_manipulator->get_validator() ) {
+						$new_value = call_user_func( $validator->get_callback(), $new_value );
+					};
+					$option = $plugin->get_options()->get( $data_manipulator->get_name() );
+					$new_value = $option->sanitize_value( $new_value );
+					return $new_value;
+				}
+			);
+			\add_settings_field(
+				$control->get_id()
+				, $control->get_label()
+				, array( $control, 'display' )
+				, $this->get_page_slug()
+				, $section->get_id()
+				, array( 'label_for' => $control->get_id() )
+			);
+			*/
 		};
-		*/
-	}
-
-	protected
-	function get_nonce_action() {
-		return $this->get_id();
-	}
-
-	protected
-	function get_nonce_name() {
-		return $this->get_id() . '_nonce';
-	}
-
-	protected
-	function nonce_field() {
-		wp_nonce_field( $this->get_nonce_action(), $this->get_nonce_name() );
 	}
 
 	protected
 	function meta_fields() {
-		$this->nonce_field();
 		// controls...
 	}
 
@@ -177,6 +168,51 @@ class Base
 		if ( ! isset( $_POST[ 'myplugin_new_field' ] ) ) return;
 		$my_data = sanitize_text_field( $_POST[ 'myplugin_new_field' ] );
 		update_post_meta( $post_id, '_my_meta_value_key', $my_data );
+		*/
+	}
+
+	public
+	function get_value(
+		$name
+	) {
+		// return $this->get_plugin()->get_options()->$name;
+	}
+
+	public
+	function set_value(
+		$name
+		, $new_value
+	) {
+		// return $this->get_plugin()->get_options()->$name = $new_value;
+	}
+
+	public
+	function unset_value(
+		$name
+	) {
+		// return $this->get_plugin()->get_options()->get( $name )->unset_value();
+	}
+
+	public
+	function isset_value(
+		$name
+	) {
+		// return $this->get_plugin()->get_options()->get( $name )->isset_value();
+	}
+
+	public
+	function set_status(
+		$name
+		, $message
+		, $code = 'updated'
+	) {
+		/*
+		\add_settings_error(
+			$name
+			, 'settings_updated'
+			, $message
+			, $code
+		);
 		*/
 	}
 
