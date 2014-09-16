@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-09-10 19:41+0400\n"
-"PO-Revision-Date: 2014-09-10 19:43+0400\n"
+"POT-Creation-Date: 2014-09-16 19:44+0400\n"
+"PO-Revision-Date: 2014-09-16 19:44+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -58,45 +58,9 @@ msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_gui_setting_page_base.php:52
-#: ../wpf_gui_setting_page_component_help_base.php:49
-#, php-format
-msgid ""
-"Plugin coding error: class <code>%2$s</code> doesn`t support component <code>"
-"%3$s</code>. Components must implement <code>%4$s</code> interface."
-msgstr ""
-"Ошибка в коде плагина: класс <code>%2$s</code> не поддерживает "
-"компонент<code>%3$s</code>. Компонент должен реализовать интерфейс<code>"
-"%4$s</code>."
-
-#: ../wpf_gui_setting_page_base.php:117
-#, php-format
-msgid ""
-"Plugin \"%1$s\" coding error: settings page <code>%2$s</code> requires <code>"
-"%3$s</code> settings section, but specified section doesn`t exists."
-msgstr ""
-"Ошибка в коде плагина \"%1$s\": страница настроек <code>%2$s</code> требует "
-"секции настроек с id=<code>%3$s</code>, но секции настроек с указанным id в "
-"плагине не обнаружено."
-
-#: ../wpf_gui_setting_page_component_base.php:54
-#, php-format
-msgid ""
-"Plugin \"%1$s\" coding error: component <code>%2$s</code> must be associated "
-"with an instance of settings page, not with the instance of the plugin "
-"directly."
-msgstr ""
-"Ошибка в коде плагина \"%1$s\": компонент <code>%2$s</code> должен быть "
-"связан со страницей настроек, а не с экземпляром плагина непосредственно."
-
-#: ../wpf_gui_setting_page_component_help_plugindata.php:47
-msgid "Overview"
-msgstr ""
-
-#: ../wpf_gui_setting_page_control_base.php:79
-#: ../wpf_gui_setting_page_control_base.php:99
-#: ../wpf_gui_setting_validator_base.php:64
-#: ../wpf_gui_setting_validator_base.php:85 ../wpf_meta_base.php:58
+#: ../wpf_gui_control_base.php:75 ../wpf_gui_control_base.php:95
+#: ../wpf_gui_validator_base.php:64 ../wpf_gui_validator_base.php:85
+#: ../wpf_meta_base.php:58
 #, php-format
 msgid ""
 "Plugin coding error: unsupported parameter <code>%3$s</code> type <code>"
@@ -105,7 +69,11 @@ msgstr ""
 "Ошибка в плагине: неподдерживаемый типа <code>%4$s</code> параметра <code>"
 "%3$s</code>."
 
-#: ../wpf_gui_setting_page_pluginoptions.php:66
+#: ../wpf_gui_help_plugindata.php:52
+msgid "Overview"
+msgstr ""
+
+#: ../wpf_gui_setting_page_pluginoptions.php:65
 #, php-format
 msgid ""
 "<a href=\"%2$s\">Review plugin \"%1$s\" settings</a>. Plugin was installed "
@@ -114,8 +82,8 @@ msgstr ""
 "<a href=\"%2$s\">Проверьте настройки плагина \"%1$s\"</a>. Указанный плагин "
 "был недавно установлен или обновлён."
 
-#: ../wpf_gui_setting_page_pluginoptions.php:101
-#: ../wpf_gui_setting_page_pluginoptions.php:104
+#: ../wpf_gui_setting_page_pluginoptions.php:100
+#: ../wpf_gui_setting_page_pluginoptions.php:103
 msgid "Settings"
 msgstr ""
 
@@ -160,3 +128,27 @@ msgstr ""
 #: ../wpf_textdomain_wpf_header.php:15
 msgid "Sergey S. Betke"
 msgstr "Бетке Сергей Сергеевич"
+
+#~ msgid ""
+#~ "Plugin coding error: class <code>%2$s</code> doesn`t support component "
+#~ "<code>%3$s</code>. Components must implement <code>%4$s</code> interface."
+#~ msgstr ""
+#~ "Ошибка в коде плагина: класс <code>%2$s</code> не поддерживает "
+#~ "компонент<code>%3$s</code>. Компонент должен реализовать интерфейс<code>"
+#~ "%4$s</code>."
+
+#~ msgid ""
+#~ "Plugin \"%1$s\" coding error: settings page <code>%2$s</code> requires "
+#~ "<code>%3$s</code> settings section, but specified section doesn`t exists."
+#~ msgstr ""
+#~ "Ошибка в коде плагина \"%1$s\": страница настроек <code>%2$s</code> "
+#~ "требует секции настроек с id=<code>%3$s</code>, но секции настроек с "
+#~ "указанным id в плагине не обнаружено."
+
+#~ msgid ""
+#~ "Plugin \"%1$s\" coding error: component <code>%2$s</code> must be "
+#~ "associated with an instance of settings page, not with the instance of "
+#~ "the plugin directly."
+#~ msgstr ""
+#~ "Ошибка в коде плагина \"%1$s\": компонент <code>%2$s</code> должен быть "
+#~ "связан со страницей настроек, а не с экземпляром плагина непосредственно."
