@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Help;
 
 require_once ( 'wpf_gui_help_ibase.php' );
 require_once ( 'wpf_gui_component_base.php' );
+require_once ( 'wpf_gui_templates.php' );
 
 /*
 Settings page pluggable help "tab" component class.
@@ -69,9 +70,15 @@ class Tab
 		$screen->add_help_tab( array(
 		   'id' => $this->get_id()
 		   , 'title' => $this->get_title()
-		   , 'content' => $this->get_content()
-		   // , 'callback' => array( &$this, 'func' )
+		   // , 'content' => $this->get_content()
+		   , 'callback' => array( &$this, 'display' )
 		) );
+	}
+
+	public
+	function display() {
+		$_template_file = \WPF\v1\GUI\locate_template( 'help_tab.php' );
+		require( $_template_file );
 	}
 
 }
