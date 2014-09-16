@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\Plugin\Component;
 
@@ -21,11 +21,11 @@ class Base
 {
 
 	public
-	function __construct( 
+	function __construct(
 	) {
 		$this->__after_construct();
 	}
-	
+
 	protected
 	function __after_construct() {
 	}
@@ -50,6 +50,11 @@ class Base
 		\WPF\v1\Plugin\IBase& $plugin
 	) {
 		$this->plugin = $plugin;
+		$this->after_bind();
+	}
+
+	protected
+	function after_bind() {
 	}
 
 	public

@@ -43,9 +43,9 @@ class Base
 	// \WPF\v1\GUI\Group\IBase&
 	$group;
 
-	protected
+	private
 	// \WPF\v1\GUI\Controller\IBase&
-	$contoller;
+	$controller;
 
 	protected
 	// \WPF\v1\GUI\Validator\IBase&
@@ -166,24 +166,24 @@ class Base
 
 	protected
 	function get_value() {
-		return $this->controller->get_value( $this->get_name() );
+		return $this->get_controller()->get_value( $this->get_name() );
 	}
 
 	public
 	function set_value(
 		$new_value
 	) {
-		return $this->controller->set_value( $this->get_name(), $new_value );
+		return $this->get_controller()->set_value( $this->get_name(), $new_value );
 	}
 
 	public
 	function isset_value() {
-		return $this->controller->isset_value( $this->get_name() );
+		return $this->get_controller()->isset_value( $this->get_name() );
 	}
 
 	public
 	function unset_value() {
-		return $this->controller->unset_value( $this->get_name() );
+		return $this->get_controller()->unset_value( $this->get_name() );
 	}
 
 	public
@@ -197,7 +197,7 @@ class Base
 		$message
 		, $code = 'updated'
 	) {
-		$this->controller->set_status(
+		$this->get_controller()->set_status(
 			$this->get_name()
 			, $message
 			, $code

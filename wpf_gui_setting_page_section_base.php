@@ -34,16 +34,6 @@ class Base
 	protected
 	$title;
 
-	/*
-	protected
-	function add_control(
-		\WPF\v1\GUI\Control\IBase& $control
-	) {
-		$this->controls[] = $control;
-		$control->bind_action_handlers_and_filters();
-	}
-	*/
-
 	public
 	function __construct(
 		$id
@@ -54,7 +44,7 @@ class Base
 		$this->id = $id;
 		$this->title = $title;
 
-		$this->components = array();
+		$this->_init_components();
 		$this->add_components(
 			array_slice( func_get_args(), 2 )
 		);
@@ -74,12 +64,6 @@ class Base
 	public
 	function get_title() {
 		return $this->title;
-	}
-
-	public
-	// \WPF\v1\GUI\Control\IBase&[]
-	function get_controls() {
-		return $this->get_components( '\WPF\v1\GUI\Control\IBase' );
 	}
 
 	public

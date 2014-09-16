@@ -27,6 +27,12 @@ interface IBase
 	);
 
 	public
+	// \WPF\v1\GUI\Component\IBase&[]
+	function get_components_recursive(
+		$component_type = null // interface id, or null for all components
+	);
+
+	public
 	// bool
 	function has_component(
 		$component_type // interface id

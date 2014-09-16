@@ -21,6 +21,11 @@ trait Base
 	protected
 	$components;
 
+	private
+	function _init_components() {
+		$this->components = array();
+	}
+
 	public
 	function add_components(
 		$components
@@ -58,6 +63,17 @@ trait Base
 	}
 
 	public
+	function get_components_recursive(
+		$component_type = null // interface id, or null for all components
+	) {
+		$found = $this->get_components( $component_type );
+		foreach ( $this->get_components( '\WPF\v1\GUI\Group\IBase' ) as $group ) {
+			$found = array_merge( $found, $group->get_components_recursive( $component_type ) );
+		};
+		return $found;
+	}
+
+	public
 	function has_component(
 		$component_type // interface id
 	) {
@@ -69,6 +85,12 @@ trait Base
 			};
 		};
 		return $found;
+	}
+
+	public
+	// \WPF\v1\GUI\Control\IBase&[]
+	function get_controls() {
+		return $this->get_components( '\WPF\v1\GUI\Control\IBase' );
 	}
 
 	public

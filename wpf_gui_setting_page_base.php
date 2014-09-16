@@ -4,7 +4,7 @@ namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_gui_setting_page_ibase.php' );
 require_once ( 'wpf_gui_setting_page_section_ibase.php' );
-require_once ( 'wpf_gui_group_base.php' );
+require_once ( 'wpf_gui_group_controller.php' );
 require_once ( 'wpf_functions.php' );
 
 /*
@@ -23,7 +23,7 @@ class Base
 	implements
 		IBase
 {
-	use \WPF\v1\GUI\Group\Base;
+	use \WPF\v1\GUI\Group\Controller;
 
 	protected
 	$parent_slug;
@@ -42,7 +42,7 @@ class Base
 		$this->parent_slug = $parent_slug;
 		$this->page_slug = $page_slug;
 
-		$this->components = array();
+		$this->_init_components();
 		$this->add_components(
 			array_slice( func_get_args(), 2 )
 		);
@@ -109,7 +109,7 @@ class Base
 
 	public
 	function on_page_load() {
-		foreach ( $this->components as $component ) {
+		foreach ( $this->get_components() as $component ) {
 			$component->on_page_load();
 		};
 	}
@@ -169,7 +169,6 @@ class Base
 			);
 			foreach ( $section->get_controls() as $control ) {
 				$data_manipulator = $control;
-				$data_manipulator->bind_controller( $this );
 				\register_setting(
 					$this->get_option_group()
 					, $data_manipulator->get_name()
