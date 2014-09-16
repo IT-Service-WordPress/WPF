@@ -108,13 +108,6 @@ class Base
 	}
 
 	public
-	function on_page_load() {
-		foreach ( $this->get_components() as $component ) {
-			$component->on_page_load();
-		};
-	}
-
-	public
 	function get_value(
 		$name
 	) {

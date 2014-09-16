@@ -110,7 +110,7 @@ trait Base
 
 	public
 	function on_page_load() {
-		foreach ( $this->components as $component ) {
+		foreach ( $this->get_components() as $component ) {
 			$component->on_page_load();
 		};
 	}

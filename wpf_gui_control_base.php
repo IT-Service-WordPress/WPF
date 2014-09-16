@@ -3,6 +3,7 @@
 namespace WPF\v1\GUI\Control;
 
 require_once ( 'wpf_gui_control_ibase.php' );
+require_once ( 'wpf_gui_component_base.php' );
 require_once ( 'wpf_gui_controller_ibase.php' );
 require_once ( 'wpf_gui_validator_ibase.php' );
 require_once ( 'wpf_gui_validator_base.php' );
@@ -20,6 +21,8 @@ UI control base class.
 */
 abstract
 class Base
+	extends
+		\WPF\v1\GUI\Component\Base
 	implements
 		IBase
 {
@@ -38,10 +41,6 @@ class Base
 
 	protected
 	$postfix;
-
-	protected
-	// \WPF\v1\GUI\Group\IBase&
-	$group;
 
 	private
 	// \WPF\v1\GUI\Controller\IBase&
@@ -106,27 +105,10 @@ class Base
 	}
 
 	public
-	function bind_group(
-		\WPF\v1\GUI\Group\IBase& $group
-	) {
-		$this->group = $group;
-	}
-
-	public
-	// \WPF\v1\GUI\Group\IBase&
-	function get_group() {
-		return $this->group;
-	}
-
-	public
 	function bind_controller(
 		\WPF\v1\GUI\Controller\IBase& $controller
 	) {
 		$this->controller = $controller;
-	}
-
-	public
-	function on_page_load() {
 	}
 
 	public
