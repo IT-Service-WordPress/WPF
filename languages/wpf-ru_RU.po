@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-09-16 19:44+0400\n"
-"PO-Revision-Date: 2014-09-16 19:44+0400\n"
+"POT-Creation-Date: 2014-09-17 01:02+0400\n"
+"PO-Revision-Date: 2014-09-17 01:02+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -19,7 +19,7 @@ msgstr ""
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../views/plugin_help_sidebar.php:1
+#: ../views/plugin_help_sidebar.php:1 ../wpf_gui_help_sidebar.php:35
 msgid "For more information:"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgstr ""
 "Ошибка в плагине: неподдерживаемый типа <code>%4$s</code> параметра <code>"
 "%3$s</code>."
 
-#: ../wpf_gui_help_plugindata.php:52
+#: ../wpf_gui_help_plugindata.php:48 ../wpf_gui_help_plugintab.php:28
 msgid "Overview"
 msgstr ""
 

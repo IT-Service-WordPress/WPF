@@ -4,6 +4,7 @@ namespace WPF\v1\GUI\Help;
 
 require_once ( 'wpf_gui_help_ibase.php' );
 require_once ( 'wpf_gui_component_base.php' );
+require_once ( 'wpf_gui_templates.php' );
 
 /*
 Settings page pluggable help "sidebar" component class.
@@ -24,13 +25,14 @@ class Sidebar
 {
 
 	protected
+	$title;
+
+	protected
 	$content;
 
 	public
-	function __construct(
-		$content
-	) {
-		$this->content = $content;
+	function get_title() {
+		return $this->title ? : __( 'For more information:' );
 	}
 
 	public
@@ -46,7 +48,15 @@ class Sidebar
 	public
 	function add_help() {
 		$screen = \get_current_screen();
-		$screen->set_help_sidebar( $this->get_content() );
+		ob_start();
+		$this->display();
+		$screen->set_help_sidebar( ob_get_clean() );
+	}
+
+	public
+	function display() {
+		$_template_file = \WPF\v1\GUI\locate_template( 'help_sidebar.php' );
+		require( $_template_file );
 	}
 
 }

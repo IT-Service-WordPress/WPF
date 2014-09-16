@@ -34,17 +34,6 @@ class Tab
 	$content;
 
 	public
-	function __construct(
-		$id
-		, $title
-		, $content
-	) {
-		$this->id = $id;
-		$this->title = $title;
-		$this->content = $content;
-	}
-
-	public
 	function get_id() {
 		return $this->id;
 	}

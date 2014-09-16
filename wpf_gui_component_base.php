@@ -27,7 +27,14 @@ class Base
 
 	public
 	function __construct(
+		$args = array()
 	) {
+		$properties = array_keys( get_object_vars( $this ) );
+		foreach ( $properties as $property ) {
+			if ( isset( $args[ $property ] ) ) {
+				$this->$property = $args[ $property ];
+			};
+		};
 	}
 
 	public
