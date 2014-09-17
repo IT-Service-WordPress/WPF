@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\Plugin\Component;
 
@@ -28,7 +28,7 @@ class Dependable
 	function bind_action_handlers_and_filters() {
 		if ( \WP_DEBUG ) {
 			if ( \is_admin() /* && \current_user_can( 'install_plugins' ) */ ) {
-				\add_action( 'admin_init', array( &$this, 'check_dependencies' ) ); 
+				\add_action( 'admin_init', array( &$this, 'check_dependencies' ) );
 			};
 		};
 	}
@@ -43,15 +43,15 @@ class Dependable
 		foreach ( $this->get_dependencies() as $dependency ) {
 			if ( ! $this->plugin->has_component( $dependency ) ) {
 				require_once( 'wpf_gui_notice_admin.php' );
-				new \WPF\v1\GUI\Notice\Admin(
-					sprintf(
+				new \WPF\v1\GUI\Notice\Admin( array(
+					'message' => sprintf(
 						__( 'Plugin "%1$s" coding error: component <code>%2$s</code> requires <code>%3$s</code> component in plugin.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 						, $this->plugin->get_title()
 						, \get_class( $this )
 						, $dependency
 					)
-					, 'error'
-				);
+					, 'message_type' => 'error'
+				) );
 			};
 		};
 	}

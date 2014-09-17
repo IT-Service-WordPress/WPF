@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI\Notice;
 
@@ -36,16 +36,23 @@ class Admin {
 			require( $_template_file );
 		};
 	}
-	
+
 	public
 	function __construct (
+		array $args
+		/*
 		$message
-		, $type = 'updated' // 'updated', 'error', 'update-nag'
+		, $message_type = 'updated' // 'updated', 'error', 'update-nag'
 		, callable $predicate = null
+		*/
 	) {
-		$this->message = $message;
-		$this->message_type = $type;
-		$this->predicate = $predicate;
+		$this->message_type = 'updated';
+		$properties = array_keys( get_object_vars( $this ) );
+		foreach ( $properties as $property ) {
+			if ( isset( $args[ $property ] ) ) {
+				$this->$property = $args[ $property ];
+			};
+		};
 		\add_action( 'admin_notices', array( &$this, 'display' ), 100 );
 		// !!! multisite - network_admin_nontices, all_admin_notices... !!!
 	}
@@ -53,10 +60,10 @@ class Admin {
 	private
 	function __clone() {}
 
-    private
+	private
 	function __sleep() {}
 
-    private
+	private
 	function __wakeup() {}
 }
 ?>

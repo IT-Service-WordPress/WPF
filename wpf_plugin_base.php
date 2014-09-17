@@ -265,13 +265,13 @@ class Base
 		if ( current_user_can( 'activate_plugins' ) ) {
 			\deactivate_plugins( $this->get_file() );
 			if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
-			new \WPF\v1\GUI\Notice\Admin(
-				\sprintf(
+			new \WPF\v1\GUI\Notice\Admin( array(
+				'message' => \sprintf(
 					__( 'Plugin <strong>deactivated</strong>.' )
 					, $this->get_title()
 				)
-				, 'error'
-			);
+				, 'message_type' => 'error'
+			) );
 		};
 	}
 
@@ -309,7 +309,7 @@ class Base
 	private
 	function __sleep() {}
 
-    private
+	private
 	function __wakeup() {}
 
 }

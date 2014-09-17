@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\Compatibility;
 
@@ -32,20 +32,23 @@ class Validators_On
 		parent::__construct( array_slice( func_get_args(), 1 ) );
 		$this->action = $action;
 	}
-	
+
 	public
 	function bind_action_handlers_and_filters() {
 		$this->check_bind();
-		\add_action( $this->action, array( &$this, 'require_validation' ) ); 
+		\add_action( $this->action, array( &$this, 'require_validation' ) );
 	}
-	
+
 	public
 	function require_validation() {
 		$errors = $this->validate();
 		if ( is_wp_error( $errors ) ) {
 			require_once ( 'wpf_gui_notice_admin.php' );
 			foreach ( (array) $errors->errors as $code => $messages ) {
-				new \WPF\v1\GUI\Notice\Admin( $messages, $code );
+				new \WPF\v1\GUI\Notice\Admin( array(
+					'message' => $messages
+					, 'message_type' => $code
+				) );
 			};
 			$this->plugin->deactivate();
 		};

@@ -33,7 +33,7 @@ class ToDo
 
 	public
 	function __construct(
-		$args
+		array $args
 	) {
 		parent::__construct();
 		$properties = array_keys( get_object_vars( $this ) );
@@ -47,7 +47,6 @@ class ToDo
 	public
 	function __sleep() {
 		return array( 'message', 'show_on_pages', 'capability', 'target_on_pages' );
-
 	}
 
 	public
@@ -87,10 +86,10 @@ class ToDo
 			$this->capability
 			&& \current_user_can( $this->capability )
 		) {
-			new Admin(
-				$this->message
-				, 'updated'
-			);
+			new Admin( array(
+				'message' => $this->message
+				, 'message_type' => 'updated'
+			) );
 		};
 	}
 

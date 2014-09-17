@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1;
 
@@ -22,10 +22,10 @@ function trigger_wpf_error(
 		&& \is_admin()
 	) {
 		require_once( 'wpf_gui_notice_admin.php' );
-		new \WPF\v1\GUI\Notice\Admin(
-			$error_msg
-			, 'error'
-		);
+		new \WPF\v1\GUI\Notice\Admin( array(
+			'message' => $error_msg
+			, 'message_type' => 'error'
+		) );
 	};
 	return trigger_error(
 		$error_msg
