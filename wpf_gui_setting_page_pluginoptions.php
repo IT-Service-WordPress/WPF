@@ -3,7 +3,7 @@
 namespace WPF\v1\GUI\Setting\Page;
 
 require_once ( 'wpf_gui_setting_page_base.php' );
-require_once ( 'wpf_plugin_component_todo.php' );
+require_once ( 'wpf_gui_notice_todo.php' );
 require_once ( 'wpf_gui_help_plugindata.php' );
 
 /*
@@ -60,7 +60,7 @@ class PluginOptions
 	public
 	function schedule_review_settings_notice() {
 		$this->plugin->add_components(
-			new \WPF\v1\Plugin\Component\ToDo(
+			new \WPF\v1\GUI\Notice\ToDo(
 				sprintf(
 					__( '<a href="%2$s">Review plugin "%1$s" settings</a>. Plugin was installed or updated.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $this->plugin->get_title( false )

@@ -1,13 +1,13 @@
-<?php 
+<?php
 
-namespace WPF\v1\Plugin\Component;
+namespace WPF\v1\GUI\Notice;
 
 require_once ( 'wpf_plugin_component_dynamic.php' );
 require_once ( 'wpf_gui_notice_admin.php' );
 
 /*
 
-@since 1.0.0
+@since 1.1.0
 
 @package   Wordpress plugin framework
 @author    Sergey S. Betke <Sergey.S.Betke@yandex.ru>
@@ -16,7 +16,7 @@ require_once ( 'wpf_gui_notice_admin.php' );
 */
 class ToDo
 	extends
-		Dynamic
+		\WPF\v1\Plugin\Component\Dynamic
 {
 
 	protected
@@ -48,7 +48,7 @@ class ToDo
 	public
 	function __sleep() {
 		return array( 'message', 'show_on_pages', 'capability', 'target_on_pages' );
-			
+
 	}
 
 	public
@@ -58,7 +58,7 @@ class ToDo
 	public
 	function bind_action_handlers_and_filters() {
 		parent::bind_action_handlers_and_filters();
-		
+
 		$actions = array();
 		if ( $this->show_on_pages ) {
 			foreach( (array) $this->show_on_pages as $page_slug ) {
@@ -70,7 +70,7 @@ class ToDo
 		foreach( $actions as $action ) {
 			\add_action( $action, array( &$this, 'schedule_notice' ) );
 		};
-		
+
 		$actions = array();
 		if ( $this->target_on_pages ) {
 			foreach( (array) $this->target_on_pages as $page_slug ) {
@@ -88,7 +88,7 @@ class ToDo
 			$this->capability
 			&& \current_user_can( $this->capability )
 		) {
-			new \WPF\v1\GUI\Notice\Admin(
+			new Admin(
 				$this->message
 				, 'updated'
 			);
