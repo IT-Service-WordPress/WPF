@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WPF\v1\GUI;
 
@@ -38,7 +38,7 @@ function locate_template(
 ) {
 	$located = '';
 	$located = \locate_template( $template_names );
-	
+
 	if ( !$located ) {
 		foreach ( (array) $template_names as $template_name ) {
 			if ( !$template_name )
@@ -48,7 +48,7 @@ function locate_template(
 				$located = $test_path;
 				break;
 			}
-			$test_path = WPF_DIR . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $template_name;
+			$test_path = __DIR__ . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . $template_name;
 			if ( file_exists( $test_path ) ) {
 				$located = $test_path;
 				break;
