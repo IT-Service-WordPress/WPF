@@ -60,21 +60,21 @@ class PluginOptions
 	public
 	function schedule_review_settings_notice() {
 		$this->plugin->add_components(
-			new \WPF\v1\GUI\Notice\ToDo(
-				sprintf(
+			new \WPF\v1\GUI\Notice\ToDo( array(
+				'message' => sprintf(
 					__( '<a href="%2$s">Review plugin "%1$s" settings</a>. Plugin was installed or updated.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $this->plugin->get_title( false )
 					, $this->get_page_url()
 				)
-				, array(
+				, 'show_on_pages' => array(
 					'plugins.php'
 					, 'options-general.php'
 					, 'update-core.php'
 					, 'index.php'
 				)
-				, 'manage_options'
-				, $this->get_page_hookname()
-			)
+				, 'capability' => 'manage_options'
+				, 'target_on_pages' => $this->get_page_hookname()
+			) )
 		);
 	}
 

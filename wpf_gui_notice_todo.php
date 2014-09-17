@@ -33,16 +33,15 @@ class ToDo
 
 	public
 	function __construct(
-		$message
-		, $show_on_pages = null
-		, $capability = null
-		, $target_on_pages = null
+		$args
 	) {
 		parent::__construct();
-		$this->message = $message;
-		$this->show_on_pages = (array) $show_on_pages;
-		$this->capability = $capability;
-		$this->target_on_pages = (array) $target_on_pages;
+		$properties = array_keys( get_object_vars( $this ) );
+		foreach ( $properties as $property ) {
+			if ( isset( $args[ $property ] ) ) {
+				$this->$property = $args[ $property ];
+			};
+		};
 	}
 
 	public
