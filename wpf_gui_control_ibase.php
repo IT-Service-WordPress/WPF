@@ -28,6 +28,12 @@ interface IBase
 
 	public
 	function get_label();
+	
+	public
+	function get_description();
+
+	public
+	function get_postfix();
 
 	public
 	function display();

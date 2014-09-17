@@ -116,6 +116,10 @@ class Base
 			, $this->get_context()
 			, $this->get_priority()
 		);
+	}
+
+	protected
+	function do_metas_fields() {
 		foreach ( $this->get_controls() as $control ) {
 			$data_manipulator = $control;
 			/*
@@ -146,11 +150,6 @@ class Base
 			);
 			*/
 		};
-	}
-
-	protected
-	function meta_fields() {
-		// controls...
 	}
 
 	public
