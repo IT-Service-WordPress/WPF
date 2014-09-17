@@ -23,6 +23,9 @@ class ToDo
 	$message;
 
 	protected
+	$message_type; // 'updated', 'error', 'update-nag'
+
+	protected
 	$show_on_pages;
 
 	protected
@@ -36,6 +39,7 @@ class ToDo
 		array $args
 	) {
 		parent::__construct();
+		$this->message_type = 'updated';
 		$properties = array_keys( get_object_vars( $this ) );
 		foreach ( $properties as $property ) {
 			if ( isset( $args[ $property ] ) ) {
@@ -46,7 +50,13 @@ class ToDo
 
 	public
 	function __sleep() {
-		return array( 'message', 'show_on_pages', 'capability', 'target_on_pages' );
+		return array(
+			'message'
+			, 'message_type'
+			, 'show_on_pages'
+			, 'capability'
+			, 'target_on_pages'
+		);
 	}
 
 	public
@@ -83,21 +93,24 @@ class ToDo
 	public
 	function schedule_notice() {
 		if (
-			$this->capability
-			&& \current_user_can( $this->capability )
+			! $this->capability
+			or \current_user_can( $this->capability )
 		) {
 			new Admin( array(
 				'message' => $this->message
-				, 'message_type' => 'updated'
+				, 'message_type' => $this->message_type
 			) );
+			if ( ! $this->target_on_pages ) {
+				$this->unbind();
+			};
 		};
 	}
 
 	public
 	function remove_notice() {
 		if (
-			$this->capability
-			&& \current_user_can( $this->capability )
+			! $this->capability
+			or \current_user_can( $this->capability )
 		) {
 			$this->unbind();
 		};
