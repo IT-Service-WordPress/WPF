@@ -6,7 +6,7 @@ require_once ( 'wpf_plugin_ibase.php' );
 require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_plugin_component_collection.php' );
 require_once ( 'wpf_properties.php' );
-require_once ( 'wpf_option_ibase.php' );
+require_once ( 'wpf_data_option_ibase.php' );
 
 /*
 
@@ -170,7 +170,7 @@ class Base
 		$this->components->add( $component );
 		$component->bind( $this );
 		$component->bind_action_handlers_and_filters();
-		if ( $component instanceof \WPF\v1\Option\IBase ) {
+		if ( $component instanceof \WPF\v1\Data\Option\IBase ) {
 			$this->options->add( $component );
 		};
 	}

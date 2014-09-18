@@ -1,9 +1,8 @@
 <?php
 
-namespace WPF\v1\Option;
+namespace WPF\v1\Data\Option;
 
-require_once ( 'wpf_iproperty.php' );
-require_once ( 'wpf_plugin_component_iinstallable.php' );
+require_once ( 'wpf_data_ibase.php' );
 
 /*
 Option descriptor interface.
@@ -17,14 +16,8 @@ Option descriptor interface.
 */
 interface IBase
 	extends
-		\WPF\v1\IProperty
-		, \WPF\v1\Plugin\Component\IInstallable
+		\WPF\v1\Data\IBase
 {
-
-	public
-	function sanitize_value(
-		$new_value
-	);
 
 }
 ?>
