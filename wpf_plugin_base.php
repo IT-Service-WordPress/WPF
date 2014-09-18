@@ -7,6 +7,7 @@ require_once ( 'wpf_plugin_component_ibase.php' );
 require_once ( 'wpf_plugin_component_collection.php' );
 require_once ( 'wpf_properties.php' );
 require_once ( 'wpf_data_option_ibase.php' );
+require_once ( 'wpf_data_meta_post_ibase.php' );
 
 /*
 
@@ -173,6 +174,9 @@ class Base
 		if ( $component instanceof \WPF\v1\Data\Option\IBase ) {
 			$this->options->add( $component );
 		};
+		if ( $component instanceof \WPF\v1\Data\Meta\Post\IBase ) {
+			$this->post_metas->add( $component );
+		};
 	}
 
 	public
@@ -207,7 +211,7 @@ class Base
 	}
 
 	protected
-	// \WPF\v1\Properties // \WPF\v1\Option\Base collection
+	// \WPF\v1\Properties // \WPF\v1\Data\Option\Base collection
 	$options;
 
 	public
@@ -217,8 +221,17 @@ class Base
 
 	public
 	function get_settings() {
-		\_deprecated_function ( __FUNCTION__, '1.1', __CLASS__ . '::' . 'get_options()' );
+		\_deprecated_function ( __FUNCTION__, 'WPF 1.1', __CLASS__ . '::' . 'get_options()' );
 		return $this->get_options();
+	}
+
+	protected
+	// \WPF\v1\Properties // \WPF\v1\Data\Meta\Post\Base collection
+	$post_metas;
+
+	public
+	function get_post_metas() {
+		return $this->post_metas;
 	}
 
 	final
@@ -296,6 +309,7 @@ class Base
 
 		$this->components = new Component\Collection();
 		$this->options = new \WPF\v1\Properties();
+		$this->post_metas = new \WPF\v1\Properties();
 		$this->add_components(
 			array_slice( func_get_args(), 1 )
 		);

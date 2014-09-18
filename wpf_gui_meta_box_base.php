@@ -135,7 +135,6 @@ class Base
 				};
 				// $new_value = $this->get_plugin()->get_metas()->get( $name )->sanitize_value( $new_value );
 				$this->set_value( $data_manipulator->get_name(), $new_value );
-				// update_post_meta( $post_id, '_my_meta_value_key', $my_data );
 			};
 		};
 	}
@@ -144,7 +143,7 @@ class Base
 	function get_value(
 		$name
 	) {
-		// return $this->get_plugin()->get_metas()->$name;
+		return $this->get_plugin()->get_post_metas()->$name;
 	}
 
 	public
@@ -152,21 +151,21 @@ class Base
 		$name
 		, $new_value
 	) {
-		// return $this->get_plugin()->get_metas()->$name = $new_value;
+		return $this->get_plugin()->get_post_metas()->$name = $new_value;
 	}
 
 	public
 	function unset_value(
 		$name
 	) {
-		// return $this->get_plugin()->get_metas()->get( $name )->unset_value();
+		return $this->get_plugin()->get_post_metas()->get( $name )->unset_value();
 	}
 
 	public
 	function isset_value(
 		$name
 	) {
-		// return $this->get_plugin()->get_metas()->get( $name )->isset_value();
+		return $this->get_plugin()->get_post_metas()->get( $name )->isset_value();
 	}
 
 	public

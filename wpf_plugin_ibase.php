@@ -90,6 +90,9 @@ interface IBase {
 	function get_options();
 
 	public
+	function get_post_metas();
+
+	public
 	function activate();
 
 	public
