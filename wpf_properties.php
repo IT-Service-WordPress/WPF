@@ -79,6 +79,7 @@ class Properties
 					, $name
 					, get_class( $this )
 				)
+				, 'WPF 1.1'
 			);
 			return null;
 		};
@@ -98,6 +99,7 @@ class Properties
 					, $name
 					, get_class( $this )
 				)
+				, 'WPF 1.1'
 			);
 			return null;
 		};
@@ -118,6 +120,7 @@ class Properties
 					, $name
 					, get_class( $this )
 				)
+				, 'WPF 1.1'
 			);
 			return null;
 		};
@@ -137,6 +140,7 @@ class Properties
 					, $name
 					, get_class( $this )
 				)
+				, 'WPF 1.1'
 			);
 			return null;
 		};
@@ -156,6 +160,7 @@ class Properties
 					, $name
 					, get_class( $this )
 				)
+				, 'WPF 1.1'
 			);
 			return null;
 		};

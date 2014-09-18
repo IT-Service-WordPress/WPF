@@ -77,6 +77,7 @@ class Base
 					, gettype( $data_name )
 					, 'string'
 				)
+				, 'WPF 1.1'
 			);
 		};
 		$this->data_name = $data_name;
@@ -96,6 +97,7 @@ class Base
 						, gettype( $validator )
 						, '\WPF\v1\GUI\Validator\IBase'
 					)
+					, 'WPF 1.1'
 				);
 			};
 			$this->validator->bind_datamanipulator( $this );

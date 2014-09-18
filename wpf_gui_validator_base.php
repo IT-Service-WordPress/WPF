@@ -67,6 +67,7 @@ class Base
 					, gettype( $validator )
 					, 'callable'
 				)
+				, 'WPF 1.1'
 			);
 		};
 
@@ -87,6 +88,7 @@ class Base
 					, gettype( $sanitizer )
 					, 'callable'
 				)
+				, 'WPF 1.1'
 			);
 		};
 

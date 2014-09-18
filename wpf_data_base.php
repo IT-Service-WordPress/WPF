@@ -63,6 +63,7 @@ class Base
 					, gettype( $name )
 					, 'string'
 				)
+				, 'WPF 1.1'
 			);
 		};
 		$this->name = $name;
