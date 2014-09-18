@@ -34,16 +34,16 @@ class Properties
 	private
 	function __clone() {}
 
-    private
+	private
 	function __sleep() {}
 
-    private
+	private
 	function __wakeup() {}
 
-    public
+	public
 	function getIterator() {
-        return new \ArrayIterator( $this->items );
-    }
+		return new \ArrayIterator( $this->items );
+	}
 
 	public
 	function add(
@@ -72,13 +72,13 @@ class Properties
 		if ( array_key_exists( $name, $this->items ) ) {
 			return $this->items[ $name ];
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
 					__( 'WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $name
 					, get_class( $this )
 				)
-				, E_USER_WARNING
 			);
 			return null;
 		};
@@ -91,13 +91,13 @@ class Properties
 		if ( array_key_exists( $name, $this->items ) ) {
 			return $this->items[ $name ]->get_value();
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
 					__( 'WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $name
 					, get_class( $this )
 				)
-				, E_USER_WARNING
 			);
 			return null;
 		};
@@ -111,13 +111,13 @@ class Properties
 		if ( array_key_exists( $name, $this->items ) ) {
 			return $this->items[ $name ]->set_value( $value );
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
 					__( 'WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $name
 					, get_class( $this )
 				)
-				, E_USER_WARNING
 			);
 			return null;
 		};
@@ -130,13 +130,13 @@ class Properties
 		if ( array_key_exists( $name, $this->items ) ) {
 			return $this->items[ $name ]->isset_value();
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
 					__( 'WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $name
 					, get_class( $this )
 				)
-				, E_USER_WARNING
 			);
 			return null;
 		};
@@ -149,13 +149,13 @@ class Properties
 		if ( array_key_exists( $name, $this->items ) ) {
 			return $this->items[ $name ]->unset_value();
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
 					__( 'WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, $name
 					, get_class( $this )
 				)
-				, E_USER_WARNING
 			);
 			return null;
 		};

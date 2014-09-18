@@ -59,15 +59,14 @@ class Base
 		} elseif ( is_null( $validator ) ) {
 			$this->validator = $validator;
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
-					__( 'Plugin coding error: unsupported parameter <code>%3$s</code> type <code>%4$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-					, '' // $this->plugin->get_title()
-					, get_class( $this )
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
+					__( 'Unsupported parameter <code>%1$s</code> type <code>%2$s</code>, expected <code>%3$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, 'validator'
 					, gettype( $validator )
+					, 'callable'
 				)
-				, E_USER_ERROR
 			);
 		};
 
@@ -80,15 +79,14 @@ class Base
 		} elseif ( is_null( $sanitizer ) ) {
 			$this->sanitizer = $sanitizer;
 		} else {
-			\WPF\v1\trigger_wpf_error(
-				sprintf(
-					__( 'Plugin coding error: unsupported parameter <code>%3$s</code> type <code>%4$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
-					, '' // $this->plugin->get_title()
-					, get_class( $this )
+			_doing_it_wrong(
+				__FUNCTION__
+				, sprintf(
+					__( 'Unsupported parameter <code>%1$s</code> type <code>%2$s</code>, expected <code>%3$s</code>.', \WPF\v1\WPF_ADMINTEXTDOMAIN )
 					, 'sanitizer'
 					, gettype( $sanitizer )
+					, 'callable'
 				)
-				, E_USER_ERROR
 			);
 		};
 
