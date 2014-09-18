@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wpf\n"
-"POT-Creation-Date: 2014-09-17 01:25+0400\n"
-"PO-Revision-Date: 2014-09-17 01:26+0400\n"
+"POT-Creation-Date: 2014-09-19 02:30+0400\n"
+"PO-Revision-Date: 2014-09-19 02:31+0400\n"
 "Last-Translator: Sergey S. Betke <sergey.s.betke@yandex.ru>\n"
 "Language-Team:  <sergey.s.betke@yandex.ru>\n"
 "Language: ru_RU\n"
@@ -19,7 +19,7 @@ msgstr ""
 "esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../views/plugin_help_sidebar.php:1 ../wpf_gui_help_sidebar.php:35
+#: ../views/plugin_help_sidebar.php:1 ../wpf_gui_help_sidebar.php:31
 msgid "For more information:"
 msgstr ""
 
@@ -58,16 +58,16 @@ msgstr ""
 "Требуется WordPress версии %1$s или более поздней. Текущая версия - %2$s. <a "
 "href=\"%3$s\">Пожалуйста обновите!</a>"
 
-#: ../wpf_gui_control_base.php:75 ../wpf_gui_control_base.php:95
-#: ../wpf_gui_validator_base.php:64 ../wpf_gui_validator_base.php:85
-#: ../wpf_meta_base.php:58
+#: ../wpf_data_base.php:61 ../wpf_gui_control_base.php:75
+#: ../wpf_gui_control_base.php:95 ../wpf_gui_validator_base.php:65
+#: ../wpf_gui_validator_base.php:86
 #, php-format
 msgid ""
-"Plugin coding error: unsupported parameter <code>%3$s</code> type <code>"
-"%4$s</code>."
+"Unsupported parameter <code>%1$s</code> type <code>%2$s</code>, expected "
+"<code>%3$s</code>."
 msgstr ""
-"Ошибка в плагине: неподдерживаемый типа <code>%4$s</code> параметра <code>"
-"%3$s</code>."
+"Неподдерживаемый тип <code>%2$s</code> параметра <code>%1$s</code>, "
+"ожидается <code>%3$s</code>."
 
 #: ../wpf_gui_help_plugintab.php:28
 msgid "Overview"
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: ../wpf_plugin_base.php:270
+#: ../wpf_plugin_base.php:283
 msgid "Plugin <strong>deactivated</strong>."
 msgstr "Плагин <strong>деактивирован</strong>."
 
@@ -101,8 +101,8 @@ msgstr ""
 "наличие компонента с интерфейсом <code>%3$s</code> в плагине. Включите "
 "необходимый компонент в плагин."
 
-#: ../wpf_properties.php:77 ../wpf_properties.php:96 ../wpf_properties.php:116
-#: ../wpf_properties.php:135 ../wpf_properties.php:154
+#: ../wpf_properties.php:78 ../wpf_properties.php:98 ../wpf_properties.php:119
+#: ../wpf_properties.php:139 ../wpf_properties.php:159
 #, php-format
 msgid ""
 "WPF error: undefined property <code>%1$s</code> in collection <code>%2$s</"
