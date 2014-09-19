@@ -3,6 +3,7 @@
 namespace WPF\v1\Data;
 
 require_once ( 'wpf_data_ibase.php' );
+require_once ( 'wpf_data_wrapper.php' );
 require_once ( 'wpf_plugin_component_iinstallable.php' );
 require_once ( 'wpf_plugin_component_updatable.php' );
 
@@ -164,21 +165,21 @@ class Base
 	function is_wrapped(
 		$value
 	) {
-		return is_array( $value );
+		return ( $value instanceof Wrapper);
 	}
 
 	protected
 	function wrap(
 		$value
 	) {
-		return array( $value );
+		return new Wrapper( $value );
 	}
 
 	protected
 	function unwrap(
 		$value
 	) {
-		return $value[ 0 ];
+		return $value->get_value();
 	}
 
 }
