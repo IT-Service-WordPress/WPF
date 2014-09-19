@@ -127,15 +127,16 @@ class Base
 	public
 	function save_meta() {
 		foreach ( $this->get_controls() as $data_manipulator ) {
-			if ( isset( $_POST[ $name = $data_manipulator->get_name() ] ) ) {
-				$new_value = $_POST[ $name ];
-				$new_value = sanitize_text_field( $new_value );
-				if ( $validator = $data_manipulator->get_validator() ) {
-					$new_value = call_user_func( $validator->get_callback(), $new_value );
-				};
-				// $new_value = $this->get_plugin()->get_metas()->get( $name )->sanitize_value( $new_value );
-				$this->set_value( $data_manipulator->get_name(), $new_value );
+			$new_value = ( isset( $_POST[ $name = $data_manipulator->get_name() ] ) ) ?
+				$_POST[ $name ]
+				: 'off'
+			;
+			$new_value = sanitize_text_field( $new_value );
+			if ( $validator = $data_manipulator->get_validator() ) {
+				$new_value = call_user_func( $validator->get_callback(), $new_value );
 			};
+			// $new_value = $this->get_plugin()->get_metas()->get( $name )->sanitize_value( $new_value );
+			$this->set_value( $data_manipulator->get_name(), $new_value );
 		};
 	}
 
