@@ -23,10 +23,21 @@ class Base
 {
 
 	protected
+	$hidden;
+
+	protected
+	function get_id() {
+		return ( $this->hidden ) or ( $this->serialize ) ?
+			'_' . $this->get_name()
+			: $this->get_name()
+		;
+	}
+
+	protected
 	function _get_value() {
 		global $post_ID;
 		return ( $this->isset_value() ) ?
-			\get_post_meta( $post_ID, $this->get_name(), true )
+			\get_post_meta( $post_ID, $this->get_id(), true )
 			: $this->default_value
 		;
 	}
@@ -36,19 +47,19 @@ class Base
 		$new_value
 	) {
 		global $post_ID;
-		return \update_post_meta( $post_ID, $this->get_name(), $new_value );
+		return \update_post_meta( $post_ID, $this->get_id(), $new_value );
 	}
 
 	public
 	function isset_value() {
 		global $post_ID;
-		return \metadata_exists( 'post', $post_ID, $this->get_name() );
+		return \metadata_exists( 'post', $post_ID, $this->get_id() );
 	}
 
 	public
 	function unset_value() {
 		global $post_ID;
-		return \delete_post_meta( $post_ID, $this->get_name() );
+		return \delete_post_meta( $post_ID, $this->get_id() );
 	}
 
 	public
@@ -57,7 +68,7 @@ class Base
 
 	public
 	function delete_value() {
-		return \delete_metadata( 'post', null, $this->get_name(), '', true );
+		return \delete_metadata( 'post', null, $this->get_id(), '', true );
 	}
 
 }
